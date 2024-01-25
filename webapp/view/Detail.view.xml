@@ -5,163 +5,153 @@
     xmlns="sap.uxap"
     xmlns:m="sap.m"
     xmlns:core="sap.ui.core"
+    xmlns:l="sap.ui.layout"
+    xmlns:form="sap.ui.layout.form"
     height="100%">
-    <ObjectPageLayout id="ObjectPageLayout">
-     <headerTitle>
-            <ObjectPageDynamicHeaderTitle
-                id="_IDGenObjectPageDynamicHeaderTitle"
-            >
+
+    <ObjectPageLayout id="ObjectPageLayout" upperCaseAnchorBar="false">
+        <headerTitle>
+            <ObjectPageDynamicHeaderTitle>
                 <expandedHeading>
-                    <m:Button
-                        id="buttonBack"
-                        text="Back"
-                        type="Back"
-                        press=".onNavBack"
-                    />
+                    <m:Title text="{odata>TechnicalName}" />
                 </expandedHeading>
-
                 <snappedHeading>
-                    <m:HBox id="_IDGenHBox1">
-                        <m:VBox id="_IDGenVBox1">
-                            <m:Avatar
-                                id="_IDGenAvatar1"
-                                class="sapUiSmallMarginEnd"
-                                displayShape="Square"
-                                initials="App"
-                            />
-                        </m:VBox>
-
-                        <m:VBox id="_IDGenVBox2">
-                            <m:Title
-                                id="_IDGenTitle1"
-                                text="{i18n>headerTitle}"
-                                wrapping="true"
-                            />
-                            <m:Label
-                                id="_IDGenLabel1"
-                                text="{i18n>headerTitleDescription}"
-                            />
+                    <m:HBox>
+                        <m:VBox>
+                            <m:Title text="{odata>TechnicalName}" />
+                            <m:Label text="{odata>StatusDescription}" />
                         </m:VBox>
                     </m:HBox>
                 </snappedHeading>
-
                 <actions>
-                    <m:Button
-                        id="buttonEdit"
-                        text="Edit"
-                        type="Emphasized"
-                        press=".onEditButtonPress"
-                        icon="sap-icon://edit"
-                    />
-                    <m:Button
-                        id="buttonSave"
-                        text="Save"
-                        icon="sap-icon://save"
-                        visible="false"
-                        press=".onSaveButtonPress"
-                    />
-                    <m:Button
-                        id="buttonCopy"
-                        text="Copy"
-                        press=".onCopyButtonPress"
-                        icon="sap-icon://copy"
-                    />
-                    <m:OverflowToolbarButton
-                        id="overflowToolbarButton"
-                        type="Transparent"
-                        text="Share"
-                        tooltip="action"
-                        icon="sap-icon://action"
-                    />
+                    <m:Button text="Edit" type="Emphasized" press="onEditPress" />
+                    <m:Button text="Delete" press="onDeletePress" />
                 </actions>
             </ObjectPageDynamicHeaderTitle>
         </headerTitle>
 
         <headerContent>
-            <m:FlexBox
-                id="headerContentFlexBox"
-                wrap="Wrap"
-                fitContainer="true"
-            >
-                <m:VBox
-                    id="headerContentVBox1"
-                    class="sapUiSmallMarginBottom sapUiLargeMarginEnd"
-                >
-                    <m:Title
-                        id="headerContentVBoxTitle5"
-                        class="sapUiTinyMarginBottom"
-                        text="{i18n>headerTitleApp}"
-                    />
-                    <m:Label
-                        id="headerContentLabel1"
-                        text="{odata>TechnicalName}"
-                        width="1000px"
-                    />
-                </m:VBox>
-                <m:VBox
-                    id="headerContentVBox2"
-                    class="sapUiSmallMarginBottom sapUiLargeMarginEnd"
-                >
-                    <m:Title
-                        id="headerContentVBoxTitle2"
-                        class="sapUiTinyMarginBottom"
-                        text="{i18n>headerRating}"
-                    />
-                </m:VBox>
-
-                <m:VBox
-                    id="headerContentVBox3"
-                    class="sapUiSmallMarginBottom sapUiLargeMarginEnd"
-                >
-                </m:VBox>
-
-                <m:VBox
-                    id="headerContentVBox4"
-                    class="sapUiSmallMarginBottom sapUiLargeMarginEnd"
-                >
-                    <m:Title
-                        id="headerContentVBoxTitle4"
-                        class="sapUiTinyMarginBottom"
-                        text="{i18n>headerDescription}"
-                    />
-                    <m:Label
-                        id="headerContentLabel5"
-                        text="{odata>Description}"
-                    />
-                </m:VBox>
-
-                <m:VBox
-                    id="headerContentVBox5"
-                    class="sapUiSmallMarginBottom sapUiLargeMarginEnd"
-                >
-                    <m:Title
-                        id="headerContentVBoxTitle6"
-                        class="sapUiTinyMarginBottom"
-                        text="{i18n>BookStatus}"
-                    />
-                    <m:Label
-                        id="headerContentLabel6"
-                        text="{odata>BookStatus}"
-                    />
-                </m:VBox>
-
-                <m:VBox
-                    id="headerContentVBox6"
-                    class="sapUiSmallMarginBottom sapUiLargeMarginEnd"
-                >
-                    <m:Title
-                        id="headerContentVBoxTitle7"
-                        class="sapUiTinyMarginBottom"
-                        text="{i18n>NumberOfCopies}"
-                    />
-                    <m:Label
-                        id="headerContentLabel7"
-                        text="{odata>NumberOfCopies}"
-                    />
+            <m:FlexBox wrap="Wrap" fitContainer="true">
+                <m:VBox class="sapUiLargeMarginEnd sapUiSmallMarginBottom">
+                    <m:Title text="Description" class="sapUiTinyMarginBottom" />
+                    <m:Text text="{odata>Description}" />
                 </m:VBox>
             </m:FlexBox>
         </headerContent>
+
         <sections>
+            <ObjectPageSection title="TargetMappings">
+        <subSections>
+             <ObjectPageSubSection>
+                    <m:Table id="targetMappingsTable" items="{path: 'odata>/ZC_BSK_LA_TAR_MAP'}">
+                        <m:columns>
+                            <m:Column>
+                                <m:Text text="Target Mapping ID" />
+                            </m:Column>
+                            <m:Column>
+                                <m:Text text="URL" />
+                            </m:Column>
+                            <m:Column>
+                                <m:Text text="Type" />
+                            </m:Column>
+                            <m:Column>
+                                <m:Text text="Param Value" />
+                            </m:Column>
+                        </m:columns>
+                        <m:items>
+                            <m:ColumnListItem>
+                                <m:cells>
+                                    <m:Text text="{odata>TarMapId}" />
+                                    <m:Text text="{odata>Url}" />
+                                    <m:Text text="{odata>Type}" />
+                                    <m:Text text="{odata>ParamValue}" />
+                                </m:cells>
+                            </m:ColumnListItem>
+                        </m:items>
+                    </m:Table>
+                </ObjectPageSubSection>
+            </subSections>
+            </ObjectPageSection>
+
+            <ObjectPageSection title="Versions">
+                <subSections>
+                    <ObjectPageSubSection>
+
+                    </ObjectPageSubSection>
+                </subSections>
+            </ObjectPageSection>
+
+            <!-- Sekcja Service -->
+            <ObjectPageSection title="Services">
+    <subSections>
+        <ObjectPageSubSection>
+            <m:Table id="servicesTable" items="{path: 'odata>/ZC_BSK_LA_SERVICE'}">
+                <m:columns>
+                    <m:Column>
+                        <m:Text text="Service ID" />
+                    </m:Column>
+                    <m:Column>
+                        <m:Text text="URL" />
+                    </m:Column>
+                    <m:Column>
+                        <m:Text text="Version" />
+                    </m:Column>
+                    <m:Column>
+                        <m:Text text="Description" />
+                    </m:Column>
+                    <m:Column>
+                        <m:Text text="ExtServName" />
+                    </m:Column>
+                    <m:Column>
+                        <m:Text text="SoftCompVersion" />
+                    </m:Column>
+                    <m:Column>
+                        <m:Text text="BeAuthRole" />
+                    </m:Column>
+                </m:columns>
+                <m:items>
+                    <m:ColumnListItem>
+                        <m:cells>
+                            <m:Text text="{odata>ServiceId}" />
+                            <m:Text text="{odata>Url}" />
+                            <m:Text text="{odata>Version}" />
+                            <m:Text text="{odata>Description}" />
+                            <m:Text text="{odata>ExtServName}" />
+                            <m:Text text="{odata>SoftCompVersion}" />
+                            <m:Text text="{odata>BeAuthRole}" />
+
+                        </m:cells>
+                        </m:ColumnListItem>
+                        </m:items>
+                    </m:Table>
+                </ObjectPageSubSection>
+             </subSections>
+            </ObjectPageSection>
+
+            <!-- Sekcja Comments -->
+            <ObjectPageSection title="Comments">
+                <subSections>
+                    <ObjectPageSubSection>
+                        <l:VerticalLayout class="sapUiResponsiveMargin">
+                            <m:FeedInput post="onPostComment" placeholder="Write a comment..."/>
+                            <m:List id="commentsList" items="{path: 'odata>/ZC_BSK_LA_COMM'}">
+                                <m:items>
+                                    <m:FeedListItem sender="{Title}" text="{Text}" timestamp="{path: 'Created', type: 'sap.ui.model.type.DateTime', formatOptions: { style: 'short' }}"/>
+                                </m:items>
+                            </m:List>
+                        </l:VerticalLayout>
+                    </ObjectPageSubSection>
+                </subSections>
+            </ObjectPageSection>
+
+            <!-- Sekcja Attachments -->
+            <ObjectPageSection title="Attachments">
+                <subSections>
+                    <ObjectPageSubSection>
+
+                    </ObjectPageSubSection>
+                </subSections>
+            </ObjectPageSection>
         </sections>
     </ObjectPageLayout>
 </mvc:View>

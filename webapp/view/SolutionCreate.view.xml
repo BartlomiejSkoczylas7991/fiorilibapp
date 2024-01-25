@@ -1,0 +1,114 @@
+<mvc:View controllerName="fiorilibappname.controller.SolutionCreate"
+    xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:form="sap.ui.layout.form"
+    xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout">
+
+    <l:VerticalLayout class="sapUiResponsiveMargin">
+        <!-- Formularz dla Solution -->
+        <form:SimpleForm id="formSolution" title="New Solution" layout="ResponsiveGridLayout">
+            <form:content>
+                <Label text="Technical Name"/>
+                <Input id="technicalName" value="{/newSolution/TechnicalName}"/>
+
+                <Label text="URL"/>
+                <Input id="url" value="{/newSolution/Url}"/>
+
+                <!-- Dodaj resztę pól dla Solution -->
+            </form:content>
+        </form:SimpleForm>
+
+        <!-- Sekcja Target Mappings -->
+        <Panel id="panelTargetMappings" headerText="Target Mappings" expandable="true">
+    
+                <VBox>
+                    <!-- Formularz dla dodawania Target Mappings -->
+                    <HBox>
+                        <VBox class="sapUiSmallMarginEnd">
+                            <Label text="URL"/>
+                            <Input id="targetMappingURL"/>
+                            <Label text="Type"/>
+                            <Input id="targetMappingType"/>
+                            <Label text="Param Value"/>
+                            <Input id="targetMappingParamValue"/>
+                        </VBox>
+                        <VBox class="sapUiSmallMarginTop">
+                            <Button text="Add" press="onAddTargetMapping"/>
+                        </VBox>
+                    </HBox>
+                    <!-- Lista dodanych Target Mappings -->
+                    <List id="listTargetMappings" items="{/targetMappings}">
+                        <items>
+                            <CustomListItem>
+                                <HBox justifyContent="SpaceBetween" alignItems="Center">
+                                    <Label text="{Url}"/>
+                                    <Button icon="sap-icon://delete" press="onDeleteTargetMapping"/>
+                                </HBox>
+                            </CustomListItem>
+                        </items>
+                    </List>
+                </VBox>
+        
+        </Panel>
+
+        <Panel id="panelService" headerText="Service" expandable="true">
+        <VBox>
+            <HBox>
+                <VBox class="sapUiSmallMarginEnd">
+                    <!-- Pola formularza dla Service -->
+                    <Label text="URL"/>
+                    <Input id="serviceURL"/>
+                    <Label text="Version"/>
+                    <Input id="serviceVersion"/>
+                    <!-- Dodaj resztę pól dla Service -->
+                </VBox>
+                <VBox class="sapUiSmallMarginTop">
+                    <Button text="Add" press="onAddService"/>
+                </VBox>
+            </HBox>
+            <!-- Lista dodanych Services -->
+            <List id="listServices" items="{/services}">
+                <items>
+                    <CustomListItem>
+                        <HBox justifyContent="SpaceBetween" alignItems="Center">
+                            <Label text="{Url}"/>
+                            <Button icon="sap-icon://delete" press="onDeleteService"/>
+                        </HBox>
+                    </CustomListItem>
+                </items>
+            </List>
+        </VBox>
+</Panel>
+
+<!-- Sekcja Version -->
+<Panel id="panelVersion" headerText="Version" expandable="true">
+        <VBox>
+            <HBox>
+                <VBox class="sapUiSmallMarginEnd">
+                    <!-- Pola formularza dla Version -->
+                    <Label text="Title"/>
+                    <Input id="versionTitle"/>
+                    <Label text="Description"/>
+                    <Input id="versionDescription"/>
+                    <!-- Dodaj resztę pól dla Version -->
+                </VBox>
+                <VBox class="sapUiSmallMarginTop">
+                    <Button text="Add" press="onAddVersion"/>
+                </VBox>
+            </HBox>
+            <!-- Lista dodanych Versions -->
+            <List id="listVersions" items="{/versions}">
+                <items>
+                    <CustomListItem>
+                        <HBox justifyContent="SpaceBetween" alignItems="Center">
+                            <Label text="{Title}"/>
+                            <Button icon="sap-icon://delete" press="onDeleteVersion"/>
+                        </HBox>
+                    </CustomListItem>
+                </items>
+            </List>
+        </VBox>
+</Panel>
+
+        <!-- Przycisk do zapisu -->
+        <Button text="Save" press="onSave"/>
+    </l:VerticalLayout>
+</mvc:View>

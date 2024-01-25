@@ -38,10 +38,10 @@ sap.ui.define(
                 });
             },
 
-            onAddButtonPress: function () { 
+            onAddButtonPress: function () {
                 var oRouter = this.getOwnerComponent().getRouter();
                 oRouter.navTo("SolutionCreate");
-            },
+            }
         });
     }
 );

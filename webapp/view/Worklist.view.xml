@@ -9,7 +9,7 @@
         id="page"
         toggleHeaderOnTitleClick="false">
         <semantic:titleHeading>
-			<Title text="{i18n>worklistTitle}" />
+			<Title text="{i18n>worklist}" />
 		</semantic:titleHeading>
 
         <semantic:content>
