@@ -1,0 +1,79 @@
+<mvc:View
+    controllerName="fiorilibappname.controller.Worklist"
+    xmlns:core="sap.ui.core"
+    xmlns:mvc="sap.ui.core.mvc"
+    displayBlock="true"
+    xmlns:semantic="sap.f.semantic"
+    xmlns="sap.m">
+    <semantic:SemanticPage
+        id="page"
+        toggleHeaderOnTitleClick="false">
+        <semantic:titleHeading>
+			<Title text="{i18n>worklistTitle}" />
+		</semantic:titleHeading>
+
+        <semantic:content>
+            <Table
+                id="all_apps"
+                items="{
+                    path: 'odata>/ZC_BSK_LA_SOLUTION',
+                    sorter: {
+                        path: 'SolId',
+                        descending: false
+                    }
+                }"
+                growing="true"
+                growingThreshold="200"
+            >
+                <headerToolbar>
+                    <OverflowToolbar id="search_overflow">
+                        <ToolbarSpacer id="search_toolbar_spacer" />
+                        <Button
+                            id="buttonAddNewApp"
+                            text="{i18n>buttonAddNewApp}"
+                            press=".onAddButtonPress"
+                            icon="sap-icon://add"                            
+                        />
+                        <SearchField
+                            id="search_field"
+                            width="45%"
+                            showSearchButton="true"
+                            search=".onFilterApps"
+                        />
+                    </OverflowToolbar>
+                </headerToolbar>
+                <columns>
+                    <Column id="worklist_col_solution_id">
+                        <Text 
+                            id = "SolId"
+                            text="SolId" />
+                    </Column>
+                    <Column id="worklist_col_solution_tech_name">
+                        <Text  
+                            id = "TechnicalName"
+                            text="Technical Name" />
+                    </Column>
+                    <Column id="worklist_col_solution_status">
+                        <Text  
+                         id = "Status"
+                         text="Status" />
+                    </Column>
+                </columns>
+                <items>
+                    <ColumnListItem
+                        id="worklist_columnlistitem"
+                        type="Navigation"
+                        press="onPress"
+                    >
+                        <cells>
+                            <ObjectIdentifier title="{odata>SolId}" />
+                            <Text text="{odata>TechnicalName}" />
+                        
+                            <Text text="{odata>StatusDescription}" />
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </semantic:content>
+    </semantic:SemanticPage>
+</mvc:View>
