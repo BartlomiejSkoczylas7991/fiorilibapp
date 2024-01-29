@@ -34,12 +34,6 @@
                             press=".onAddButtonPress"
                             icon="sap-icon://add"                            
                         />
-                        <SearchField
-                            id="search_field"
-                            width="45%"
-                            showSearchButton="true"
-                            search=".onFilterApps"
-                        />
                     </OverflowToolbar>
                 </headerToolbar>
                 <columns>
