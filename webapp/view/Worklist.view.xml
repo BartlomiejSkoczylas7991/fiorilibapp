@@ -1,73 +1,42 @@
 <mvc:View
-    controllerName="fiorilibappname.controller.Worklist"
-    xmlns:core="sap.ui.core"
+    xmlns="sap.m"
+    xmlns:f="sap.f"
     xmlns:mvc="sap.ui.core.mvc"
-    displayBlock="true"
     xmlns:semantic="sap.f.semantic"
-    xmlns="sap.m">
+    xmlns:smartFilterBar="sap.ui.comp.smartfilterbar"
+    xmlns:smartTable="sap.ui.comp.smarttable"
+    displayBlock="true"
+    controllerName="fiorilibappname.controller.Worklist">
+    
     <semantic:SemanticPage
         id="page"
         toggleHeaderOnTitleClick="false">
         <semantic:titleHeading>
 			<Title text="{i18n>worklist}" />
 		</semantic:titleHeading>
-
+        
         <semantic:content>
-            <Table
-                id="all_apps"
-                items="{
-                    path: 'odata>/ZC_BSK_LA_SOLUTION',
-                    sorter: {
-                        path: 'SolId',
-                        descending: false
-                    }
-                }"
-                growing="true"
-                growingThreshold="200"
-            >
-                <headerToolbar>
-                    <OverflowToolbar id="search_overflow">
-                        <ToolbarSpacer id="search_toolbar_spacer" />
-                        <Button
-                            id="buttonAddNewApp"
-                            text="{i18n>buttonAddNewApp}"
-                            press=".onAddButtonPress"
-                            icon="sap-icon://add"                            
-                        />
-                    </OverflowToolbar>
-                </headerToolbar>
-                <columns>
-                    <Column id="worklist_col_solution_id">
-                        <Text 
-                            id = "SolId"
-                            text="SolId" />
-                    </Column>
-                    <Column id="worklist_col_solution_tech_name">
-                        <Text  
-                            id = "TechnicalName"
-                            text="Technical Name" />
-                    </Column>
-                    <Column id="worklist_col_solution_status">
-                        <Text  
-                         id = "Status"
-                         text="Status" />
-                    </Column>
-                </columns>
-                <items>
-                    <ColumnListItem
-                        id="worklist_columnlistitem"
-                        type="Navigation"
-                        press="onPress"
-                    >
-                        <cells>
-                            <ObjectIdentifier title="{odata>SolId}" />
-                            <Text text="{odata>TechnicalName}" />
-                        
-                            <Text text="{odata>StatusDescription}" />
-                        </cells>
-                    </ColumnListItem>
-                </items>
-            </Table>
+            <VBox fitContainer="true">
+                <smartTable:SmartTable
+                    id="idSmartSolutionTable"
+                    entitySet="ZC_BSK_LA_SOLUTION"
+                    tableType="ResponsiveTable"
+                    showRowCount="true"
+                    enableAutoBinding="true"
+                    class="sapUiResponsiveContentPadding"
+                    useVariantManagement="true"
+                    useTablePersonalisation="true"
+                    header="{i18n>worklistTitle}"
+                    initiallyVisibleFields="SolId,TechnicalName,StatusDescription,ActionDescription">
+                        <smartTable:customToolbar>
+                            <OverflowToolbar>
+                                <ToolbarSpacer/>
+                                <Button icon="sap-icon://add" press="onAddButtonPress"/>
+                            </OverflowToolbar>
+                        </smartTable:customToolbar>
+                        <Table id="idSolutionTable" selectionChange="onPress" mode="SingleSelectMaster" />
+                </smartTable:SmartTable>
+            </VBox>
         </semantic:content>
     </semantic:SemanticPage>
 </mvc:View>

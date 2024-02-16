@@ -66,7 +66,7 @@ sap.ui.define([
         },
         
         onSave: function () {
-            var oModel = this.getView().getModel("odata");
+            var oModel = this.getView().getModel();
             var oData = this.getView().getModel().getData();
         
             oModel.setUseBatch(true);

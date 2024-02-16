@@ -7,19 +7,20 @@
     xmlns:core="sap.ui.core"
     xmlns:l="sap.ui.layout"
     xmlns:form="sap.ui.layout.form"
+    xmlns:smartform="sap.ui.comp.smartform"
     height="100%">
 
     <ObjectPageLayout id="ObjectPageLayout" upperCaseAnchorBar="false">
         <headerTitle>
             <ObjectPageDynamicHeaderTitle>
                 <expandedHeading>
-                    <m:Title text="{odata>TechnicalName}" />
+                    <m:Title text="{TechnicalName}" />
                 </expandedHeading>
                 <snappedHeading>
                     <m:HBox>
                         <m:VBox>
-                            <m:Title text="{odata>TechnicalName}" />
-                            <m:Label text="{odata>StatusDescription}" />
+                            <m:Title text="{TechnicalName}" />
+                            <m:Label text="{StatusDescription}" />
                         </m:VBox>
                     </m:HBox>
                 </snappedHeading>
@@ -34,7 +35,7 @@
             <m:FlexBox wrap="Wrap" fitContainer="true">
                 <m:VBox class="sapUiLargeMarginEnd sapUiSmallMarginBottom">
                     <m:Title text="Description" class="sapUiTinyMarginBottom" />
-                    <m:Text text="{odata>Description}" />
+                    <m:Text text="{Description}" />
                 </m:VBox>
             </m:FlexBox>
         </headerContent>
@@ -43,7 +44,7 @@
             <ObjectPageSection title="TargetMappings">
         <subSections>
              <ObjectPageSubSection>
-                    <m:Table id="targetMappingsTable" items="{path: 'odata>/ZC_BSK_LA_TAR_MAP'}">
+                    <m:Table id="targetMappingsTable" items="{path: 'to_Tar_Map'}">
                         <m:columns>
                             <m:Column>
                                 <m:Text text="Target Mapping ID" />
@@ -61,10 +62,10 @@
                         <m:items>
                             <m:ColumnListItem>
                                 <m:cells>
-                                    <m:Text text="{odata>TarMapId}" />
-                                    <m:Text text="{odata>Url}" />
-                                    <m:Text text="{odata>Type}" />
-                                    <m:Text text="{odata>ParamValue}" />
+                                    <m:Text text="{TarMapId}" />
+                                    <m:Text text="{Url}" />
+                                    <m:Text text="{Type}" />
+                                    <m:Text text="{ParamValue}" />
                                 </m:cells>
                             </m:ColumnListItem>
                         </m:items>
@@ -85,7 +86,7 @@
             <ObjectPageSection title="Services">
     <subSections>
         <ObjectPageSubSection>
-            <m:Table id="servicesTable" items="{path: 'odata>/ZC_BSK_LA_SERVICE'}">
+            <m:Table id="servicesTable" items="{path: 'to_Service'}">
                 <m:columns>
                     <m:Column>
                         <m:Text text="Service ID" />
@@ -112,13 +113,13 @@
                 <m:items>
                     <m:ColumnListItem>
                         <m:cells>
-                            <m:Text text="{odata>ServiceId}" />
-                            <m:Text text="{odata>Url}" />
-                            <m:Text text="{odata>Version}" />
-                            <m:Text text="{odata>Description}" />
-                            <m:Text text="{odata>ExtServName}" />
-                            <m:Text text="{odata>SoftCompVersion}" />
-                            <m:Text text="{odata>BeAuthRole}" />
+                            <m:Text text="{ServiceId}" />
+                            <m:Text text="{Url}" />
+                            <m:Text text="{Version}" />
+                            <m:Text text="{Description}" />
+                            <m:Text text="{ExtServName}" />
+                            <m:Text text="{SoftCompVersion}" />
+                            <m:Text text="{BeAuthRole}" />
 
                         </m:cells>
                         </m:ColumnListItem>
@@ -134,7 +135,7 @@
                     <ObjectPageSubSection>
                         <l:VerticalLayout class="sapUiResponsiveMargin">
                             <m:FeedInput post="onPostComment" placeholder="Write a comment..."/>
-                            <m:List id="commentsList" items="{path: 'odata>/ZC_BSK_LA_COMM'}">
+                            <m:List id="commentsList" items="{path: '/ZC_BSK_LA_COMM'}">
                                 <m:items>
                                     <m:FeedListItem sender="{Title}" text="{Text}" timestamp="{path: 'Created', type: 'sap.ui.model.type.DateTime', formatOptions: { style: 'short' }}"/>
                                 </m:items>

@@ -10,54 +10,92 @@ sap.ui.define([
     return Controller.extend("fiorilibappname.controller.Detail", {
         onInit: function () {
             var oRouter = this.getOwnerComponent().getRouter();
-            oRouter.getRoute("detail").attachPatternMatched(this._onObjectMatched, this);
-        
+            oRouter.
+                getRoute("detail").
+                attachPatternMatched(this._onObjectMatched, this);
+
+            var oModel = this.getOwnerComponent().getModel();
+            if (!oModel) {
+                console.error("Model not found");
+            } else {
+                console.log("Model found", oModel);
+            }
             this._dateFormatter = DateFormat.getDateInstance({
                 pattern: "dd.MM.yyyy",
             });
-        
-            this._sSolId = null;
         },
 
         _onObjectMatched: function (oEvent) {
             this._sSolId = oEvent.getParameter("arguments").solId;
         
-            var oModel = this.getView().getModel("odata");
+            var oModel = this.getView().getModel();
             var sPath = "/ZC_BSK_LA_SOLUTION('" + this._sSolId + "')";
         
             oModel.read(sPath, {
                 success: function (oData) {
                 
-                    this.getView().setBindingContext(new sap.ui.model.Context(oModel, sPath), "odata");
+                    this.getView().setBindingContext(new sap.ui.model.Context(oModel, sPath));
         
                 
-                    this._loadTargetMappings(this._sSolId);
-                    this._loadServices(this._sSolId);
+                    this._loadTargetMappings(sSolId);
+                    this._loadServices(sSolId);
                 }.bind(this),
                 error: function (oError) {
                     MessageBox.error("Error during loading data.");
                 }
             });
         },
-        _loadTargetMappings: function (sSolId) {
-            var oTable = this.byId("targetMappingsTable");
-            var oBinding = oTable.getBinding("items");
-            
-            if (oBinding) {
-                var oFilter = new sap.ui.model.Filter("SolId", sap.ui.model.FilterOperator.EQ, sSolId);
-                oBinding.filter([oFilter]);
+        
+        _loadData: function(sSolId) {
+            var oModel = this.getView().getModel();
+            if (!oModel) {
+                console.error("Model not found");
+                return;
             }
+            
+            var sPath = "/ZC_BSK_LA_SOLUTION('" + sSolId + "')";
+            oModel.read(sPath, {
+                success: function (oData) {
+                    var oContext = new sap.ui.model.Context(oModel, sPath);
+                    this.getView().setBindingContext(oContext);
+                    
+                    // Ustawienie kontekstu dla tabel Target Mappings i Services
+                    var oTargetMappingsTable = this.byId("targetMappingsTable");
+                    var oServicesTable = this.byId("servicesTable");
+                    oTargetMappingsTable.setBindingContext(oContext);
+                    oServicesTable.setBindingContext(oContext);
+                }.bind(this),
+                error: function (oError) {
+                    MessageBox.error("Error during loading data.");
+                }
+            });
+        },        
+    
+        _loadTargetMappings: function (sSolId) {
+            var oModel = this.getView().getModel("odata");
+            var sPath = "/ZC_BSK_LA_SOLUTION('" + sSolId + "')/to_Tar_Map";
+            oModel.read(sPath, {
+                success: function (oData) {
+                    // Przetwarzaj dane oData, jeśli potrzebujesz
+                },
+                error: function (oError) {
+                    MessageBox.error("Error during loading Target Mappings.");
+                }
+            });
         },
         
         _loadServices: function (sSolId) {
-            var oTable = this.byId("servicesTable");
-            var oBinding = oTable.getBinding("items");
-            
-            if (oBinding) {
-                var oFilter = new sap.ui.model.Filter("SolId", sap.ui.model.FilterOperator.EQ, sSolId);
-                oBinding.filter([oFilter]);
-            }
-        },
+            var oModel = this.getView().getModel("odata");
+            var sPath = "/ZC_BSK_LA_SOLUTION('" + sSolId + "')/to_Service";
+            oModel.read(sPath, {
+                success: function (oData) {
+                    // Przetwarzaj dane oData, jeśli potrzebujesz
+                },
+                error: function (oError) {
+                    MessageBox.error("Error during loading Services.");
+                }
+            });
+        },        
 
         onEditPress: function () {
            
@@ -77,6 +115,19 @@ sap.ui.define([
             });
         },
 
+        formatDate: function (sTimestamp) {
+            if (!sTimestamp) {
+                return "";
+            }
+            // Zakładając, że sTimestamp jest w formacie "YYYYMMDDhhmmss"
+            var oDateFormat = sap.ui.core.format.DateFormat.getDateTimeInstance({pattern: "yyyy-MM-dd'T'HH:mm:ss"});
+            var oDate = oDateFormat.parse(sTimestamp.substring(0, 4) + "-" + sTimestamp.substring(4, 6) + "-" + sTimestamp.substring(6, 8) + "T" + sTimestamp.substring(8, 10) + ":" + sTimestamp.substring(10, 12) + ":" + sTimestamp.substring(12, 14));
+            
+            var oDisplayFormat = sap.ui.core.format.DateFormat.getDateInstance({pattern: "dd.MM.yyyy HH:mm:ss"});
+            return oDisplayFormat.format(oDate);
+        },
+        
+
         onNavBack: function () {
             var oHistory = History.getInstance();
             var sPreviousHash = oHistory.getPreviousHash();
@@ -90,7 +141,7 @@ sap.ui.define([
         },
 
         onPostComment: function (oEvent) {
-            var oModel = this.getView().getModel("odata");
+            var oModel = this.getView().getModel();
             var sCommentText = oEvent.getParameter("value");
         
             if (!sCommentText.trim()) {
@@ -126,11 +177,6 @@ sap.ui.define([
             var oBinding = oCommentsList.getBinding("items");
             oBinding.filter(new sap.ui.model.Filter("SolId", sap.ui.model.FilterOperator.EQ, sSolId));
             oBinding.refresh();
-        },
-
-        formatDate: function (date) {
-            return this._dateFormatter.format(new Date(date));
         }
-
     });
 });

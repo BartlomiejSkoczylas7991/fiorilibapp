@@ -63,25 +63,18 @@
       "cozy": true
     },
     "models": {
+      "": {
+        "dataSource": "mainService",
+        "settings": {
+          "defaultBindingMode": "TwoWay",
+          "defaultCountMode": "Inline",
+          "useBatch": true
+        }
+      },
       "i18n": {
         "type": "sap.ui.model.resource.ResourceModel",
         "settings": {
           "bundleName": "fiorilibappname.i18n.i18n"
-        }
-      },
-      "odata": {
-        "dataSource": "mainService",
-        "preload": true,
-        "settings": {
-          "json": true,
-          "defaultUpdateMethod": "PUT",
-          "defaultBindingMode": "TwoWay",
-          "defaultCountMode": "Inline",
-          "refreshAfterChange": false,
-          "metadataUrlParams": {
-            "sap-value-list": "none"
-          }
-
         }
       }
     },
