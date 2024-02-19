@@ -27,19 +27,19 @@ sap.ui.define([
         },
 
         _onObjectMatched: function (oEvent) {
-            this._sSolId = oEvent.getParameter("arguments").solId;
+            this._sSolId = oEvent.getParameter("arguments").SolId;
 
-            if(sSolId) {
+            //if(this._sSolId) {
                 
-                this.getView().byId("editButton").setVisible(true);
-                this.getView().byId("saveButton").setVisible(false);
-                this._loadData(sSolId);
-            } else {
-                this.getView().byId("editButton").setVisible(false);
-                this.getView().byId("saveButton").setVisible(true);
-                this._initializeNewSolution();
-            }
-        
+            //    this.getView().byId("editButton").setVisible(true);
+            //    this.getView().byId("saveButton").setVisible(false);
+            //    this._loadData(this._sSolId);
+            //} else {
+            //    this.getView().byId("editButton").setVisible(false);
+            //    this.getView().byId("saveButton").setVisible(true);
+            //    this._initializeNewSolution();
+            //}
+            
             var oModel = this.getView().getModel();
             var sPath = "/ZC_BSK_LA_SOLUTION('" + this._sSolId + "')";
         
@@ -49,13 +49,21 @@ sap.ui.define([
                     this.getView().setBindingContext(new sap.ui.model.Context(oModel, sPath));
         
                 
-                    this._loadTargetMappings(sSolId);
-                    this._loadServices(sSolId);
+                    this._loadTargetMappings(this._sSolId);
+                    this._loadServices(this._sSolId);
                 }.bind(this),
                 error: function (oError) {
                     MessageBox.error("Error during loading data.");
                 }
             });
+        },
+
+        _initializeNewSolution: function () {
+            var oNewSolutionData = {
+                TechnicalName: "",
+                Url: ""
+            };
+            this.getView().getModel().setData(oNewSolutionData);
         },
         
         _loadData: function(sSolId) {
@@ -66,7 +74,7 @@ sap.ui.define([
             }
             
             var sPath = "/ZC_BSK_LA_SOLUTION('" + sSolId + "')";
-            var oDataModel = this.getView().getModel("solution"); 
+            var oDataModel = this.getView().getModel(); 
             oModel.read(sPath, {
                 success: function (oData) {
                     var oContext = new sap.ui.model.Context(oModel, sPath);

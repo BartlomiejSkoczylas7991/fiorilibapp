@@ -103,7 +103,7 @@
           },
           {
               "name": "Detail",
-              "pattern": "detail/{solId}",
+              "pattern": "detail/{SolId}",
               "target": ["Object"]
           },
           {

@@ -41,7 +41,7 @@ sap.ui.define([
         var sSolId = oBindingContext.getProperty("SolId");
         var oRouter = this.getOwnerComponent().getRouter();
         oRouter.navTo("Detail", {
-            solId: sSolId
+            SolId: sSolId
             });
         },
   

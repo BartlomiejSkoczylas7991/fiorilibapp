@@ -36,6 +36,12 @@
                 <m:VBox class="sapUiLargeMarginEnd sapUiSmallMarginBottom">
                     <m:Title text="Description" class="sapUiTinyMarginBottom" />
                     <m:Text text="{Description}" />
+                    <m:Title text="TypeDescription" class="sapUiTinyMarginBottom" />
+                    <m:Text text="{TypeDescription}" />
+                    <m:Title text="StatusDescription" class="sapUiTinyMarginBottom" />
+                    <m:Text text="{StatusDescription}" />
+                    <m:Title text="CreatedAt" class="sapUiTinyMarginBottom" />
+                    <m:Text text="{CreatedAt}" />
                 </m:VBox>
             </m:FlexBox>
         </headerContent>
