@@ -19,25 +19,28 @@ sap.ui.define([
             this.getView().setModel(oModel);
         },
 
-        onAddTargetMapping: function () {
-            var oData = this.getView().getModel().getData();
-            var oNewTargetMapping = {
-                Url: this.byId("targetMappingURL").getValue(),
-                Type: this.byId("targetMappingType").getValue(),
-                ParamValue: this.byId("targetMappingParamValue").getValue(),
-            };
-            oData.targetMappings.push(oNewTargetMapping);
-            this.getView().getModel().refresh();
+        onAddTargetMapping: function() {
+            var oModel = this.getView().getModel();
+            var oData = oModel.getData();
+        
+            oData.targetMappings.push(Object.assign({}, oData.newTargetMapping));
+        
+            oData.newTargetMapping = { Url: "", Type: "", ParamValue: "" };
+        
+            oModel.refresh();
+        },
+        
+        onDeleteTargetMapping: function(oEvent) {
+            var oModel = this.getView().getModel();
+            var oData = oModel.getData();
+            var sPath = oEvent.getParameter('listItem').getBindingContextPath();
+            var iIndex = parseInt(sPath.split("/")[2]);
+        
+            oData.targetMappings.splice(iIndex, 1);
+            
+            oModel.refresh();
         },
 
-        onDeleteTargetMapping: function (oEvent) {
-            var oItem = oEvent.getSource().getParent();
-            var sPath = oItem.getBindingContext().getPath();
-            var iIndex = parseInt(sPath.substring(sPath.lastIndexOf("/") + 1));
-            var oData = this.getView().getModel().getData();
-            oData.targetMappings.splice(iIndex, 1);
-            this.getView().getModel().refresh();
-        },
         onAddService: function () {
             var oData = this.getView().getModel().getData();
             var oNewService = {
@@ -64,41 +67,26 @@ sap.ui.define([
         
         onDeleteVersion: function (oEvent) {
         },
-        
         onSave: function () {
-            var oModel = this.getView().getModel();
-            var oData = this.getView().getModel().getData();
-        
-            oModel.setUseBatch(true);
-            oModel.setDeferredGroups(["batchGroupId"]);
+            console.log("Save button pressed.");
             
-            oModel.create("/ZC_BSK_LA_SOLUTION", oData.newSolution, { groupId: "batchGroupId" });
-        
-            oData.targetMappings.forEach(function (targetMapping) {
-                oModel.create("/ZC_BSK_LA_TAR_MAP", targetMapping, { groupId: "batchGroupId" });
-            });
-        
-            oData.services.forEach(function (service) {
-                oModel.create("/ZC_BSK_LA_SERVICE", service, { groupId: "batchGroupId" });
-            });
-        
-            oData.versions.forEach(function (version) {
-                oModel.create("/ZC_BSK_LA_VERSION", version, { groupId: "batchGroupId" });
-            });
-   
-            oModel.submitChanges({
-                groupId: "batchGroupId",
-                success: function (oResponse) {
-                    sap.m.MessageToast.show("Success!");
-               
-                },
-                error: function (oError) {
-                    sap.m.MessageBox.error("Error occurred during save.");
-                 
-                }
-            });
-        }
-        
+            var oModel = this.getView().getModel();
+            var oData = oModel.getData().newSolution;
 
+            if (!oData.TechnicalName || !oData.Url) {
+                MessageBox.error("Please fill all required fields.");
+                return;
+            }
+
+            oModel.create("/ZC_BSK_LA_SOLUTION", oData, {
+            success: function (oResponse) {
+                MessageBox.success("Solution created successfully.");
+            },
+            error: function (oError) {
+                MessageBox.error("Error occurred during save.");
+        }
+    });
+}
+        
     });
 });

@@ -14,7 +14,7 @@ sap.ui.define([
             var oModel = this.getOwnerComponent().getModel();
             console.log(oModel);
             var oRouter = this.getOwnerComponent().getRouter();
-            oRouter.getRoute("detail").attachPatternMatched(this._onObjectMatched, this);
+            oRouter.getRoute("Detail").attachPatternMatched(this._onObjectMatched, this);
         
             var oViewModel = new JSONModel({
               isFilterBarVisible: false,
@@ -40,7 +40,7 @@ sap.ui.define([
     
         var sSolId = oBindingContext.getProperty("SolId");
         var oRouter = this.getOwnerComponent().getRouter();
-        oRouter.navTo("detail", {
+        oRouter.navTo("Detail", {
             solId: sSolId
             });
         },
@@ -59,7 +59,7 @@ sap.ui.define([
 
       onAddButtonPress: function () {
         var oRouter = this.getOwnerComponent().getRouter();
-        oRouter.navTo("SolutionCreate");
+        oRouter.navTo("Create");
       },
   
       getResourceBundle: function () {

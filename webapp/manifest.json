@@ -87,57 +87,49 @@
     },
     "routing": {
       "config": {
-        "routerClass": "sap.m.routing.Router",
-        "viewType": "XML",
-        "async": true,
-        "viewPath": "fiorilibappname.view",
-        "controlAggregation": "pages",
-        "controlId": "app",
-        "clearControlAggregation": false
+          "routerClass": "sap.m.routing.Router",
+          "viewType": "XML",
+          "async": true,
+          "viewPath": "fiorilibappname.view",
+          "controlId": "app",
+          "controlAggregation": "pages",
+          "clearControlAggregation": false
       },
       "routes": [
-        {
-          "name": "Worklist",
-          "pattern": "",
-          "target": [
-            "Worklist"
-          ]
-        },
-        {
-          "name": "detail",
-          "pattern": "detail/{solId}",
-          "target": ["TargetDetail"]
-        },
-        {
-          "name": "SolutionCreate",
-          "pattern": "solution/create",
-          "target": ["SolutionCreate"]
-        }
+          {
+              "name": "Worklist",
+              "pattern": "",
+              "target": ["Worklist"]
+          },
+          {
+              "name": "Detail",
+              "pattern": "detail/{solId}",
+              "target": ["Object"]
+          },
+          {
+              "name": "Create",
+              "pattern": "solution/create",
+              "target": ["Object"]
+          }
       ],
       "targets": {
-        "Worklist": {
-          "viewType": "XML",
-          "transition": "slide",
-          "clearControlAggregation": false,
-          "viewId": "Worklist",
-          "viewName": "Worklist"
-        },
-        "TargetDetail": {
-          "viewType": "XML",
-          "transition": "slide",
-          "clearControlAggregation": false,
-          "viewId": "Detail",
-          "viewName": "Detail"
-        },
-        "SolutionCreate":{
-          "viewType": "XML",
-          "transition": "slide",
-          "clearControlAggregation": false,
-          "viewName": "SolutionCreate",
-          "viewId": "SolutionCreate"
-        }
+          "Worklist": {
+              "viewType": "XML",
+              "transition": "slide",
+              "clearControlAggregation": false,
+              "viewId": "Worklist",
+              "viewName": "Worklist"
+          },
+          "Object": {
+              "viewType": "XML",
+              "transition": "slide",
+              "clearControlAggregation": false,
+              "viewId": "Object",
+              "viewName": "Object"
+          }
       }
-    },
+    }
+    ,
     "rootView": {
       "viewName": "fiorilibappname.view.App",
       "type": "XML",

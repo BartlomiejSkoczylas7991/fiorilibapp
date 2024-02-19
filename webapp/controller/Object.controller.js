@@ -7,11 +7,12 @@ sap.ui.define([
 ], function (Controller, History, DateFormat, MessageBox) {
     "use strict";
 
-    return Controller.extend("fiorilibappname.controller.Detail", {
+    return Controller.extend("fiorilibappname.controller.Object", {
         onInit: function () {
             var oRouter = this.getOwnerComponent().getRouter();
+            
             oRouter.
-                getRoute("detail").
+                getRoute("Detail").
                 attachPatternMatched(this._onObjectMatched, this);
 
             var oModel = this.getOwnerComponent().getModel();
@@ -27,6 +28,17 @@ sap.ui.define([
 
         _onObjectMatched: function (oEvent) {
             this._sSolId = oEvent.getParameter("arguments").solId;
+
+            if(sSolId) {
+                
+                this.getView().byId("editButton").setVisible(true);
+                this.getView().byId("saveButton").setVisible(false);
+                this._loadData(sSolId);
+            } else {
+                this.getView().byId("editButton").setVisible(false);
+                this.getView().byId("saveButton").setVisible(true);
+                this._initializeNewSolution();
+            }
         
             var oModel = this.getView().getModel();
             var sPath = "/ZC_BSK_LA_SOLUTION('" + this._sSolId + "')";
@@ -54,6 +66,7 @@ sap.ui.define([
             }
             
             var sPath = "/ZC_BSK_LA_SOLUTION('" + sSolId + "')";
+            var oDataModel = this.getView().getModel("solution"); 
             oModel.read(sPath, {
                 success: function (oData) {
                     var oContext = new sap.ui.model.Context(oModel, sPath);

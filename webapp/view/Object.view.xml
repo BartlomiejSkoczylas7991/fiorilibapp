@@ -1,5 +1,5 @@
 <mvc:View 
-    controllerName="fiorilibappname.controller.Detail"
+    controllerName="fiorilibappname.controller.Object"
     xmlns:internal="sap.landvisz.internal"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns="sap.uxap"
@@ -156,3 +156,5 @@
         </sections>
     </ObjectPageLayout>
 </mvc:View>
+
+
