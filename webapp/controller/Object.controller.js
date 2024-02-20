@@ -2,13 +2,19 @@ sap.ui.define([
     "sap/ui/core/mvc/Controller",
     "sap/ui/core/routing/History",
     "sap/ui/core/format/DateFormat",
+    "sap/ui/model/json/JSONModel",
     "sap/m/MessageBox",
-    // inne zależności
-], function (Controller, History, DateFormat, MessageBox) {
+], function (Controller, History, DateFormat, JSONModel, MessageBox) {
     "use strict";
 
     return Controller.extend("fiorilibappname.controller.Object", {
+
         onInit: function () {
+            var oViewModel = new JSONModel({
+                isEditMode: false
+            });
+            this.getView().setModel(oViewModel, "viewModel");
+
             var oRouter = this.getOwnerComponent().getRouter();
             
             oRouter.
@@ -29,16 +35,21 @@ sap.ui.define([
         _onObjectMatched: function (oEvent) {
             this._sSolId = oEvent.getParameter("arguments").SolId;
 
-            //if(this._sSolId) {
-                
-            //    this.getView().byId("editButton").setVisible(true);
-            //    this.getView().byId("saveButton").setVisible(false);
-            //    this._loadData(this._sSolId);
-            //} else {
-            //    this.getView().byId("editButton").setVisible(false);
-            //    this.getView().byId("saveButton").setVisible(true);
-            //    this._initializeNewSolution();
-            //}
+            if(this._sSolId) {
+                var oEditButton = this.getView().byId("editButton");
+                var oSaveButton = this.getView().byId("saveButton");
+                if (oEditButton && oSaveButton){
+                    oEditButton.setVisible(true);
+                    oSaveButton.setVisible(false);
+                }
+                this._loadData(this._sSolId);
+            } else {
+                if (oEditButton && oSaveButton) {
+                    oEditButton.setVisible(false);
+                    oSaveButton.setVisible(true);
+                }
+                this._initializeNewSolution();
+            }
             
             var oModel = this.getView().getModel();
             var sPath = "/ZC_BSK_LA_SOLUTION('" + this._sSolId + "')";
@@ -80,7 +91,6 @@ sap.ui.define([
                     var oContext = new sap.ui.model.Context(oModel, sPath);
                     this.getView().setBindingContext(oContext);
                     
-                    // Ustawienie kontekstu dla tabel Target Mappings i Services
                     var oTargetMappingsTable = this.byId("targetMappingsTable");
                     var oServicesTable = this.byId("servicesTable");
                     oTargetMappingsTable.setBindingContext(oContext);
@@ -97,7 +107,6 @@ sap.ui.define([
             var sPath = "/ZC_BSK_LA_SOLUTION('" + sSolId + "')/to_Tar_Map";
             oModel.read(sPath, {
                 success: function (oData) {
-                    // Przetwarzaj dane oData, jeśli potrzebujesz
                 },
                 error: function (oError) {
                     MessageBox.error("Error during loading Target Mappings.");
@@ -110,7 +119,6 @@ sap.ui.define([
             var sPath = "/ZC_BSK_LA_SOLUTION('" + sSolId + "')/to_Service";
             oModel.read(sPath, {
                 success: function (oData) {
-                    // Przetwarzaj dane oData, jeśli potrzebujesz
                 },
                 error: function (oError) {
                     MessageBox.error("Error during loading Services.");
@@ -119,18 +127,52 @@ sap.ui.define([
         },        
 
         onEditPress: function () {
-           
-            MessageBox.show("Edit function hasn't been implemented yet.");
+            this.getView().getModel("viewModel").setProperty("/isEditMode", true);
+        },
+
+        onSavePress: function() {
+            var oModel = this.getView().getModel();
+            var sPath = this.getView().getBindingContext().getPath();
+            var oData = this.getView().getBindingContext().getObject();
+
+            var oUpdatedData = {
+                TechnicalName: this.getView().byId("idInputTechnicalName").getValue(),
+                Url: this.getView().byId("idInputUrl").getValue(),
+                Description: this.getView().byId("idInputDescription").getValue()
+            };
+        
+            oModel.update(sPath, oUpdatedData, {
+                success: function () {
+                    MessageBox.success("Object updated successfully.");
+                    this.getView().getModel("viewModel").setProperty("/isEditMode", false);
+                }.bind(this),
+                error: function () {
+                    MessageBox.error("Update failed.");
+                }
+            });
+        },
+        
+        onCancelPress: function() {
+            this.getView().getModel().resetChanges();
+            this.getView().getModel("viewModel").setProperty("/isEditMode", false);
         },
 
         onDeletePress: function () {
-         
-            MessageBox.confirm("Are you sure you want to delete the item?", {
-                title: "Confirmation",
-                actions: [MessageBox.Action.YES, MessageBox.Action.NO],
-                onClose: function (oAction) {
-                    if (oAction === MessageBox.Action.YES) {
+            var oModel = this.getView().getModel();
+            var sPath = this.getView().getBindingContext().getPath();
 
+            MessageBox.confirm("Are you sure you want to delete?", {
+                actions: [MessageBox.Action.YES, MessageBox.Action.NO],
+                onClose: function (sAction) {
+                    if (sAction === MessageBox.Action.YES) {
+                        oModel.remove(sPath, {
+                            success: function () {
+                                MessageBox.success("Object deleted successfully.");
+                            },
+                            error: function () {
+                                MessageBox.error("Deletion failed.");
+                            }
+                        });
                     }
                 }
             });
@@ -140,7 +182,6 @@ sap.ui.define([
             if (!sTimestamp) {
                 return "";
             }
-            // Zakładając, że sTimestamp jest w formacie "YYYYMMDDhhmmss"
             var oDateFormat = sap.ui.core.format.DateFormat.getDateTimeInstance({pattern: "yyyy-MM-dd'T'HH:mm:ss"});
             var oDate = oDateFormat.parse(sTimestamp.substring(0, 4) + "-" + sTimestamp.substring(4, 6) + "-" + sTimestamp.substring(6, 8) + "T" + sTimestamp.substring(8, 10) + ":" + sTimestamp.substring(10, 12) + ":" + sTimestamp.substring(12, 14));
             

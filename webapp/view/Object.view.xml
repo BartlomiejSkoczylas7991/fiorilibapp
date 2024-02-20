@@ -6,8 +6,7 @@
     xmlns:m="sap.m"
     xmlns:core="sap.ui.core"
     xmlns:l="sap.ui.layout"
-    xmlns:form="sap.ui.layout.form"
-    xmlns:smartform="sap.ui.comp.smartform"
+    xmlns:f="sap.ui.layout.form"
     height="100%">
 
     <ObjectPageLayout id="ObjectPageLayout" upperCaseAnchorBar="false">
@@ -25,27 +24,32 @@
                     </m:HBox>
                 </snappedHeading>
                 <actions>
-                    <m:Button text="Edit" type="Emphasized" press="onEditPress" />
-                    <m:Button text="Delete" press="onDeletePress" />
+                    <m:Button text="Edit" type="Emphasized" press="onEditPress" visible="{= !${viewModel>/isEditMode}}"/>
+                    <m:Button text="Save" press="onSavePress" visible="{viewModel>/isEditMode}"/>
+                    <m:Button text="Cancel" press="onCancelPress" visible="{viewModel>/isEditMode}"/>
+                    <m:Button text="Delete" press="onDeletePress" visible="{= !${viewModel>/isEditMode}}"/>
                 </actions>
             </ObjectPageDynamicHeaderTitle>
         </headerTitle>
 
         <headerContent>
             <m:FlexBox wrap="Wrap" fitContainer="true">
-                <m:VBox class="sapUiLargeMarginEnd sapUiSmallMarginBottom">
+                <m:VBox visible="{= !${viewModel>/isEditMode}}" class="sapUiLargeMarginEnd sapUiSmallMarginBottom">
                     <m:Title text="Description" class="sapUiTinyMarginBottom" />
                     <m:Text text="{Description}" />
-                    <m:Title text="TypeDescription" class="sapUiTinyMarginBottom" />
-                    <m:Text text="{TypeDescription}" />
-                    <m:Title text="StatusDescription" class="sapUiTinyMarginBottom" />
-                    <m:Text text="{StatusDescription}" />
-                    <m:Title text="CreatedAt" class="sapUiTinyMarginBottom" />
-                    <m:Text text="{CreatedAt}" />
                 </m:VBox>
+                <f:SimpleForm visible="{viewModel>/isEditMode}" layout="ResponsiveGridLayout" editable="true">
+                    <f:content>
+                        <m:Label  text="Technical Name" />
+                        <m:Input id="idInputTechnicalName" value="{TechnicalName}" />
+                        <m:Label  text="URL" />
+                        <m:Input id="idInputUrl" value="{Url}" />
+                        <m:Label text="Description" />
+                        <m:TextArea id="idInputDescription" value="{Description}" rows="4" />
+                    </f:content>
+                </f:SimpleForm>
             </m:FlexBox>
         </headerContent>
-
         <sections>
             <ObjectPageSection title="TargetMappings">
         <subSections>
@@ -126,7 +130,6 @@
                             <m:Text text="{ExtServName}" />
                             <m:Text text="{SoftCompVersion}" />
                             <m:Text text="{BeAuthRole}" />
-
                         </m:cells>
                         </m:ColumnListItem>
                         </m:items>
