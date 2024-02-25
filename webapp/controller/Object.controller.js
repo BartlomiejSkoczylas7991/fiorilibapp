@@ -10,106 +10,144 @@ sap.ui.define([
     return Controller.extend("fiorilibappname.controller.Object", {
 
         onInit: function () {
-            var oViewModel = new JSONModel({
-                isEditMode: false
-            });
-            this.getView().setModel(oViewModel, "viewModel");
+            var viewModel = this.getOwnerComponent().getModel("viewModel");
+            this.getView().setModel(viewModel, "viewModel");
+            var viewDetail = new JSONModel({});
+            this.getView().setModel(viewDetail, "viewDetail");
 
             var oRouter = this.getOwnerComponent().getRouter();
-            
-            oRouter.
-                getRoute("Detail").
-                attachPatternMatched(this._onObjectMatched, this);
-
-            var oModel = this.getOwnerComponent().getModel();
-            if (!oModel) {
-                console.error("Model not found");
-            } else {
-                console.log("Model found", oModel);
-            }
+            oRouter.getRoute("Detail").attachPatternMatched(this._onObjectMatched, this);
+            oRouter.getRoute("Create").attachPatternMatched(this._onObjectMatched, this);
+        
             this._dateFormatter = DateFormat.getDateInstance({
                 pattern: "dd.MM.yyyy",
             });
         },
 
         _onObjectMatched: function (oEvent) {
-            this._sSolId = oEvent.getParameter("arguments").SolId;
+            const sRouteName = oEvent.getParameter("name");
+            var oViewModel = this.getOwnerComponent().getModel("viewModel");
+            var oDetailModel = this.getView().getModel("viewDetail");
 
-            if(this._sSolId) {
-                var oEditButton = this.getView().byId("editButton");
-                var oSaveButton = this.getView().byId("saveButton");
-                if (oEditButton && oSaveButton){
-                    oEditButton.setVisible(true);
-                    oSaveButton.setVisible(false);
+            let emptyData = {};
+
+            if (sRouteName === "Create") {
+                oViewModel.setProperty("/isEditMode", true);
+                oViewModel.setData(emptyData);
+                oDetailModel.setData(emptyData); 
+                this.getView().getModel("viewDetail").setData(emptyData);
+            } else if (sRouteName === "Detail") {
+                this._sSolId = oEvent.getParameter("arguments").SolId;
+                oViewModel.setProperty("/isEditMode", false);
+                if (this._sSolId) {
+                    this._loadData(this._sSolId);
+                } else {
+                    oViewModel.setProperty("/isEditMode", true);
+                    oViewModel.setData(emptyData);
+                    this.getView().getModel("viewDetail").setData(emptyData);
                 }
-                this._loadData(this._sSolId);
-            } else {
-                if (oEditButton && oSaveButton) {
-                    oEditButton.setVisible(false);
-                    oSaveButton.setVisible(true);
-                }
-                this._initializeNewSolution();
             }
-            
-            var oModel = this.getView().getModel();
-            var sPath = "/ZC_BSK_LA_SOLUTION('" + this._sSolId + "')";
-        
-            oModel.read(sPath, {
-                success: function (oData) {
-                
-                    this.getView().setBindingContext(new sap.ui.model.Context(oModel, sPath));
-        
-                
-                    this._loadTargetMappings(this._sSolId);
-                    this._loadServices(this._sSolId);
-                }.bind(this),
-                error: function (oError) {
-                    MessageBox.error("Error during loading data.");
-                }
-            });
+        },
+
+        onExit: function () {
+            this.oRouter.detachRouteMatched(this.onRouteMatched, this);
         },
 
         _initializeNewSolution: function () {
             var oNewSolutionData = {
                 TechnicalName: "",
-                Url: ""
+                Url: "",
+                Description: "",
             };
             this.getView().getModel().setData(oNewSolutionData);
         },
         
-        _loadData: function(sSolId) {
-            var oModel = this.getView().getModel();
-            if (!oModel) {
-                console.error("Model not found");
-                return;
-            }
-            
+        _loadData: function (sSolId) {
+            var oModel = this.getOwnerComponent().getModel();
             var sPath = "/ZC_BSK_LA_SOLUTION('" + sSolId + "')";
-            var oDataModel = this.getView().getModel(); 
+            var oViewModel = this.getView().getModel("viewModel");
+            var oDetailModel = this.getView().getModel("viewDetail");
+        
             oModel.read(sPath, {
                 success: function (oData) {
-                    var oContext = new sap.ui.model.Context(oModel, sPath);
-                    this.getView().setBindingContext(oContext);
-                    
-                    var oTargetMappingsTable = this.byId("targetMappingsTable");
-                    var oServicesTable = this.byId("servicesTable");
-                    oTargetMappingsTable.setBindingContext(oContext);
-                    oServicesTable.setBindingContext(oContext);
+                    oDetailModel.setData(oData); 
+                    oViewModel.setData(JSON.parse(JSON.stringify(oData)));
                 }.bind(this),
                 error: function (oError) {
                     MessageBox.error("Error during loading data.");
                 }
             });
         },        
+
+        onNavBack: function () {
+            this.getView().getModel("viewModel").setData({});
+
+            var oHistory = History.getInstance();
+            var sPreviousHash = oHistory.getPreviousHash();
+
+            if (sPreviousHash !== undefined) {
+                window.history.go(-1);
+            } else {
+                var oRouter = this.getOwnerComponent().getRouter();
+                oRouter.navTo("Worklist", {}, true);
+            }
+        },
     
+        onEditPress: function() {
+            var oViewModelData = this.getView().getModel("viewModel").getData();
+            this.getView().getModel("viewDetail").setData(JSON.parse(JSON.stringify(oViewModelData)));
+            this.getView().getModel("viewModel").setProperty("/isEditMode", true);
+        },        
+
+        onSavePress: function() {
+            var oDetailData = this.getView().getModel("viewDetail").getData();
+            var oDataModel = this.getOwnerComponent().getModel();
+            if (this._sSolId) {
+                var sPath = "/ZC_BSK_LA_SOLUTION('" + this._sSolId + "')";
+                oDataModel.update(sPath, oDetailData, {
+                    success: function() {
+                        MessageBox.success("Object updated successfully.");
+                        this.getView().getModel("viewModel").setProperty("/isEditMode", false);
+                        this._loadData(this._sSolId);
+                    }.bind(this),
+                    error: function() {
+                        MessageBox.error("Update failed.");
+                    }
+                });
+            } else {
+                oDataModel.create("/ZC_BSK_LA_SOLUTION", oDetailData, {
+                    success: function() {
+                        MessageBox.success("New object created successfully.");
+                        this.getView().getModel("viewModel").setProperty("/isEditMode", false);
+                        // mogę zrobić sobie nawigację do tego obiektu - generalnie rozwinąć do batcha
+                        this.getOwnerComponent().getRouter().navTo("Worklist");
+                    }.bind(this),
+                    error: function() {
+                        MessageBox.error("Creation failed.");
+                    }
+                });
+            }
+        },
+
+        onCancelPress: function() {
+            if (this._sSolId) {
+                this._loadData(this._sSolId);
+            } else {
+                let emptyData = { TechnicalName: "", Url: "", Description: "" };
+                this.getView().getModel("viewDetail").setData(emptyData);
+                this.getView().getModel("viewModel").setData(emptyData);
+            }
+            this.getOwnerComponent().getModel("viewModel").setProperty("/isEditMode", false);
+        },
+
         _loadTargetMappings: function (sSolId) {
-            var oModel = this.getView().getModel("odata");
-            var sPath = "/ZC_BSK_LA_SOLUTION('" + sSolId + "')/to_Tar_Map";
-            oModel.read(sPath, {
-                success: function (oData) {
-                },
-                error: function (oError) {
-                    MessageBox.error("Error during loading Target Mappings.");
+                var oModel = this.getView().getModel("odata");
+                var sPath = "/ZC_BSK_LA_SOLUTION('" + sSolId + "')/to_Tar_Map";
+                oModel.read(sPath, {
+                    success: function (oData) {
+                    },
+                    error: function (oError) {
+                        MessageBox.error("Error during loading Target Mappings.");
                 }
             });
         },
@@ -124,37 +162,6 @@ sap.ui.define([
                     MessageBox.error("Error during loading Services.");
                 }
             });
-        },        
-
-        onEditPress: function () {
-            this.getView().getModel("viewModel").setProperty("/isEditMode", true);
-        },
-
-        onSavePress: function() {
-            var oModel = this.getView().getModel();
-            var sPath = this.getView().getBindingContext().getPath();
-            var oData = this.getView().getBindingContext().getObject();
-
-            var oUpdatedData = {
-                TechnicalName: this.getView().byId("idInputTechnicalName").getValue(),
-                Url: this.getView().byId("idInputUrl").getValue(),
-                Description: this.getView().byId("idInputDescription").getValue()
-            };
-        
-            oModel.update(sPath, oUpdatedData, {
-                success: function () {
-                    MessageBox.success("Object updated successfully.");
-                    this.getView().getModel("viewModel").setProperty("/isEditMode", false);
-                }.bind(this),
-                error: function () {
-                    MessageBox.error("Update failed.");
-                }
-            });
-        },
-        
-        onCancelPress: function() {
-            this.getView().getModel().resetChanges();
-            this.getView().getModel("viewModel").setProperty("/isEditMode", false);
         },
 
         onDeletePress: function () {
@@ -190,17 +197,6 @@ sap.ui.define([
         },
         
 
-        onNavBack: function () {
-            var oHistory = History.getInstance();
-            var sPreviousHash = oHistory.getPreviousHash();
-
-            if (sPreviousHash !== undefined) {
-                window.history.go(-1);
-            } else {
-                var oRouter = this.getOwnerComponent().getRouter();
-                oRouter.navTo("Main", {}, true);
-            }
-        },
 
         onPostComment: function (oEvent) {
             var oModel = this.getView().getModel();
