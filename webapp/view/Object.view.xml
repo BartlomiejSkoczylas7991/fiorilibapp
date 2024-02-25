@@ -8,26 +8,34 @@
     xmlns:l="sap.ui.layout"
     xmlns:f="sap.ui.layout.form"
     height="100%">
-
+    <m:Page>
     <ObjectPageLayout id="ObjectPageLayout" upperCaseAnchorBar="false">
         <headerTitle>
             <ObjectPageDynamicHeaderTitle>
                 <expandedHeading>
-                    <m:Title text="{TechnicalName}" />
+                    <m:Title text="{viewModel>/TechnicalName}" />
+                    
                 </expandedHeading>
                 <snappedHeading>
+
                     <m:HBox>
                         <m:VBox>
-                            <m:Title text="{TechnicalName}" />
-                            <m:Label text="{StatusDescription}" />
+                            <m:Title text="{viewModel>/TechnicalName}" />
+                            <m:Label text="{viewModel>/StatusDescription}" />
                         </m:VBox>
                     </m:HBox>
                 </snappedHeading>
                 <actions>
-                    <m:Button text="Edit" type="Emphasized" press="onEditPress" visible="{= !${viewModel>/isEditMode}}"/>
-                    <m:Button text="Save" press="onSavePress" visible="{viewModel>/isEditMode}"/>
-                    <m:Button text="Cancel" press="onCancelPress" visible="{viewModel>/isEditMode}"/>
-                    <m:Button text="Delete" press="onDeletePress" visible="{= !${viewModel>/isEditMode}}"/>
+                    <m:Button text="Edit" type="Emphasized" press="onEditPress" visible="{= !${viewModel>/isEditMode}}" />
+                    <m:Button text="Save" press="onSavePress" visible="{= ${viewModel>/isEditMode}}" />
+                    <m:Button text="Cancel" press="onCancelPress" visible="{= ${viewModel>/isEditMode}}" />
+                    <m:Button text="Delete" press="onDeletePress" visible="{= !${viewModel>/isEditMode}}" />
+                    <m:Button
+                        id="buttonBack"
+                        text="Back"
+                        type="Back"
+                        press=".onNavBack"
+                    />
                 </actions>
             </ObjectPageDynamicHeaderTitle>
         </headerTitle>
@@ -35,21 +43,24 @@
         <headerContent>
             <m:FlexBox wrap="Wrap" fitContainer="true">
                 <m:VBox visible="{= !${viewModel>/isEditMode}}" class="sapUiLargeMarginEnd sapUiSmallMarginBottom">
-                    <m:Title text="Description" class="sapUiTinyMarginBottom" />
-                    <m:Text text="{Description}" />
-                </m:VBox>
-                <f:SimpleForm visible="{viewModel>/isEditMode}" layout="ResponsiveGridLayout" editable="true">
-                    <f:content>
-                        <m:Label  text="Technical Name" />
-                        <m:Input id="idInputTechnicalName" value="{TechnicalName}" />
-                        <m:Label  text="URL" />
-                        <m:Input id="idInputUrl" value="{Url}" />
-                        <m:Label text="Description" />
-                        <m:TextArea id="idInputDescription" value="{Description}" rows="4" />
-                    </f:content>
-                </f:SimpleForm>
+                <m:Title text="URL" class="sapUiTinyMarginBottom" />
+                <m:Text text="{viewModel>/URL}" />
+                <m:Title text="Description" class="sapUiTinyMarginBottom" />
+                <m:Text text="{viewModel>/Description}" />
+            </m:VBox>
+            <f:SimpleForm id = ".idSimpleFormHeader" visible="{= ${viewModel>/isEditMode}? true : false}" layout="ResponsiveGridLayout" editable="true">
+                <f:content>
+                    <m:Label text="Technical Name" />
+                    <m:Input id="idInputTechnicalName" value="{viewDetail>/TechnicalName}" />
+                    <m:Label text="URL" />
+                    <m:Input id="idInputUrl" value="{viewDetail>/Url}" />
+                    <m:Label text="Description" />
+                    <m:TextArea id="idInputDescription" value="{viewDetail>/Description}" rows="4" />
+                </f:content>
+            </f:SimpleForm>
             </m:FlexBox>
         </headerContent>
+
         <sections>
             <ObjectPageSection title="TargetMappings">
         <subSections>
@@ -142,17 +153,24 @@
             <ObjectPageSection title="Comments">
                 <subSections>
                     <ObjectPageSubSection>
-                        <l:VerticalLayout class="sapUiResponsiveMargin">
-                            <m:FeedInput post="onPostComment" placeholder="Write a comment..."/>
-                            <m:List id="commentsList" items="{path: '/ZC_BSK_LA_COMM'}">
+                        <l:VerticalLayout class="sapUiResponsiveMargin" width="100%"> 
+                            <m:FeedInput post="onPostComment" placeholder="Write a comment..." width="100%"/> 
+                            <m:List id="commentsList" width="100%" items="{path: '/ZC_BSK_LA_COMM'}"> 
                                 <m:items>
-                                    <m:FeedListItem sender="{Title}" text="{Text}" timestamp="{path: 'Created', type: 'sap.ui.model.type.DateTime', formatOptions: { style: 'short' }}"/>
+                                    <m:CustomListItem>
+                                        <m:VBox class="sapUiSmallMargin">
+                                            <m:Text text="{Title}" class="sapUiSmallMarginBottom"/>
+                                            <m:Text text="{Text}"/>
+                                            <m:Text text="{path: 'Created', type: 'sap.ui.model.type.DateTime', formatOptions: { style: 'short' }}" class="sapUiSmallMarginTop"/>
+                                        </m:VBox>
+                                    </m:CustomListItem>
                                 </m:items>
                             </m:List>
                         </l:VerticalLayout>
                     </ObjectPageSubSection>
                 </subSections>
             </ObjectPageSection>
+
 
             <!-- Sekcja Attachments -->
             <ObjectPageSection title="Attachments">
@@ -164,6 +182,7 @@
             </ObjectPageSection>
         </sections>
     </ObjectPageLayout>
+    </m:Page>
 </mvc:View>
 
 

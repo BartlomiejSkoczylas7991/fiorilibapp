@@ -31,7 +31,6 @@ sap.ui.define([
       onPress: function (oEvent) {
         var oItem = oEvent.getParameter("listItem") || oEvent.getParameter("row");
         var oBindingContext = oItem.getBindingContext();
-        console.log(oBindingContext); 
     
         if (!oBindingContext) {
             MessageBox.error("Nie znaleziono kontekstu wiązania.");
@@ -57,11 +56,11 @@ sap.ui.define([
         var sSolId = oEvent.getParameter("arguments").solId;
       },
 
-      onAddButtonPress: function () {
+      onAddButtonPress: function() {
         var oRouter = this.getOwnerComponent().getRouter();
         oRouter.navTo("Create");
-      },
-  
+      },    
+      
       getResourceBundle: function () {
         return this.getOwnerComponent().getModel("i18n").getResourceBundle();
       }

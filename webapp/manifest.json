@@ -76,6 +76,11 @@
         "settings": {
           "bundleName": "fiorilibappname.i18n.i18n"
         }
+      },
+      "viewModel": {
+        "type": "sap.ui.model.json.JSONModel",
+        "settings": {},
+        "preload": true
       }
     },
     "resources": {
@@ -126,6 +131,11 @@
               "clearControlAggregation": false,
               "viewId": "Object",
               "viewName": "Object"
+          },
+          "notFound": {
+             "id": "notFound",
+             "name": "NotFound",
+             "transition": "show"
           }
       }
     }
