@@ -8,10 +8,9 @@ sap.ui.define([
     "use strict";
 
     return Controller.extend("fiorilibappname.controller.Object", {
-
         onInit: function () {
             var viewModel = this.getOwnerComponent().getModel("viewModel");
-            this.getView().setModel(viewModel, "viewModel");
+            this.getOwnerComponent().setModel(viewModel, "viewModel");
             var viewDetail = new JSONModel({});
             this.getView().setModel(viewDetail, "viewDetail");
 
@@ -55,9 +54,6 @@ sap.ui.define([
 
         _initializeNewSolution: function () {
             var oNewSolutionData = {
-                TechnicalName: "",
-                Url: "",
-                Description: "",
             };
             this.getView().getModel().setData(oNewSolutionData);
         },
@@ -65,19 +61,23 @@ sap.ui.define([
         _loadData: function (sSolId) {
             var oModel = this.getOwnerComponent().getModel();
             var sPath = "/ZC_BSK_LA_SOLUTION('" + sSolId + "')";
-            var oViewModel = this.getView().getModel("viewModel");
-            var oDetailModel = this.getView().getModel("viewDetail");
+            
         
             oModel.read(sPath, {
                 success: function (oData) {
-                    oDetailModel.setData(oData); 
-                    oViewModel.setData(JSON.parse(JSON.stringify(oData)));
+                    var oViewModel = this.getView().getModel("viewModel");
+                    var oDetailModel = this.getView().getModel("viewDetail");
+
+                    oViewModel.setData(oData);
+                    oDetailModel.setData(JSON.parse(JSON.stringify(oData)));
+
+                    this._loadServices(sSolId);
                 }.bind(this),
                 error: function (oError) {
                     MessageBox.error("Error during loading data.");
                 }
             });
-        },        
+        },       
 
         onNavBack: function () {
             this.getView().getModel("viewModel").setData({});
@@ -100,11 +100,15 @@ sap.ui.define([
         },        
 
         onSavePress: function() {
-            var oDetailData = this.getView().getModel("viewDetail").getData();
-            var oDataModel = this.getOwnerComponent().getModel();
+            var oDetailModel = this.getView().getModel("viewDetail");
+            var oModel = this.getOwnerComponent().getModel();
+            var oOriginalData = this.getOwnerComponent().getModel("viewModel").getData();
+
+            var oUpdatedData = oDetailModel.getData();
+
             if (this._sSolId) {
                 var sPath = "/ZC_BSK_LA_SOLUTION('" + this._sSolId + "')";
-                oDataModel.update(sPath, oDetailData, {
+                oModel.update(sPath, oUpdatedData, {
                     success: function() {
                         MessageBox.success("Object updated successfully.");
                         this.getView().getModel("viewModel").setProperty("/isEditMode", false);
@@ -115,7 +119,7 @@ sap.ui.define([
                     }
                 });
             } else {
-                oDataModel.create("/ZC_BSK_LA_SOLUTION", oDetailData, {
+                oModel.create("/ZC_BSK_LA_SOLUTION", oUpdatedData, {
                     success: function() {
                         MessageBox.success("New object created successfully.");
                         this.getView().getModel("viewModel").setProperty("/isEditMode", false);
@@ -127,6 +131,8 @@ sap.ui.define([
                     }
                 });
             }
+
+            this._manageServices(oUpdatedData.to_Service, oOriginalData.to_Service)
         },
 
         onCancelPress: function() {
@@ -140,28 +146,91 @@ sap.ui.define([
             this.getOwnerComponent().getModel("viewModel").setProperty("/isEditMode", false);
         },
 
-        _loadTargetMappings: function (sSolId) {
-                var oModel = this.getView().getModel("odata");
-                var sPath = "/ZC_BSK_LA_SOLUTION('" + sSolId + "')/to_Tar_Map";
-                oModel.read(sPath, {
-                    success: function (oData) {
-                    },
-                    error: function (oError) {
-                        MessageBox.error("Error during loading Target Mappings.");
-                }
-            });
+        onAddNewServiceItem: function() {
+            var oModel = this.getView().getModel("viewDetail");
+            var oNewService = oModel.getProperty("/newService");
+
+            if (!oNewService.Url || !oNewService.Version) {
+                MessageBox.error("Please fill in all required fields.");
+                return;
+            }
+            var aServices = oModel.getProperty("/to_Service") || [];
+            aServices.push(Object.assign({}, oNewService)); 
+
+            oModel.setProperty("/to_Service", aServices);
+            oModel.setProperty("/newService", {Url: "", Version: "", Description: "", ExtServName: "", SoftCompVersion: "", BeAuthRole: "" })
         },
         
+        onDeleteSelectedServices: function() {
+            var oTable = this.byId("editableTableService");
+            var aSelectedItems = oTable.getSelectedItems();
+            var oModel = this.getView().getModel("viewDetail");
+            var aServices = oModel.getProperty("/to_Service") || [];
+
+            for (var i = aSelectedItems.length - 1; i >= 0; i--) {
+                var oContext = aSelectedItems[i].getBindingContext("viewDetail");
+                if (oContext) {
+                    var iIndex = oContext.getPath().split("/").pop();
+                    aServices.splice(parseInt(iIndex, 10), 1);
+                }
+            }
+        
+            oModel.setProperty("/to_Service", aServices);
+            oTable.removeSelections();
+        },
+
+        _manageServices: function(updatedServices, originalServices) {
+            var oModel = this.getView().getModel();
+            var aBatchOperations = [];
+
+            var originalServicesMap = {};
+            originalServices.forEach(function(service) {
+                originalServicesMap[service.ServiceId] = service;
+            });
+
+            updatedServices.forEach(function(service) {
+                if (service.ServiceId && originalServicesMap[service.ServiceId]) {
+                    var sPath = "/Services(" + service.ServiceId + ")";
+                    aBatchOperations.push(oModel.createBatchOperation(sPath, "PUT", service))
+                } else if (!service.ServiceId) {
+                    aBatchOperations.push(oModel.createBatchOperation("/Services", "POST", service));
+                }
+            });
+
+            originalServices.forEach(function(service) {
+                if (!updatedServices.find(function(updatedService) { return updatedService.ServiceId === service.ServiceId; })){
+                    var sPath = "/Services(" + service.ServiceId + ")";
+                    aBatchOperations.push(oModel.createBatchOperation(sPath, "DELETE"));
+                }
+            });
+
+            if (aBatchOperations.length > 0) {
+                oModel.addBatchChangeOperations(aBatchOperations);
+                oModel.submitBatch(function(oData) {
+                    MessageBox.success("Services updated successfully.");
+                }, function(oError) {
+                    MessageBox.error("Error updating services.");
+                });
+            }
+        },
+
         _loadServices: function (sSolId) {
-            var oModel = this.getView().getModel("odata");
+            var oModel = this.getOwnerComponent().getModel();
             var sPath = "/ZC_BSK_LA_SOLUTION('" + sSolId + "')/to_Service";
+
             oModel.read(sPath, {
                 success: function (oData) {
-                },
+                    var oViewModel = this.getView().getModel("viewModel");
+                    var oDetailModel = this.getView().getModel("viewDetail");
+
+                    oViewModel.setProperty("/to_Service", oData.results);
+                    oDetailModel.setProperty("/to_service", oData.results);
+
+                }.bind(this),
                 error: function (oError) {
                     MessageBox.error("Error during loading Services.");
                 }
-            });
+            })
         },
 
         onDeletePress: function () {
@@ -196,7 +265,17 @@ sap.ui.define([
             return oDisplayFormat.format(oDate);
         },
         
-
+        _loadTargetMappings: function (sSolId) {
+            var oModel = this.getView().getModel();
+            var sPath = "/ZC_BSK_LA_SOLUTION('" + sSolId + "')/to_Tar_Map";
+            oModel.read(sPath, {
+                success: function (oData) {
+                },
+                error: function (oError) {
+                    MessageBox.error("Error during loading Target Mappings.");
+            }
+        });
+        },
 
         onPostComment: function (oEvent) {
             var oModel = this.getView().getModel();

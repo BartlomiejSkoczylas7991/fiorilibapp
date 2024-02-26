@@ -63,8 +63,9 @@
 
         <sections>
             <ObjectPageSection title="TargetMappings">
-        <subSections>
-             <ObjectPageSubSection>
+                <subSections>
+                <ObjectPageSubSection>
+                    
                     <m:Table id="targetMappingsTable" items="{path: 'to_Tar_Map'}">
                         <m:columns>
                             <m:Column>
@@ -104,71 +105,133 @@
             </ObjectPageSection>
 
             <!-- Sekcja Service -->
-            <ObjectPageSection title="Services">
-    <subSections>
-        <ObjectPageSubSection>
-            <m:Table id="servicesTable" items="{path: 'to_Service'}">
-                <m:columns>
-                    <m:Column>
-                        <m:Text text="Service ID" />
-                    </m:Column>
-                    <m:Column>
-                        <m:Text text="URL" />
-                    </m:Column>
-                    <m:Column>
-                        <m:Text text="Version" />
-                    </m:Column>
-                    <m:Column>
-                        <m:Text text="Description" />
-                    </m:Column>
-                    <m:Column>
-                        <m:Text text="ExtServName" />
-                    </m:Column>
-                    <m:Column>
-                        <m:Text text="SoftCompVersion" />
-                    </m:Column>
-                    <m:Column>
-                        <m:Text text="BeAuthRole" />
-                    </m:Column>
-                </m:columns>
-                <m:items>
-                    <m:ColumnListItem>
-                        <m:cells>
-                            <m:Text text="{ServiceId}" />
-                            <m:Text text="{Url}" />
-                            <m:Text text="{Version}" />
-                            <m:Text text="{Description}" />
-                            <m:Text text="{ExtServName}" />
-                            <m:Text text="{SoftCompVersion}" />
-                            <m:Text text="{BeAuthRole}" />
-                        </m:cells>
-                        </m:ColumnListItem>
-                        </m:items>
-                    </m:Table>
-                </ObjectPageSubSection>
-             </subSections>
-            </ObjectPageSection>
-
-            <!-- Sekcja Comments -->
-            <ObjectPageSection title="Comments">
-                <subSections>
-                    <ObjectPageSubSection>
-                        <l:VerticalLayout class="sapUiResponsiveMargin" width="100%"> 
-                            <m:FeedInput post="onPostComment" placeholder="Write a comment..." width="100%"/> 
-                            <m:List id="commentsList" width="100%" items="{path: '/ZC_BSK_LA_COMM'}"> 
-                                <m:items>
-                                    <m:CustomListItem>
-                                        <m:VBox class="sapUiSmallMargin">
-                                            <m:Text text="{Title}" class="sapUiSmallMarginBottom"/>
-                                            <m:Text text="{Text}"/>
-                                            <m:Text text="{path: 'Created', type: 'sap.ui.model.type.DateTime', formatOptions: { style: 'short' }}" class="sapUiSmallMarginTop"/>
-                                        </m:VBox>
-                                    </m:CustomListItem>
-                                </m:items>
-                            </m:List>
-                        </l:VerticalLayout>
+    <ObjectPageSection title="Services">
+        <subSections>
+            <ObjectPageSubSection>
+                <m:VBox visible="{= ${viewModel>/isEditMode}? true : false}" class="sapUiResponsiveMargin">
+                    <f:SimpleForm id="idSimpleFormHeaderService" 
+                                  layout="ResponsiveGridLayout" 
+                                  editable="true" 
+                                  columnsL="2" 
+                                  columnsM="1"
+                                  visible="{= ${viewModel>/isEditMode}? true : false}"
+                                  labelSpanL="3" 
+                                  labelSpanM="3" 
+                                  emptySpanL="4" 
+                                  emptySpanM="4" 
+                                  class="customFormLayout">
+                        <f:content>
+                            <m:Label text="Url of the Service" />
+                            <m:Input id="UrlService" />
+                            <m:Label text="Version" />
+                            <m:Input id="VersionService" />
+                            <m:Label text="Description" />
+                            <m:TextArea id="DescriptionService" rows="4"/>
+                            <m:Label text="External Service Name" />
+                            <m:Input id="ExtServNameService" />
+                            <m:Label text="Software Component Version" />
+                            <m:Input id="SoftCompVersionService" />
+                            <m:Label text="Authorization Role" />
+                            <m:Input id="BeAuthRoleService" />
+                        </f:content>
+                    </f:SimpleForm>
+                        <m:Toolbar visible="{= ${viewModel>/isEditMode}? true : false}">
+                            <m:ToolbarSpacer />
+                            <m:Button text="Add Service" press="onAddNewServiceItem" />
+                            <m:Button text="Delete Selected" press="onDeleteSelectedServices" />
+                        </m:Toolbar>
+                        <m:Table id="editableTableService" mode="MultiSelect" visible="{= ${viewModel>/isEditMode}? true : false}" items="{path: 'viewDetail>/to_Service'}">
+                            <m:columns>
+                                <m:Column><m:Text text="Service ID" /></m:Column>
+                                <m:Column><m:Text text="URL" /></m:Column>
+                                <m:Column><m:Text text="Version" /></m:Column>
+                                <m:Column><m:Text text="Description" /></m:Column>
+                                <m:Column><m:Text text="ExtServName" /></m:Column>
+                                <m:Column><m:Text text="SoftCompVersion" /></m:Column>
+                                <m:Column><m:Text text="BeAuthRole" /></m:Column>
+                            </m:columns>
+                            <m:items>
+                                <m:ColumnListItem>
+                                    <m:cells>
+                                        <m:Text text="{ServiceId}" />
+                                        <m:Text text="{Url}" />
+                                        <m:Text text="{Version}" />
+                                        <m:Text text="{Description}" />
+                                        <m:Text text="{ExtServName}" />
+                                        <m:Text text="{SoftCompVersion}" />
+                                        <m:Text text="{BeAuthRole}" />
+                                    </m:cells>
+                                </m:ColumnListItem>
+                            </m:items>
+                        </m:Table>
+                    </m:VBox>
+                    <m:VBox fitContainer="true" class="sapUiResponsiveMargin">
+                        <m:Table id="readonlyTableService" 
+                                 visible="{= !${viewModel>/isEditMode}}" 
+                                 items="{path: 'viewModel>/to_Service'}" 
+                                 width="100%"
+                                 class="sapUiSizeFull">
+                            <m:columns>
+                                <m:Column>
+                                    <m:Text text="Service ID" />
+                                </m:Column>
+                                <m:Column>
+                                    <m:Text text="URL" />
+                                </m:Column>
+                                <m:Column>
+                                    <m:Text text="Version" />
+                                </m:Column>
+                                <m:Column>
+                                    <m:Text text="Description" />
+                                </m:Column>
+                                <m:Column>
+                                    <m:Text text="ExtServName" />
+                                </m:Column>
+                                <m:Column>
+                                    <m:Text text="SoftCompVersion" />
+                                </m:Column>
+                                <m:Column>
+                                    <m:Text text="BeAuthRole" />
+                                </m:Column>
+                            </m:columns>
+                            <m:items>
+                                <m:ColumnListItem>
+                                    <m:cells>
+                                        <m:Text text="{viewModel>ServiceId}" />
+                                        <m:Text text="{viewModel>Url}" />
+                                        <m:Text text="{viewModel>Version}" />
+                                        <m:Text text="{viewModel>Description}" />
+                                        <m:Text text="{viewModel>ExtServName}" />
+                                        <m:Text text="{viewModel>SoftCompVersion}" />
+                                        <m:Text text="{viewModel>BeAuthRole}" />
+                                    </m:cells>
+                                </m:ColumnListItem>
+                            </m:items>
+                        </m:Table>
+                    </m:VBox>
                     </ObjectPageSubSection>
-                </subSections>
+                 </subSections>
+                </ObjectPageSection>
+
+                <ObjectPageSection title="Comments">
+                    <subSections>
+                        <ObjectPageSubSection>
+                            <l:VerticalLayout class="sapUiResponsiveMargin" width="100%"> 
+                                <m:FeedInput post="onPostComment" placeholder="Write a comment..." width="100%"/> 
+                                <m:List id="commentsList" width="100%" items="{path: '/ZC_BSK_LA_COMM'}"> 
+                                    <m:items>
+                                        <m:CustomListItem>
+                                            <m:VBox class="sapUiSmallMargin">
+                                                <m:Text text="{Title}" class="sapUiSmallMarginBottom"/>
+                                                <m:Text text="{Text}"/>
+                                                <m:Text text="{path: 'Created', type: 'sap.ui.model.type.DateTime', formatOptions: { style: 'short' }}" class="sapUiSmallMarginTop"/>
+                                            </m:VBox>
+                                        </m:CustomListItem>
+                                    </m:items>
+                                </m:List>
+                            </l:VerticalLayout>
+                        </ObjectPageSubSection>
+                    </subSections>
             </ObjectPageSection>
 
 
