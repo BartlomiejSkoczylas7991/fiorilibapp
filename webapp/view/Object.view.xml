@@ -41,8 +41,8 @@
         </headerTitle>
 
         <headerContent>
-                <m:FlexBox wrap="Wrap" fitContainer="true">
-                    <m:VBox visible="{= !${viewModel>/isEditMode}}" class="sapUiLargeMarginEnd sapUiSmallMarginBottom">
+                <m:FlexBox wrap="Wrap" fitContainer="true" class="sapUiResponsiveMargin">
+                    <m:VBox visible="{= !${viewModel>/isEditMode}? true : false}" class="sapUiLargeMarginEnd sapUiSmallMarginBottom">
                         <m:Title text="Solution ID" class="sapUiTinyMarginBottom" />
                         <m:Text text="{viewModel>/SolId}" />
                         <m:Title text="URL" class="sapUiTinyMarginBottom" />
