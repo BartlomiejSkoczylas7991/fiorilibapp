@@ -140,7 +140,9 @@
                             <m:Button text="Add Service" press="onAddNewServiceItem" />
                             <m:Button text="Delete Selected" press="onDeleteSelectedServices" />
                         </m:Toolbar>
-                        <m:Table id="editableTableService" mode="MultiSelect" visible="{= ${viewModel>/isEditMode}? true : false}" items="{path: 'viewDetail>/to_Service'}">
+                        <m:Table id="editableTableService" mode="MultiSelect" 
+                                visible="{= ${viewModel>/isEditMode}? true : false}" 
+                                items="{path: 'viewDetail>/to_Service'}">
                             <m:columns>
                                 <m:Column><m:Text text="Service ID" /></m:Column>
                                 <m:Column><m:Text text="URL" /></m:Column>
@@ -153,13 +155,13 @@
                             <m:items>
                                 <m:ColumnListItem>
                                     <m:cells>
-                                        <m:Text text="{ServiceId}" />
-                                        <m:Text text="{Url}" />
-                                        <m:Text text="{Version}" />
-                                        <m:Text text="{Description}" />
-                                        <m:Text text="{ExtServName}" />
-                                        <m:Text text="{SoftCompVersion}" />
-                                        <m:Text text="{BeAuthRole}" />
+                                        <m:Text text="{viewDetail>ServiceId}" />
+                                        <m:Text text="{viewDetail>Url}" />
+                                        <m:Text text="{viewDetail>Version}" />
+                                        <m:Text text="{viewDetail>Description}" />
+                                        <m:Text text="{viewDetail>ExtServName}" />
+                                        <m:Text text="{viewDetail>SoftCompVersion}" />
+                                        <m:Text text="{viewDetail>BeAuthRole}" />
                                     </m:cells>
                                 </m:ColumnListItem>
                             </m:items>
@@ -167,7 +169,7 @@
                     </m:VBox>
                     <m:VBox fitContainer="true" class="sapUiResponsiveMargin">
                         <m:Table id="readonlyTableService" 
-                                 visible="{= !${viewModel>/isEditMode}}" 
+                                 visible="{= !${viewModel>/isEditMode}? true : false}" 
                                  items="{path: 'viewModel>/to_Service'}" 
                                  width="100%"
                                  class="sapUiSizeFull">
