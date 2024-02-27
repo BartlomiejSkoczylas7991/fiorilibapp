@@ -72,6 +72,9 @@ sap.ui.define([
                     oDetailModel.setData(JSON.parse(JSON.stringify(oData)));
 
                     this._loadServices(sSolId);
+                    this._loadTarMaps(sSolId);
+                    this._loadVersion(sSolId);
+            
                 }.bind(this),
                 error: function (oError) {
                     MessageBox.error("Error during loading data.");
@@ -123,7 +126,7 @@ sap.ui.define([
                     success: function() {
                         MessageBox.success("New object created successfully.");
                         this.getView().getModel("viewModel").setProperty("/isEditMode", false);
-                        // mogę zrobić sobie nawigację do tego obiektu - generalnie rozwinąć do batcha
+
                         this.getOwnerComponent().getRouter().navTo("Worklist");
                     }.bind(this),
                     error: function() {
@@ -224,7 +227,7 @@ sap.ui.define([
                     var oDetailModel = this.getView().getModel("viewDetail");
 
                     oViewModel.setProperty("/to_Service", oData.results);
-                    oDetailModel.setProperty("/to_service", oData.results);
+                    oDetailModel.setProperty("/to_Service", oData.results);
 
                 }.bind(this),
                 error: function (oError) {
@@ -232,6 +235,94 @@ sap.ui.define([
                 }
             })
         },
+        // Version
+
+        onAddNewVersionItem: function() {
+            var oModel = this.getView().getModel("viewDetail");
+            var oNewVersion = oModel.getProperty("/newVersion");
+        
+            if (!oNewVersion.Title || !oNewVersion.Status) {
+                MessageBox.error("Please fill in all required fields.");
+                return;
+            }
+            var aVersions = oModel.getProperty("/to_Version") || [];
+            aVersions.push(Object.assign({}, oNewVersion));
+        
+            oModel.setProperty("/to_Version", aVersions);
+            oModel.setProperty("/newVersion", {Title: "", Status: "", Description: ""});
+        },
+
+        onDeleteSelectedVersions: function() {
+            var oTable = this.byId("editableTableVersion");
+            var aSelectedItems = oTable.getSelectedItems();
+            var oModel = this.getView().getModel("viewDetail");
+            var aVersions = oModel.getProperty("/to_Version") || [];
+        
+            for (var i = aSelectedItems.length - 1; i >= 0; i--) {
+                var oContext = aSelectedItems[i].getBindingContext("viewDetail");
+                if (oContext) {
+                    var iIndex = oContext.getPath().split("/").pop();
+                    aVersions.splice(parseInt(iIndex, 10), 1);
+                }
+            }
+        
+            oModel.setProperty("/to_Version", aVersions);
+            oTable.removeSelections();
+        },
+        
+        _manageVersions: function(updatedVersions, originalVersions) {
+            var oModel = this.getView().getModel();
+            var aBatchOperations = [];
+        
+            var originalVersionsMap = {};
+            originalVersions.forEach(function(version) {
+                originalVersionsMap[version.VersionId] = version;
+            });
+        
+            updatedVersions.forEach(function(version) {
+                if (version.VersionId && originalVersionsMap[version.VersionId]) {
+                    var sPath = "/Versions(" + version.VersionId + ")";
+                    aBatchOperations.push(oModel.createBatchOperation(sPath, "PUT", version));
+                } else if (!version.VersionId) {
+                    aBatchOperations.push(oModel.createBatchOperation("/Versions", "POST", version));
+                }
+            });
+        
+            originalVersions.forEach(function(version) {
+                if (!updatedVersions.find(function(updatedVersion) { return updatedVersion.VersionId === version.VersionId; })) {
+                    var sPath = "/Versions(" + version.VersionId + ")";
+                    aBatchOperations.push(oModel.createBatchOperation(sPath, "DELETE"));
+                }
+            });
+        
+            if (aBatchOperations.length > 0) {
+                oModel.addBatchChangeOperations(aBatchOperations);
+                oModel.submitBatch(function(oData) {
+                    MessageBox.success("Versions updated successfully.");
+                }, function(oError) {
+                    MessageBox.error("Error updating versions.");
+                });
+            }
+        },
+
+        _loadVersions: function (sSolId) {
+            var oModel = this.getOwnerComponent().getModel();
+            var sPath = "/ZC_BSK_LA_SOLUTION('" + sSolId + "')/to_Version";
+        
+            oModel.read(sPath, {
+                success: function (oData) {
+                    var oViewModel = this.getView().getModel("viewModel");
+                    var oDetailModel = this.getView().getModel("viewDetail");
+        
+                    oViewModel.setProperty("/to_Version", oData.results);
+                    oDetailModel.setProperty("/to_Version", oData.results);
+                }.bind(this),
+                error: function (oError) {
+                    MessageBox.error("Error during loading Versions.");
+                }
+            });
+        },
+        
 
         onDeletePress: function () {
             var oModel = this.getView().getModel();
@@ -277,42 +368,124 @@ sap.ui.define([
         });
         },
 
-        onPostComment: function (oEvent) {
+        onAddNewTarMapItem: function() {
+            var oModel = this.getView().getModel("viewDetail");
+            var oNewTarMap = oModel.getProperty("/Tar_Map");
+
+            if (!oNewTarMap.Key || !oNewTarMap.Value) {
+                MessageBox.error("Please fill in all required fields.");
+                return;
+            }
+            var aTarMaps = oModel.getProperty("/to_TarMap") || [];
+            aTarMaps.push(Object.assign({}, oNewTarMap)); 
+        
+            oModel.setProperty("/to_TarMap", aTarMaps);
+            oModel.setProperty("/newTarMap", {Key: "", Value: "", Description: "" })
+        },
+
+        onDeleteSelectedTarMaps: function() {
+            var oTable = this.byId("editableTableTarMap");
+            var aSelectedItems = oTable.getSelectedItems();
+            var oModel = this.getView().getModel("viewDetail");
+            var aTarMaps = oModel.getProperty("/to_Tar_Map") || [];
+        
+            for (var i = aSelectedItems.length - 1; i >= 0; i--) {
+                var oContext = aSelectedItems[i].getBindingContext("viewDetail");
+                if (oContext) {
+                    var iIndex = oContext.getPath().split("/").pop();
+                    aTarMaps.splice(parseInt(iIndex, 10), 1);
+                }
+            }
+        
+            oModel.setProperty("/to_Tar_Map", aTarMaps);
+            oTable.removeSelections();
+        },
+
+        _manageTarMaps: function(updatedTarMaps, originalTarMaps) {
+            var oModel = this.getView().getModel();
+            var aBatchOperations = [];
+        
+            var originalTarMapsMap = {};
+            originalTarMaps.forEach(function(tarMap) {
+                originalTarMapsMap[tarMap.TarMapId] = tarMap;
+            });
+        
+            updatedTarMaps.forEach(function(tarMap) {
+                if (tarMap.TarMapId && originalTarMapsMap[tarMap.TarMapId]) {
+                    var sPath = "/TarMap(" + tarMap.TarMapId + ")";
+                    aBatchOperations.push(oModel.createBatchOperation(sPath, "PUT", tarMap));
+                } else if (!tarMap.TarMapId) {
+                    aBatchOperations.push(oModel.createBatchOperation("/TarMap", "POST", tarMap));
+                }
+            });
+        
+            originalTarMaps.forEach(function(tarMap) {
+                if (!updatedTarMaps.find(function(updatedTarMap) { return updatedTarMap.TarMapId === tarMap.TarMapId; })){
+                    var sPath = "/TarMaps(" + tarMap.TarMapId + ")";
+                    aBatchOperations.push(oModel.createBatchOperation(sPath, "DELETE"));
+                }
+            });
+        
+            if (aBatchOperations.length > 0) {
+                oModel.addBatchChangeOperations(aBatchOperations);
+                oModel.submitBatch(function(oData) {
+                    MessageBox.success("TarMaps updated successfully.");
+                }, function(oError) {
+                    MessageBox.error("Error updating TarMaps.");
+                });
+            }
+        },
+
+        _loadTarMaps: function (sSolId) {
+            var oModel = this.getOwnerComponent().getModel();
+            var sPath = "/ZC_BSK_LA_SOLUTION('" + sSolId + "')/to_Tar_Map";
+        
+            oModel.read(sPath, {
+                success: function (oData) {
+                    var oViewModel = this.getView().getModel("viewModel");
+                    var oDetailModel = this.getView().getModel("viewDetail");
+                
+                    oViewModel.setProperty("/to_Tar_Map", oData.results);
+                    oDetailModel.setProperty("/to_Tar_Map", oData.results);
+                
+                }.bind(this),
+                error: function (oError) {
+                    MessageBox.error("Error during loading TarMaps.");
+                }
+            })
+        },
+
+        onPostComment: function(oEvent) {
             var oModel = this.getView().getModel();
             var sCommentText = oEvent.getParameter("value");
-        
+
             if (!sCommentText.trim()) {
-                MessageBox.warning("Please enter a comment.");
+                MessageBox.warning("Please Accept the comment.");
                 return;
             }
-        
-            if (!this._sSolId) {
-                MessageBox.error("Solution ID is not available.");
-                return;
-            }
-        
+
             var oNewComment = {
                 SolId: this._sSolId,
                 Title: "User Comment",
                 Text: sCommentText,
                 Created: new Date()
             };
-        
+
             oModel.create("/ZC_BSK_LA_COMM", oNewComment, {
-                success: function () {
+                success: function() {
                     MessageBox.success("Comment posted successfully.");
                     this._refreshComments(this._sSolId);
                 }.bind(this),
-                error: function () {
+                error: function() {
                     MessageBox.error("Error posting comment.");
                 }
             });
         },
 
-        _refreshComments: function (sSolId) {
+        _refreshComments: function(sSolId) {
             var oCommentsList = this.byId("commentsList");
             var oBinding = oCommentsList.getBinding("items");
-            oBinding.filter(new sap.ui.model.Filter("SolId", sap.ui.model.FilterOperator.EQ, sSolId));
+            oBinding.filter(new Filter("SolId", FilterOperator.EQ, sSolId));
             oBinding.refresh();
         }
     });
