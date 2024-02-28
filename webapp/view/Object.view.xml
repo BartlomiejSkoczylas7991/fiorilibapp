@@ -27,8 +27,8 @@
                 </snappedHeading>
                 <actions>
                     <m:Button text="Edit" type="Emphasized" press="onEditPress" visible="{= !${viewModel>/isEditMode}}" />
-                    <m:Button text="Save" press="onSavePress" visible="{= ${viewModel>/isEditMode}}" />
-                    <m:Button text="Cancel" press="onCancelPress" visible="{= ${viewModel>/isEditMode}}" />
+                    <m:Button text="Save" press="onSavePress" visible="{= ${viewModel>/isEditMode}? true : false}" />
+                    <m:Button text="Cancel" press="onCancelPress" visible="{= ${viewModel>/isEditMode}? true : false}" />
                     <m:Button text="Delete" press="onDeletePress" visible="{= !${viewModel>/isEditMode}}" />
                     <m:Button
                         id="buttonBack"
@@ -41,145 +41,348 @@
         </headerTitle>
 
         <headerContent>
-            <m:FlexBox wrap="Wrap" fitContainer="true">
-                <m:VBox visible="{= !${viewModel>/isEditMode}}" class="sapUiLargeMarginEnd sapUiSmallMarginBottom">
-                <m:Title text="URL" class="sapUiTinyMarginBottom" />
-                <m:Text text="{viewModel>/URL}" />
-                <m:Title text="Description" class="sapUiTinyMarginBottom" />
-                <m:Text text="{viewModel>/Description}" />
-            </m:VBox>
-            <f:SimpleForm id = ".idSimpleFormHeader" visible="{= ${viewModel>/isEditMode}? true : false}" layout="ResponsiveGridLayout" editable="true">
-                <f:content>
-                    <m:Label text="Technical Name" />
-                    <m:Input id="idInputTechnicalName" value="{viewDetail>/TechnicalName}" />
-                    <m:Label text="URL" />
-                    <m:Input id="idInputUrl" value="{viewDetail>/Url}" />
-                    <m:Label text="Description" />
-                    <m:TextArea id="idInputDescription" value="{viewDetail>/Description}" rows="4" />
-                </f:content>
-            </f:SimpleForm>
-            </m:FlexBox>
+                <m:FlexBox wrap="Wrap" fitContainer="true" class="sapUiResponsiveMargin">
+                    <m:VBox visible="{= !${viewModel>/isEditMode}? true : false}" class="sapUiLargeMarginEnd sapUiSmallMarginBottom">
+                        <m:Title text="Solution ID" class="sapUiTinyMarginBottom" />
+                        <m:Text text="{viewModel>/SolId}" />
+                        <m:Title text="URL" class="sapUiTinyMarginBottom" />
+                        <m:Text text="{viewModel>/URL}" />
+                        <m:Title text="Type" class="sapUiTinyMarginBottom" />
+                        <m:Text text="{viewModel>/TypeDescription}" />
+                        <m:Title text="Status" class="sapUiTinyMarginBottom" />
+                        <m:Text text="{viewModel>/StatusDescription}" />
+                        <m:Title text="Description" class="sapUiTinyMarginBottom" />
+                        <m:Text text="{viewModel>/Description}" />
+                    </m:VBox>
+                    <f:SimpleForm id="idSimpleFormHeader" visible="{= ${viewModel>/isEditMode}? true : false}" layout="ResponsiveGridLayout" editable="true">
+                        <f:content>
+                            <m:Label text="Technical Name" />
+                            <m:Input id="idInputTechnicalName" value="{viewDetail>/TechnicalName}" />
+                            <m:Label text="URL" />
+                            <m:Input id="idInputUrl" value="{viewDetail>/Url}" />
+                            <m:Label text="Type" />
+                            <m:Input id="idInputType" value="{viewDetail>/SolType}" />
+                            <m:Label text="Status" />
+                            <m:Input id="idInputStatus" value="{viewDetail>/Status}" />
+                            <m:Label text="Description" />
+                            <m:TextArea id="idInputDescription" value="{viewDetail>/Description}" rows="4" />
+                        </f:content>
+                    </f:SimpleForm>
+                </m:FlexBox>
         </headerContent>
 
         <sections>
-            <ObjectPageSection title="TargetMappings">
+            <ObjectPageSection title="Target Mappings">
         <subSections>
-             <ObjectPageSubSection>
-                    <m:Table id="targetMappingsTable" items="{path: 'to_Tar_Map'}">
-                        <m:columns>
-                            <m:Column>
-                                <m:Text text="Target Mapping ID" />
-                            </m:Column>
-                            <m:Column>
-                                <m:Text text="URL" />
-                            </m:Column>
-                            <m:Column>
-                                <m:Text text="Type" />
-                            </m:Column>
-                            <m:Column>
-                                <m:Text text="Param Value" />
-                            </m:Column>
-                        </m:columns>
-                        <m:items>
-                            <m:ColumnListItem>
-                                <m:cells>
-                                    <m:Text text="{TarMapId}" />
-                                    <m:Text text="{Url}" />
-                                    <m:Text text="{Type}" />
-                                    <m:Text text="{ParamValue}" />
-                                </m:cells>
-                            </m:ColumnListItem>
-                        </m:items>
-                    </m:Table>
-                </ObjectPageSubSection>
-            </subSections>
+                <ObjectPageSubSection>
+                    <m:VBox visible="{= ${viewModel>/isEditMode}? true : false}" class="sapUiResponsiveMargin">
+                        <f:SimpleForm id="idSimpleFormHeaderTargetMapping"
+                                      layout="ResponsiveGridLayout"
+                                      editable="true"
+                                      columnsL="2"
+                                      columnsM="1"
+                                      visible="{= ${viewModel>/isEditMode}? true : false}"
+                                      labelSpanL="3"
+                                      labelSpanM="3"
+                                      emptySpanL="4"
+                                      emptySpanM="4"
+                                      class="customFormLayout">
+                            <f:content>
+                                <m:Label text="URL" />
+                                <m:Input id="UrlTargetMapping" />
+                                <m:Label text="Type" />
+                                <m:Input id="TypeTargetMapping" />
+                                <m:Label text="Param Value" />
+                                <m:Input id="ParamValueTargetMapping" />
+                            </f:content>
+                        </f:SimpleForm>
+                        <m:Toolbar visible="{= ${viewModel>/isEditMode}? true : false}">
+                            <m:ToolbarSpacer />
+                            <m:Button text="Add Target Mapping" press="onAddNewTargetMappingItem" />
+                            <m:Button text="Delete Selected" press="onDeleteSelectedTargetMappings" />
+                        </m:Toolbar>
+                        <m:Table id="editableTableTargetMapping" mode="MultiSelect"
+                                 visible="{= ${viewModel>/isEditMode}? true : false}"
+                                 items="{path: 'viewDetail>/to_TargetMapping'}">
+                            <m:columns>
+                                <m:Column><m:Text text="Target Mapping ID" /></m:Column>
+                                <m:Column><m:Text text="URL" /></m:Column>
+                                <m:Column><m:Text text="Type" /></m:Column>
+                                <m:Column><m:Text text="Param Value" /></m:Column>
+                            </m:columns>
+                            <m:items>
+                                <m:ColumnListItem>
+                                    <m:cells>
+                                        <m:Text text="{viewDetail>TarMapId}" />
+                                        <m:Text text="{viewDetail>Url}" />
+                                        <m:Text text="{viewDetail>Type}" />
+                                        <m:Text text="{viewDetail>ParamValue}" />
+                                    </m:cells>
+                                </m:ColumnListItem>
+                            </m:items>
+                        </m:Table>
+                    </m:VBox>
+                    <m:VBox fitContainer="true" class="sapUiResponsiveMargin">
+                        <m:Table id="readonlyTableTargetMapping"
+                                 visible="{= !${viewModel>/isEditMode}? true : false}"
+                                 items="{path: 'viewModel>/to_TargetMapping'}"
+                                 width="100%"
+                                 class="sapUiSizeFull">
+                            <m:columns>
+                                <m:Column><m:Text text="Target Mapping ID" /></m:Column>
+                                <m:Column><m:Text text="URL" /></m:Column>
+                                <m:Column><m:Text text="Type" /></m:Column>
+                                <m:Column><m:Text text="Param Value" /></m:Column>
+                            </m:columns>
+                            <m:items>
+                                <m:ColumnListItem>
+                                    <m:cells>
+                                        <m:Text text="{viewModel>TarMapId}" />
+                                        <m:Text text="{viewModel>Url}" />
+                                        <m:Text text="{viewModel>Type}" />
+                                        <m:Text text="{viewModel>ParamValue}" />
+                                    </m:cells>
+                                </m:ColumnListItem>
+                                </m:items>
+                            </m:Table>
+                        </m:VBox>
+                    </ObjectPageSubSection>
+                </subSections>
             </ObjectPageSection>
+
 
             <ObjectPageSection title="Versions">
                 <subSections>
                     <ObjectPageSubSection>
-
+                        <m:VBox visible="{= ${viewModel>/isEditMode}? true : false}" class="sapUiResponsiveMargin">
+                            <f:SimpleForm id="idSimpleFormHeaderVersion" 
+                                          layout="ResponsiveGridLayout" 
+                                          editable="true" 
+                                          columnsL="2" 
+                                          columnsM="1"
+                                          visible="{= ${viewModel>/isEditMode}? true : false}"
+                                          labelSpanL="3" 
+                                          labelSpanM="3" 
+                                          emptySpanL="4" 
+                                          emptySpanM="4" 
+                                          class="customFormLayout">
+                                <f:content>
+                                    <m:Label text="Version ID" />
+                                    <m:Input id="VersionId" />
+                                    <m:Label text="Solution ID" />
+                                    <m:Input id="SolId" />
+                                    <m:Label text="Status" />
+                                    <m:Input id="Status" />
+                                    <m:Label text="Title" />
+                                    <m:Input id="TitleVersion" />
+                                    <m:Label text="Description" />
+                                    <m:TextArea id="DescriptionVersion" rows="4"/>
+                                </f:content>
+                            </f:SimpleForm>
+                            <m:Toolbar visible="{= ${viewModel>/isEditMode}? true : false}">
+                                <m:ToolbarSpacer />
+                                <m:Button text="Add Version" press="onAddNewVersionItem" />
+                                <m:Button text="Delete Selected" press="onDeleteSelectedVersions" />
+                            </m:Toolbar>
+                            <m:Table id="editableTableVersion" mode="MultiSelect" 
+                                    visible="{= ${viewModel>/isEditMode}? true : false}" 
+                                    items="{path: 'viewDetail>/to_Version'}">
+                                <m:columns>
+                                    <m:Column><m:Text text="Version ID" /></m:Column>
+                                    <m:Column><m:Text text="Solution ID" /></m:Column>
+                                    <m:Column><m:Text text="Status" /></m:Column>
+                                    <m:Column><m:Text text="Title" /></m:Column>
+                                    <m:Column><m:Text text="Description" /></m:Column>
+                                </m:columns>
+                                <m:items>
+                                    <m:ColumnListItem>
+                                        <m:cells>
+                                            <m:Text text="{viewDetail>VersionId}" />
+                                            <m:Text text="{viewDetail>SolId}" />
+                                            <m:Text text="{viewDetail>Status}" />
+                                            <m:Text text="{viewDetail>Title}" />
+                                            <m:Text text="{viewDetail>Description}" />
+                                        </m:cells>
+                                    </m:ColumnListItem>
+                                </m:items>
+                            </m:Table>
+                        </m:VBox>
+                        <m:VBox fitContainer="true" class="sapUiResponsiveMargin">
+                            <m:Table id="readonlyTableVersion" 
+                                     visible="{= !${viewModel>/isEditMode}? true : false}" 
+                                     items="{path: 'viewModel>/to_Version'}" 
+                                     width="100%"
+                                     class="sapUiSizeFull">
+                                <m:columns>
+                                    <m:Column>
+                                        <m:Text text="Version ID" />
+                                    </m:Column>
+                                    <m:Column>
+                                        <m:Text text="Solution ID" />
+                                    </m:Column>
+                                    <m:Column>
+                                        <m:Text text="Status" />
+                                    </m:Column>
+                                    <m:Column>
+                                        <m:Text text="Title" />
+                                    </m:Column>
+                                    <m:Column>
+                                        <m:Text text="Description" />
+                                    </m:Column>
+                                </m:columns>
+                                <m:items>
+                                    <m:ColumnListItem>
+                                        <m:cells>
+                                            <m:Text text="{viewModel>VersionId}" />
+                                            <m:Text text="{viewModel>SolId}" />
+                                            <m:Text text="{viewModel>Status}" />
+                                            <m:Text text="{viewModel>Title}" />
+                                            <m:Text text="{viewModel>Description}" />
+                                        </m:cells>
+                                    </m:ColumnListItem>
+                                </m:items>
+                            </m:Table>
+                        </m:VBox>
                     </ObjectPageSubSection>
                 </subSections>
             </ObjectPageSection>
+
 
             <!-- Sekcja Service -->
-            <ObjectPageSection title="Services">
-    <subSections>
-        <ObjectPageSubSection>
-            <m:Table id="servicesTable" items="{path: 'to_Service'}">
-                <m:columns>
-                    <m:Column>
-                        <m:Text text="Service ID" />
-                    </m:Column>
-                    <m:Column>
-                        <m:Text text="URL" />
-                    </m:Column>
-                    <m:Column>
-                        <m:Text text="Version" />
-                    </m:Column>
-                    <m:Column>
-                        <m:Text text="Description" />
-                    </m:Column>
-                    <m:Column>
-                        <m:Text text="ExtServName" />
-                    </m:Column>
-                    <m:Column>
-                        <m:Text text="SoftCompVersion" />
-                    </m:Column>
-                    <m:Column>
-                        <m:Text text="BeAuthRole" />
-                    </m:Column>
-                </m:columns>
-                <m:items>
-                    <m:ColumnListItem>
-                        <m:cells>
-                            <m:Text text="{ServiceId}" />
-                            <m:Text text="{Url}" />
-                            <m:Text text="{Version}" />
-                            <m:Text text="{Description}" />
-                            <m:Text text="{ExtServName}" />
-                            <m:Text text="{SoftCompVersion}" />
-                            <m:Text text="{BeAuthRole}" />
-                        </m:cells>
-                        </m:ColumnListItem>
-                        </m:items>
-                    </m:Table>
-                </ObjectPageSubSection>
-             </subSections>
+        <ObjectPageSection title="Services">
+            <subSections>
+                <ObjectPageSubSection>
+                    <m:VBox visible="{= ${viewModel>/isEditMode}? true : false}" class="sapUiResponsiveMargin">
+                            <f:SimpleForm id="idSimpleFormHeaderService" 
+                                          layout="ResponsiveGridLayout" 
+                                          editable="true" 
+                                          columnsL="2" 
+                                          columnsM="1"
+                                          visible="{= ${viewModel>/isEditMode}? true : false}"
+                                          labelSpanL="3" 
+                                          labelSpanM="3" 
+                                          emptySpanL="4" 
+                                          emptySpanM="4" 
+                                          class="customFormLayout">
+                                <f:content>
+                                    <m:Label text="Url of the Service" />
+                                    <m:Input id="UrlService" />
+                                    <m:Label text="Version" />
+                                    <m:Input id="VersionService" />
+                                    <m:Label text="Description" />
+                                    <m:TextArea id="DescriptionService" rows="4"/>
+                                    <m:Label text="External Service Name" />
+                                    <m:Input id="ExtServNameService" />
+                                    <m:Label text="Software Component Version" />
+                                    <m:Input id="SoftCompVersionService" />
+                                    <m:Label text="Authorization Role" />
+                                    <m:Input id="BeAuthRoleService" />
+                                </f:content>
+                            </f:SimpleForm>
+                                <m:Toolbar visible="{= ${viewModel>/isEditMode}? true : false}">
+                                    <m:ToolbarSpacer />
+                                    <m:Button text="Add Service" press="onAddNewServiceItem" />
+                                    <m:Button text="Delete Selected" press="onDeleteSelectedServices" />
+                                </m:Toolbar>
+                                <m:Table id="editableTableService" mode="MultiSelect" 
+                                        visible="{= ${viewModel>/isEditMode}? true : false}" 
+                                        items="{path: 'viewDetail>/to_Service'}">
+                                    <m:columns>
+                                        <m:Column><m:Text text="Service ID" /></m:Column>
+                                        <m:Column><m:Text text="URL" /></m:Column>
+                                        <m:Column><m:Text text="Version" /></m:Column>
+                                        <m:Column><m:Text text="Description" /></m:Column>
+                                        <m:Column><m:Text text="ExtServName" /></m:Column>
+                                        <m:Column><m:Text text="SoftCompVersion" /></m:Column>
+                                        <m:Column><m:Text text="BeAuthRole" /></m:Column>
+                                    </m:columns>
+                                    <m:items>
+                                        <m:ColumnListItem>
+                                            <m:cells>
+                                                <m:Text text="{viewDetail>ServiceId}" />
+                                                <m:Text text="{viewDetail>Url}" />
+                                                <m:Text text="{viewDetail>Version}" />
+                                                <m:Text text="{viewDetail>Description}" />
+                                                <m:Text text="{viewDetail>ExtServName}" />
+                                                <m:Text text="{viewDetail>SoftCompVersion}" />
+                                                <m:Text text="{viewDetail>BeAuthRole}" />
+                                            </m:cells>
+                                        </m:ColumnListItem>
+                                    </m:items>
+                                </m:Table>
+                            </m:VBox>
+                            <m:VBox fitContainer="true" class="sapUiResponsiveMargin">
+                                <m:Table id="readonlyTableService" 
+                                         visible="{= !${viewModel>/isEditMode}? true : false}" 
+                                         items="{path: 'viewModel>/to_Service'}" 
+                                         width="100%"
+                                         class="sapUiSizeFull">
+                                    <m:columns>
+                                        <m:Column>
+                                            <m:Text text="Service ID" />
+                                        </m:Column>
+                                        <m:Column>
+                                            <m:Text text="URL" />
+                                        </m:Column>
+                                        <m:Column>
+                                            <m:Text text="Version" />
+                                        </m:Column>
+                                        <m:Column>
+                                            <m:Text text="Description" />
+                                        </m:Column>
+                                        <m:Column>
+                                            <m:Text text="ExtServName" />
+                                        </m:Column>
+                                        <m:Column>
+                                            <m:Text text="SoftCompVersion" />
+                                        </m:Column>
+                                        <m:Column>
+                                            <m:Text text="BeAuthRole" />
+                                        </m:Column>
+                                    </m:columns>
+                                    <m:items>
+                                        <m:ColumnListItem>
+                                            <m:cells>
+                                                <m:Text text="{viewModel>ServiceId}" />
+                                                <m:Text text="{viewModel>Url}" />
+                                                <m:Text text="{viewModel>Version}" />
+                                                <m:Text text="{viewModel>Description}" />
+                                                <m:Text text="{viewModel>ExtServName}" />
+                                                <m:Text text="{viewModel>SoftCompVersion}" />
+                                                <m:Text text="{viewModel>BeAuthRole}" />
+                                            </m:cells>
+                                        </m:ColumnListItem>
+                                    </m:items>
+                                </m:Table>
+                            </m:VBox>
+                        </ObjectPageSubSection>
+                     </subSections>
+                </ObjectPageSection>
+
+                <ObjectPageSection title="Comments">
+                    <subSections>
+                        <ObjectPageSubSection>
+                            <l:VerticalLayout class="sapUiResponsiveMargin" width="100%"> 
+                                <m:FeedInput post="onPostComment" placeholder="Write a comment..." width="100%"/> 
+                                <m:List id="commentsList" width="100%" items="{path: '/ZC_BSK_LA_COMM'}"> 
+                                    <m:items>
+                                        <m:CustomListItem>
+                                            <m:VBox class="sapUiSmallMargin">
+                                                <m:Text text="{Title}" class="sapUiSmallMarginBottom"/>
+                                                <m:Text text="{Text}"/>
+                                                <m:Text text="{path: 'Created', type: 'sap.ui.model.type.DateTime', formatOptions: { style: 'short' }}" class="sapUiSmallMarginTop"/>
+                                            </m:VBox>
+                                        </m:CustomListItem>
+                                    </m:items>
+                                </m:List>
+                            </l:VerticalLayout>
+                        </ObjectPageSubSection>
+                    </subSections>
             </ObjectPageSection>
 
-            <!-- Sekcja Comments -->
-            <ObjectPageSection title="Comments">
-                <subSections>
-                    <ObjectPageSubSection>
-                        <l:VerticalLayout class="sapUiResponsiveMargin" width="100%"> 
-                            <m:FeedInput post="onPostComment" placeholder="Write a comment..." width="100%"/> 
-                            <m:List id="commentsList" width="100%" items="{path: '/ZC_BSK_LA_COMM'}"> 
-                                <m:items>
-                                    <m:CustomListItem>
-                                        <m:VBox class="sapUiSmallMargin">
-                                            <m:Text text="{Title}" class="sapUiSmallMarginBottom"/>
-                                            <m:Text text="{Text}"/>
-                                            <m:Text text="{path: 'Created', type: 'sap.ui.model.type.DateTime', formatOptions: { style: 'short' }}" class="sapUiSmallMarginTop"/>
-                                        </m:VBox>
-                                    </m:CustomListItem>
-                                </m:items>
-                            </m:List>
-                        </l:VerticalLayout>
-                    </ObjectPageSubSection>
-                </subSections>
-            </ObjectPageSection>
 
+    
 
-            <!-- Sekcja Attachments -->
-            <ObjectPageSection title="Attachments">
-                <subSections>
-                    <ObjectPageSubSection>
-
-                    </ObjectPageSubSection>
-                </subSections>
-            </ObjectPageSection>
         </sections>
     </ObjectPageLayout>
     </m:Page>
