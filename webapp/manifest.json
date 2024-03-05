@@ -17,7 +17,7 @@
     },
     "dataSources": {
       "mainService": {
-        "uri": "/sap/opu/odata/sap/ZBSK_LA_SOL/",
+        "uri": "/sap/opu/odata/sap/ZBSK_LA_SOL;v=2/",
         "type": "OData",
         "settings": {
           "annotations": [],
@@ -98,7 +98,8 @@
           "viewPath": "fiorilibappname.view",
           "controlId": "app",
           "controlAggregation": "pages",
-          "clearControlAggregation": false
+          "clearControlAggregation": false,
+          "fullWidth": true
       },
       "routes": [
           {

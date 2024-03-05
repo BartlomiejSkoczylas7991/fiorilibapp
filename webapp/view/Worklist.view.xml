@@ -7,36 +7,37 @@
     xmlns:smartTable="sap.ui.comp.smarttable"
     displayBlock="true"
     controllerName="fiorilibappname.controller.Worklist">
-    
-    <semantic:SemanticPage
-        id="page"
-        toggleHeaderOnTitleClick="false">
-        <semantic:titleHeading>
-			<Title text="{i18n>worklist}" />
-		</semantic:titleHeading>
-        
-        <semantic:content>
-            <VBox fitContainer="true">
-                <smartTable:SmartTable
-                    id="idSmartSolutionTable"
-                    entitySet="ZC_BSK_LA_SOLUTION"
-                    tableType="ResponsiveTable"
-                    showRowCount="true"
-                    enableAutoBinding="true"
-                    class="sapUiResponsiveContentPadding"
-                    useVariantManagement="true"
-                    useTablePersonalisation="true"
-                    header="{i18n>worklistTitle}"
-                    initiallyVisibleFields="SolId,TechnicalName,StatusDescription,ActionDescription">
-                        <smartTable:customToolbar>
-                            <OverflowToolbar>
-                                <ToolbarSpacer/>
-                                <Button icon="sap-icon://add" press="onAddButtonPress"/>
-                            </OverflowToolbar>
-                        </smartTable:customToolbar>
-                        <Table id="idSolutionTable" selectionChange="onPress" mode="SingleSelectMaster" />
-                </smartTable:SmartTable>
-            </VBox>
-        </semantic:content>
-    </semantic:SemanticPage>
+    <Shell id="shell" appWidthLimited="false">
+        <semantic:SemanticPage
+            id="page"
+            toggleHeaderOnTitleClick="false">
+            <semantic:titleHeading>
+	    		<Title text="{i18n>worklist}" />
+	    	</semantic:titleHeading>
+
+            <semantic:content>
+                <VBox fitContainer="true">
+                    <smartTable:SmartTable
+                        id="idSmartSolutionTable"
+                        entitySet="ZC_BSK_LA_SOLUTION"
+                        tableType="ResponsiveTable"
+                        showRowCount="true"
+                        enableAutoBinding="true"
+                        class="sapUiResponsiveContentPadding"
+                        useVariantManagement="true"
+                        useTablePersonalisation="true"
+                        header="{i18n>worklistTitle}"
+                        initiallyVisibleFields="SolId,TechnicalName,StatusDescription,ActionDescription">
+                            <smartTable:customToolbar>
+                                <OverflowToolbar>
+                                    <ToolbarSpacer/>
+                                    <Button icon="sap-icon://add" press="onAddButtonPress"/>
+                                </OverflowToolbar>
+                            </smartTable:customToolbar>
+                            <Table id="idSolutionTable" selectionChange="onPress" mode="SingleSelectMaster" />
+                    </smartTable:SmartTable>
+                </VBox>
+            </semantic:content>
+        </semantic:SemanticPage>
+    </Shell>
 </mvc:View>

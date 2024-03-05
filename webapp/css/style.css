@@ -1,8 +1,7 @@
-.formLayout {
-    width: auto;
-    margin: 1rem;
-}
+.sapMShellCentralBox {
 
-.customFormLayout {
-    margin: 20px;
-}
+    width : 100% !important;
+    
+    margin-left: 0px !important;
+
+    margin-right: 0px !important}
