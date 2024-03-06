@@ -32,10 +32,10 @@ sap.ui.define([
             let emptyData = {};
 
             if (sRouteName === "Create") {
-                oViewModel.setProperty("/isEditMode", true);
                 oViewModel.setData(emptyData);
                 oDetailModel.setData(emptyData); 
                 this.getView().getModel("viewDetail").setData(emptyData);
+                oViewModel.setProperty("/isEditMode", true);
             } else if (sRouteName === "Detail") {
                 this._sSolId = oEvent.getParameter("arguments").SolId;
                 oViewModel.setProperty("/isEditMode", false);

@@ -26,10 +26,10 @@
                     </m:HBox>
                 </snappedHeading>
                 <actions>
-                    <m:Button text="Edit" type="Emphasized" press="onEditPress" visible="{= !${viewModel>/isEditMode}}" />
-                    <m:Button text="Save" press="onSavePress" visible="{= ${viewModel>/isEditMode}}" />
-                    <m:Button text="Cancel" press="onCancelPress" visible="{= ${viewModel>/isEditMode}}" />
-                    <m:Button text="Delete" press="onDeletePress" visible="{= !${viewModel>/isEditMode}}" />
+                    <m:Button text="Edit" type="Emphasized" press="onEditPress" visible="{= !${viewModel>/isEditMode}? true : false}" />
+                    <m:Button text="Save" press="onSavePress" visible="{= ${viewModel>/isEditMode}? true : false}" />
+                    <m:Button text="Cancel" press="onCancelPress" visible="{= ${viewModel>/isEditMode}? true : false}" />
+                    <m:Button text="Delete" press="onDeletePress" visible="{= !${viewModel>/isEditMode}? true : false}" />
                     <m:Button
                         id="buttonBack"
                         text="Back"
