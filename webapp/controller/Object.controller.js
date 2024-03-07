@@ -63,21 +63,27 @@ sap.ui.define([
         },
         
         _loadData: function (sSolId) {
-            var oModel = this.getOwnerComponent().getModel();
-            var sPath = "/ZC_BSK_LA_SOLUTION('" + sSolId + "')";
-            var oViewModel = this.getView().getModel("viewModel");
-            var oDetailModel = this.getView().getModel("viewDetail");
+            var dataModel = this.getOwnerComponent().getModel("tableDataMock");
+            var solutions = dataModel.getProperty("/Solutions");
+            var selectedSolution = null;
         
-            oModel.read(sPath, {
-                success: function (oData) {
-                    oDetailModel.setData(oData); 
-                    oViewModel.setData(JSON.parse(JSON.stringify(oData)));
-                }.bind(this),
-                error: function (oError) {
-                    MessageBox.error("Error during loading data.");
+            for (var i = 0; i < solutions.length; i++) {
+                if (solutions[i].SolId === sSolId) {
+                    selectedSolution = solutions[i];
+                    break;
                 }
-            });
-        },        
+            }
+        
+            if (selectedSolution) {
+                var oViewModel = this.getView().getModel("viewModel");
+                var oDetailModel = this.getView().getModel("viewDetail");
+                oDetailModel.setData(selectedSolution);
+                oViewModel.setData(JSON.parse(JSON.stringify(selectedSolution)));
+            } else {
+                MessageBox.error("Error: Solution with SolId " + sSolId + " not found.");
+            }
+        }
+        ,        
 
         onNavBack: function () {
             this.getView().getModel("viewModel").setData({});

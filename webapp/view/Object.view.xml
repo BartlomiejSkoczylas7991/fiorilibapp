@@ -150,26 +150,6 @@
             </ObjectPageSection>
 
             <!-- Sekcja Comments -->
-            <ObjectPageSection title="Comments">
-                <subSections>
-                    <ObjectPageSubSection>
-                        <l:VerticalLayout class="sapUiResponsiveMargin" width="100%"> 
-                            <m:FeedInput post="onPostComment" placeholder="Write a comment..." width="100%"/> 
-                            <m:List id="commentsList" width="100%" items="{path: '/ZC_BSK_LA_COMM'}"> 
-                                <m:items>
-                                    <m:CustomListItem>
-                                        <m:VBox class="sapUiSmallMargin">
-                                            <m:Text text="{Title}" class="sapUiSmallMarginBottom"/>
-                                            <m:Text text="{Text}"/>
-                                            <m:Text text="{path: 'Created', type: 'sap.ui.model.type.DateTime', formatOptions: { style: 'short' }}" class="sapUiSmallMarginTop"/>
-                                        </m:VBox>
-                                    </m:CustomListItem>
-                                </m:items>
-                            </m:List>
-                        </l:VerticalLayout>
-                    </ObjectPageSubSection>
-                </subSections>
-            </ObjectPageSection>
 
 
             <!-- Sekcja Attachments -->

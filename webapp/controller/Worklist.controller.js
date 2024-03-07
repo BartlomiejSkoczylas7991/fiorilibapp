@@ -24,8 +24,8 @@ sap.ui.define([
           },
   
       onPress: function (oEvent) {
-        var oItem = oEvent.getParameter("listItem") || oEvent.getParameter("row");
-        var oBindingContext = oItem.getBindingContext();
+        var oItem = oEvent.getParameter("listItem") || oEvent.getSource();
+        var oBindingContext = oItem.getBindingContext("dataModel");
     
         if (!oBindingContext) {
             MessageBox.error("Nie znaleziono kontekstu wiązania.");

@@ -22,9 +22,12 @@
         
         <semantic:content>
             <VBox fitContainer="true">
-                <Table class="sapUiSizeCompact" id="table1" includeItemInSelection="true" items="{path: 'dataModel>/Solutions'}" mode="MultiSelect"
+                <Table class="sapUiSizeCompact" id="table1" includeItemInSelection="true" items="{path: 'dataModel>/Solutions'}" 
 						selectionChange="onselectionChange">
 						<columns>
+                            <Column>
+                                <Label text="ID"/>
+                            </Column>
 							<Column>
 								<Label text="Technical Name"/>
 							</Column>
@@ -39,6 +42,7 @@
 							</Column>
 						</columns>
 						<ColumnListItem press="onPress" type="Navigation">
+                            <Text text="{dataModel>SolId}"></Text>
 							<Text text="{dataModel>TechnicalName}"></Text>
 							<Text text="{dataModel>Subtitle}"></Text>
 							<Text text="{parts: [{path: 'dataModel>Description'}], formatter: '.truncateText'}"></Text>
