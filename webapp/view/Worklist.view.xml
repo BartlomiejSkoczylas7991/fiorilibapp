@@ -20,6 +20,7 @@
             <OverflowToolbar>
                 <ToolbarSpacer/>
                 <Button icon="sap-icon://add" press="onAddButtonPress"/>
+                <Button text="Choose Role" press="onOpenRoleDialog"/>
                 <Button type="Transparent" text="Delete"/>
             </OverflowToolbar>
         </semantic:headerContent>

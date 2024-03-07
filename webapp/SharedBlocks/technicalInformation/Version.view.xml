@@ -22,7 +22,7 @@
         <items>
             <ColumnListItem>
                 <cells>
-                    <Text text="{viewModel>TarMapId}"/>
+                    <Text text="{viewModel>VersionId}"/>
                     <Text text="{viewModel>Status}"/>
                     <Text text="{viewModel>Title}"/>
                     <Text text="{viewModel>Description}"/>

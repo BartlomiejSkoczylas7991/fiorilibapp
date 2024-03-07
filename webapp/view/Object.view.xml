@@ -51,6 +51,8 @@
         <headerContent>
             <m:FlexBox wrap="Wrap" fitContainer="true" >
                 <m:Avatar class="sapUiSmallMarginEnd" src="model/images/SDR_1.jpg" displaySize="L" />
+
+                
                 <layout:VerticalLayout class="sapUiSmallMarginBeginEnd">
 			    	<m:Label text="Component"/>
                     <m:Text text="{viewModel>/AppComponentText}"/>
@@ -59,10 +61,18 @@
 			    	<m:Label text="Type"/>
                     <m:Text text="{viewModel>/TypeDescription}"/>
 			    </layout:VerticalLayout>
+
+
                 <layout:VerticalLayout class="sapUiSmallMarginBeginEnd">
 			    	<m:Label text="Device"/>
                     <m:Text text="Desktop, Tablet"/>
 			    </layout:VerticalLayout>
+                <layout:VerticalLayout class="sapUiSmallMarginBeginEnd">
+			    	<m:Label text="Device"/>
+                    <m:Text text="Desktop, Tablet"/>
+			    </layout:VerticalLayout>
+
+
             </m:FlexBox>
         </headerContent>
 
@@ -84,7 +94,9 @@
                     </ObjectPageSubSection>
                     <ObjectPageSubSection title="Image">
                         <blocks>
-                            <m:Image src="{viewModel>/ImageUrl}" width="100px" height="100px"/>
+                            <m:VBox class="sapUiSmallMargin" fitContainer="true">
+                                <m:Image src="{viewModel>/ImageUrl}" width="100%" mode="Background" backgroundSize="cover" backgroundPosition="center"></m:Image>
+                            </m:VBox>
                         </blocks>
                     </ObjectPageSubSection>
                 </subSections>
@@ -126,6 +138,22 @@
                      </ObjectPageSubSection>
                  </subSections>
              </ObjectPageSection>
+             <ObjectPageSection title="Attachments">
+                <subSections>
+                    <ObjectPageSubSection title="Attachments">
+                        <blocks>
+                        </blocks>
+                    </ObjectPageSubSection>
+                </subSections>
+            </ObjectPageSection>
+            <ObjectPageSection title="Related Apps">
+                <subSections>
+                    <ObjectPageSubSection title="Related Apps">
+                        <blocks>
+                        </blocks>
+                    </ObjectPageSubSection>
+                </subSections>
+            </ObjectPageSection>
         </sections>
     </ObjectPageLayout>
     </m:Page>
