@@ -63,6 +63,47 @@ sap.ui.define([
             return sText;
         }
       },
+
+      onSearch: function(oEvent) {
+        var sQuery = oEvent.getParameter("query");
+        var oTable = this.byId("table1");
+        var oBinding = oTable.getBinding("items");
+        if (sQuery) {
+            var oFilter = new sap.ui.model.Filter([
+                new sap.ui.model.Filter("TechnicalName", sap.ui.model.FilterOperator.Contains, sQuery),
+                new sap.ui.model.Filter("Subtitle", sap.ui.model.FilterOperator.Contains, sQuery),
+                new sap.ui.model.Filter("Description", sap.ui.model.FilterOperator.Contains, sQuery),
+                new sap.ui.model.Filter("StatusDescription", sap.ui.model.FilterOperator.Contains, sQuery)
+            ], false);
+            oBinding.filter([oFilter]);
+        } else {
+            oBinding.filter([]);
+        }
+     },
+
+     onFilterByGroup: function(oEvent) {
+      var sQuery = oEvent.getParameter("query").toLowerCase();
+      var oTable = this.getView().byId("table1");
+      var oBinding = oTable.getBinding("items");
+      var oGroupFilter = new sap.ui.model.Filter("to_S_Group", function(oGroup) {
+          return oGroup.some(function(oItem) {
+              return oItem.GroupId.toLowerCase().indexOf(sQuery) > -1;
+          });
+      });
+      oBinding.filter([oGroupFilter]);
+    },
+  
+    onFilterByRole: function(oEvent) {
+        var sQuery = oEvent.getParameter("query").toLowerCase();
+        var oTable = this.getView().byId("table1");
+        var oBinding = oTable.getBinding("items");
+        var oRoleFilter = new sap.ui.model.Filter("to_S_Role", function(oRole) {
+            return oRole.some(function(oItem) {
+                return oItem.RoleId.toLowerCase().indexOf(sQuery) > -1;
+            });
+        });
+        oBinding.filter([oRoleFilter]);
+    },
       
       getResourceBundle: function () {
         return this.getOwnerComponent().getModel("i18n").getResourceBundle();

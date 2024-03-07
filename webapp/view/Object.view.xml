@@ -65,27 +65,34 @@
         </headerContent>
 
         <sections>
-            <ObjectPageSection titleUppercase="false" id="description_id" title="Business Description">
+            <ObjectPageSection title="Business Description" titleUppercase="false">
                 <subSections>
-                    <ObjectPageSubSection id="id_descriptionSS1" titleUppercase="false">
-                     <!--   <businessDescription:Description id="descr_block" description="{viewModel>/Description}"/> -->
+                    <ObjectPageSubSection>
+                        <blocks>
+                            <f:SimpleForm id="descriptionForm" maxContainerCols="2" editable="false" layout="ResponsiveGridLayout">
+                                <f:content>
+                                    <m:Label text="Description"/>
+                                    <m:Text text="{viewModel>/Description}"/>
+                                </f:content>
+                            </f:SimpleForm>
+                        </blocks>
                     </ObjectPageSubSection>
-                    <ObjectPageSubSection id="id_descriptionSS2" titleUppercase="false">
-                       <!-- <businessDescription:Image id="image_block"/> -->
+                    <ObjectPageSubSection>
+                        <blocks>
+                            <m:Image src="{viewModel>/ImageUrl}" width="100px" height="100px"/>
+                        </blocks>
                     </ObjectPageSubSection>
                 </subSections>
             </ObjectPageSection>
+            
+            <ObjectPageSection title="Technical Information" titleUppercase="false">
+                 <subSections>
+                     <ObjectPageSubSection>
+                         
+                     </ObjectPageSubSection>
+                 </subSections>
+             </ObjectPageSection>
 
-            <ObjectPageSection titleUppercase="false" id="id_technical_information" title="Technical Information">
-                <subSections>
-                    <ObjectPageSubSection id="id_service" titleUppercase="false">
-                       <!-- <technicalInformation:Service id="services_block"/> -->
-                    </ObjectPageSubSection>
-                    <ObjectPageSubSection id="id_tar_map" titleUppercase="false">
-                       <!-- <technicalInformation:Tar_Map id="tar_map_block"/> -->
-                    </ObjectPageSubSection>
-                </subSections>
-            </ObjectPageSection>
         </sections>
     </ObjectPageLayout>
     </m:Page>

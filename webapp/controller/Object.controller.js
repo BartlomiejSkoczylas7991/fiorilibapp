@@ -241,6 +241,16 @@ sap.ui.define([
             var oBinding = oCommentsList.getBinding("items");
             oBinding.filter(new sap.ui.model.Filter("SolId", sap.ui.model.FilterOperator.EQ, sSolId));
             oBinding.refresh();
+        },
+
+        onNavToDescription: function() {
+            var oObjectPageLayout = this.byId("ObjectPageLayout");
+            oObjectPageLayout.setSelectedSection(this.getView().byId("descriptionSection"));
+        },
+        
+        onNavToImage: function() {
+            var oObjectPageLayout = this.byId("ObjectPageLayout");
+            oObjectPageLayout.setSelectedSection(this.getView().byId("imageSection"));
         }
     });
 });

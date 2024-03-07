@@ -11,22 +11,37 @@
     <semantic:SemanticPage
         id="page"
         toggleHeaderOnTitleClick="false">
+
         <semantic:titleHeading>
 			<Title text="{i18n>worklist}" />
 		</semantic:titleHeading>
            
         <semantic:headerContent>
             <OverflowToolbar>
-                                <ToolbarSpacer/>
-                                <Button icon="sap-icon://add" press="onAddButtonPress"/>
+                <ToolbarSpacer/>
+                <Button icon="sap-icon://add" press="onAddButtonPress"/>
+                <Button type="Transparent" text="Delete"/>
             </OverflowToolbar>
         </semantic:headerContent>
         
         <semantic:content>
             <VBox fitContainer="true">
-                <Table class="sapUiSizeCompact" id="table1" includeItemInSelection="true" items="{path: 'dataModel>/Solutions'}" 
-						selectionChange="onselectionChange">
+                <Toolbar>
+                    <Label text="Filter by Group:"/>
+                    <SearchField width="auto" search="onFilterByGroup"/>
+                    <Label text="Filter by Role:"/>
+                    <SearchField width="auto" search="onFilterByRole"/>
+                    <SearchField width="100%" search="onSearch"/>
+                </Toolbar>
+                <Table  class="sapUiSizeCompact" 
+                        id="table1" 
+                        includeItemInSelection="true" 
+                        items="{path: 'dataModel>/Solutions'}" 
+						selectionChange="onSelectionChange">
 						<columns>
+                            <Column>
+                                <Label text="Select"/>
+                            </Column>
                             <Column>
                                 <Label text="ID"/>
                             </Column>
@@ -47,6 +62,7 @@
                             </Column>
 						</columns>
 						<ColumnListItem press="onPress" type="Navigation">
+                            <CheckBox select="onSelect"/>
                             <Text text="{dataModel>SolId}"></Text>
 							<Text text="{dataModel>TechnicalName}"></Text>
 							<Text text="{dataModel>Subtitle}"></Text>
