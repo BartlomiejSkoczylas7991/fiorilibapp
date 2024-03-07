@@ -1,31 +1,31 @@
 <mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m">
-    <Table items="{viewModel>/to_Tar_Map}">
+    <Table items="{viewModel>/to_Version}">
         <headerToolbar>
             <Toolbar>
-                <Title text="Target Mappings"/>
+                <Title text="Version(s)"/>
             </Toolbar>
         </headerToolbar>
         <columns>
             <Column>
-                <Text text="TarMapId"/>
+                <Text text="VersionId"/>
             </Column>
             <Column>
-                <Text text="Type"/>
+                <Text text="Status"/>
             </Column>
             <Column>
-                <Text text="Url"/>
+                <Text text="Title"/>
             </Column>
             <Column>
-                <Text text="ParamValue"/>
+                <Text text="Description"/>
             </Column>
         </columns>
         <items>
             <ColumnListItem>
                 <cells>
                     <Text text="{viewModel>TarMapId}"/>
-                    <Text text="{viewModel>Type}"/>
-                    <Link text="{viewModel>Url}" href="{viewModel>Url}" target="_blank"/>
-                    <Text text="{viewModel>ParamValue}"/>
+                    <Text text="{viewModel>Status}"/>
+                    <Text text="{viewModel>Title}"/>
+                    <Text text="{viewModel>Description}"/>
                 </cells>
             </ColumnListItem>
         </items>

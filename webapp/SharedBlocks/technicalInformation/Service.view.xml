@@ -1,5 +1,45 @@
 <mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m">
-    <VBox class="sapUiSmallMargin">
-          <!-- Table Service -->
-    </VBox>
+    <Table items="{viewModel>/to_Service}">
+        <headerToolbar>
+            <Toolbar>
+                <Title text="Odata Service(s)"/>
+            </Toolbar>
+        </headerToolbar>
+        <columns>
+            <Column>
+                <Text text="Service ID"/>
+            </Column>
+            <Column>
+                <Text text="Description"/>
+            </Column>
+            <Column>
+                <Text text="Version"/>
+            </Column>
+            <Column>
+                <Text text="Url"/>
+            </Column>
+            <Column>
+                <Text text="ExtServName"/>
+            </Column>
+            <Column>
+                <Text text="SoftCompVersion"/>
+            </Column>
+            <Column>
+                <Text text="BeAuthRole"/>
+            </Column>
+        </columns>
+        <items>
+            <ColumnListItem>
+                <cells>
+                    <Text text="{viewModel>ServiceId}"/>
+                    <Text text="{viewModel>Description}"/>
+                    <Text text="{viewModel>Version}"/>
+                    <Link text="{viewModel>Url}" href="{viewModel>Url}" target="_blank"/>
+                    <Text text="{viewModel>ExtServName}"/>
+                    <Text text="{viewModel>SoftCompVersion}"/>
+                    <Text text="{viewModel>BeAuthRole}"/>
+                </cells>
+            </ColumnListItem>
+        </items>
+    </Table>
 </mvc:View>

@@ -117,8 +117,7 @@ sap.ui.define([
             } else {
                 MessageBox.error("Error: Solution with SolId " + sSolId + " not found.");
             }
-        }
-        ,        
+        },        
 
         onNavBack: function () {
             this.getView().getModel("viewModel").setData({});

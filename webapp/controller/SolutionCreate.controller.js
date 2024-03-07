@@ -8,10 +8,7 @@ sap.ui.define([
     return Controller.extend("fiorilibappname.controller.SolutionCreate", {
         onInit: function () {
             var oModel = new JSONModel({
-                newSolution: {
-                    TechnicalName: "",
-                    Url: "",
-                },
+                newSolution: {},
                 targetMappings: [],
                 services: [],
                 versions: []

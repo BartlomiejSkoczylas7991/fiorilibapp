@@ -121,6 +121,10 @@
               "./SharedBlocks/technicalInformation/Service.view.xml",
               "./SharedBlocks/technicalInformation/Tar_Map.js",
               "./SharedBlocks/technicalInformation/Tar_Map.view.xml",
+              "./SharedBlocks/technicalInformation/Version.js",
+              "./SharedBlocks/technicalInformation/Version.view.xml",
+              "./SharedBlocks/importantNotes/Comments.js",
+              "./SharedBlocks/importantNotes/Comments.view.xml",
               "manifest.json"
             ]
           }

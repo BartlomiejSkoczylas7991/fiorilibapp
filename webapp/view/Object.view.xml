@@ -9,6 +9,7 @@
     xmlns:f="sap.ui.layout.form"
     xmlns:description="fiorilibappname.SharedBlocks.businessDescription"
     xmlns:tech_inf="fiorilibappname.SharedBlocks.technicalInformation"
+    xmlns:imp_notes="fiorilibappname.SharedBlocks.ImportantNotes"
     height="100%">
     <m:Page>
     <ObjectPageLayout 
@@ -70,13 +71,13 @@
                 <subSections>
                     <ObjectPageSubSection title="Description">
                         <blocks>
-                            <description:Description id="descrblock" description="{viewModel>/Description}"/>
-                            <f:SimpleForm id="descriptionForm">
+                            <description:Description id="descrblock" description="{viewModel>/Description}" visible="{= !${viewModel>/isEditMode}? true : false}"/>
+                            <f:SimpleForm id="descriptionForm" editable="{= ${viewModel>/isEditMode}? true : false}" visible="{= ${viewModel>/isEditMode}? true : false}">
                                 <f:content>
                                     <m:Label text="Description"/>
-                                    <m:Text text="{viewModel>/Description}"/>
+                                    <m:TextArea value="{viewDetail>/Description}" rows="10"/>
                                     <m:Label text="URL"/>
-                                    <m:Link text="{viewModel>/URL}" href="{viewModel>/URL}" target="_blank"/>
+                                    <m:Input value="{viewDetail>/URL}"/>
                                 </f:content>
                             </f:SimpleForm>
                         </blocks>
@@ -88,14 +89,40 @@
                     </ObjectPageSubSection>
                 </subSections>
             </ObjectPageSection>
+
+            <ObjectPageSection title="Important Notes">
+                <subSections>
+                    <ObjectPageSubSection title="ImportantNotes">
+                        <blocks>
+                            <imp_notes:Comments/>
+                        </blocks>
+                    </ObjectPageSubSection>
+                </subSections>
+            </ObjectPageSection>
             
             <ObjectPageSection title="Technical Information">
                  <subSections>
+                     <ObjectPageSubSection title="Overview">
+                        <blocks>
+                            <m:VBox class="sapUiSmallMargin">
+                                <m:Link text="SAP Fiori Overview" href="https://help.sap.com/docs/SAP_S4HANA_ON-PREMISE/22bbe89ef68b4d0e98d05f0d56a7f6c8/4c1048feb4ea4f7d81ccbc47233a0d68.html?locale=en-US" target="_blank"/>
+                            </m:VBox>
+                        </blocks>
+                    </ObjectPageSubSection>
                      <ObjectPageSubSection title="Services">
-                         <tech_inf:Service/>
+                        <blocks>
+                            <tech_inf:Service/>
+                        </blocks>
                      </ObjectPageSubSection>
                      <ObjectPageSubSection title="Target Map">
-                         <tech_inf:Tar_Map/>
+                        <blocks>
+                            <tech_inf:Tar_Map/>
+                        </blocks>
+                     </ObjectPageSubSection>
+                     <ObjectPageSubSection title="Versions">
+                        <blocks>
+                            <tech_inf:Version/>
+                        </blocks>
                      </ObjectPageSubSection>
                  </subSections>
              </ObjectPageSection>

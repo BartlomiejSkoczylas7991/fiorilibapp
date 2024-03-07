@@ -1,0 +1,41 @@
+<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m">
+    <Table items="{viewModel>/to_Comments}">
+        <headerToolbar>
+            <Toolbar>
+                <Title text="Important Notes"/>
+            </Toolbar>
+        </headerToolbar>
+        <columns>
+            <Column>
+                <Text text="Note Number"/>
+            </Column>
+            <Column>
+                <Text text="Title"/>
+            </Column>
+            <Column>
+                <Text text="System"/>
+            </Column>
+            <Column>
+                <Text text="Created"/>
+            </Column>
+            <Column>
+                <Text text="CreatedBy"/>
+            </Column>
+            <Column>
+                <Text text="Text"/>
+            </Column>
+        </columns>
+        <items>
+            <ColumnListItem>
+                <cells>
+                    <Text text="{viewModel>NoteNumber}"/>
+                    <Text text="{viewModel>Title}"/>
+                    <Text text="{viewModel>System}"/>
+                    <Text text="{viewModel>Created}"/>
+                    <Text text="{viewModel>CreatedBy}"/>
+                    <Text text="{viewModel>Text}"/>
+                </cells>
+            </ColumnListItem>
+        </items>
+    </Table>
+</mvc:View>

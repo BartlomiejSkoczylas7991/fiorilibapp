@@ -1,5 +1,6 @@
 <mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m">
     <VBox class="sapUiSmallMargin">
-        <Text text="{description}" />
+        <Text text="{viewModel>/Description}" />
+        <Link text="{viewModel>/URL}" href="{viewModel>/URL}" target="_blank"/>
     </VBox>
 </mvc:View>
