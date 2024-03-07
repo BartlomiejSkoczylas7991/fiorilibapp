@@ -5,8 +5,10 @@
     xmlns="sap.uxap"
     xmlns:m="sap.m"
     xmlns:core="sap.ui.core"
-    xmlns:l="sap.ui.layout"
+    xmlns:layout="sap.ui.layout"
     xmlns:f="sap.ui.layout.form"
+    xmlns:description="fiorilibappname.SharedBlocks.businessDescription"
+    xmlns:tech_inf="fiorilibappname.SharedBlocks.technicalInformation"
     height="100%">
     <m:Page>
     <ObjectPageLayout 
@@ -16,8 +18,7 @@
         enableLazyLoading="true"
 		beforeNavigate="onBeforeNavigate"
 		useIconTabBar="true"
-		showTitleInHeaderContent="true"
-        >
+		showTitleInHeaderContent="true">
         <headerTitle>
             <ObjectPageDynamicHeaderTitle>
                 <expandedHeading>
@@ -49,35 +50,38 @@
         <headerContent>
             <m:FlexBox wrap="Wrap" fitContainer="true" >
                 <m:Avatar class="sapUiSmallMarginEnd" src="model/images/SDR_1.jpg" displaySize="L" />
-                <l:VerticalLayout class="sapUiSmallMarginBeginEnd">
+                <layout:VerticalLayout class="sapUiSmallMarginBeginEnd">
 			    	<m:Label text="Component"/>
                     <m:Text text="{viewModel>/AppComponentText}"/>
-			    </l:VerticalLayout>
-                <l:VerticalLayout class="sapUiSmallMarginBeginEnd">
+			    </layout:VerticalLayout>
+                <layout:VerticalLayout class="sapUiSmallMarginBeginEnd">
 			    	<m:Label text="Type"/>
                     <m:Text text="{viewModel>/TypeDescription}"/>
-			    </l:VerticalLayout>
-                <l:VerticalLayout class="sapUiSmallMarginBeginEnd">
+			    </layout:VerticalLayout>
+                <layout:VerticalLayout class="sapUiSmallMarginBeginEnd">
 			    	<m:Label text="Device"/>
                     <m:Text text="Desktop, Tablet"/>
-			    </l:VerticalLayout>
+			    </layout:VerticalLayout>
             </m:FlexBox>
         </headerContent>
 
         <sections>
-            <ObjectPageSection title="Business Description" titleUppercase="false">
+            <ObjectPageSection title="Business Description">
                 <subSections>
-                    <ObjectPageSubSection>
+                    <ObjectPageSubSection title="Description">
                         <blocks>
-                            <f:SimpleForm id="descriptionForm" maxContainerCols="2" editable="false" layout="ResponsiveGridLayout">
+                            <description:Description id="descrblock" description="{viewModel>/Description}"/>
+                            <f:SimpleForm id="descriptionForm">
                                 <f:content>
                                     <m:Label text="Description"/>
                                     <m:Text text="{viewModel>/Description}"/>
+                                    <m:Label text="URL"/>
+                                    <m:Link text="{viewModel>/URL}" href="{viewModel>/URL}" target="_blank"/>
                                 </f:content>
                             </f:SimpleForm>
                         </blocks>
                     </ObjectPageSubSection>
-                    <ObjectPageSubSection>
+                    <ObjectPageSubSection title="Image">
                         <blocks>
                             <m:Image src="{viewModel>/ImageUrl}" width="100px" height="100px"/>
                         </blocks>
@@ -85,14 +89,16 @@
                 </subSections>
             </ObjectPageSection>
             
-            <ObjectPageSection title="Technical Information" titleUppercase="false">
+            <ObjectPageSection title="Technical Information">
                  <subSections>
-                     <ObjectPageSubSection>
-                         
+                     <ObjectPageSubSection title="Services">
+                         <tech_inf:Service/>
+                     </ObjectPageSubSection>
+                     <ObjectPageSubSection title="Target Map">
+                         <tech_inf:Tar_Map/>
                      </ObjectPageSubSection>
                  </subSections>
              </ObjectPageSection>
-
         </sections>
     </ObjectPageLayout>
     </m:Page>

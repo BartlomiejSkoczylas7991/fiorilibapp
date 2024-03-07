@@ -98,7 +98,13 @@
         "Description": "The second release of the solution, now deprecated."
       }
     ],
-    "to_Attachment": []
+    "to_Attachment": [],
+    "Images": [
+      {
+        "Name": "First Image",
+        "Pic": "./model/images/SDR_1.jpg"
+      }
+    ]
   },
   {
     "SolId": "0000000002",

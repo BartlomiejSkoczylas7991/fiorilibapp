@@ -113,14 +113,15 @@
             "files": [
               "view/Object.view.xml",
               "controller/Object.controller.js",
-              "./SharedBlocks/businessDescription/Description.controller.js",
+              "./SharedBlocks/businessDescription/Description.js",
               "./SharedBlocks/businessDescription/Description.view.xml",
-              "./SharedBlocks/businessDescription/Image.controller.js",
+              "./SharedBlocks/businessDescription/Image.js",
               "./SharedBlocks/businessDescription/Image.view.xml",
-              "./SharedBlocks/technicalInformation/Service.controller.js",
+              "./SharedBlocks/technicalInformation/Service.js",
               "./SharedBlocks/technicalInformation/Service.view.xml",
-              "./SharedBlocks/technicalInformation/Tar_Map.controller.js",
-              "./SharedBlocks/technicalInformation/Tar_Map.view.xml"
+              "./SharedBlocks/technicalInformation/Tar_Map.js",
+              "./SharedBlocks/technicalInformation/Tar_Map.view.xml",
+              "manifest.json"
             ]
           }
       },
@@ -169,6 +170,9 @@
       "type": "XML",
       "async": true,
       "id": "App"
+    },
+    "resourceRoots": {
+      "fiorilibappname.SharedBlocks": "./SharedBlocks"
     }
   }
 }

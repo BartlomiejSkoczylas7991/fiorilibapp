@@ -61,6 +61,41 @@ sap.ui.define([
             };
             this.getView().getModel().setData(oNewSolutionData);
         },
+
+        onBeforeNavigate: function (oEvent) {
+            var oViewModel = this.getView().getModel("viewModel");
+        
+            if (!oViewModel.getProperty("/isEditMode")) {
+                return;
+            }
+        
+            var oSection = oEvent.getParameter("section");
+            oEvent.preventDefault();
+        
+            if (!this.oDialog) {
+                this.oDialog = new Dialog({
+                    title: "Unsaved changes",
+                    content: new Text({text: "You are in 'Edit' mode. Are you sure you want to navigate to other section?"}),
+                    beginButton: new Button({
+                        text: "OK",
+                        press: function () {
+                            this.oDialog.close();
+                            this.getView().byId("ObjectPageLayout").setSelectedSection(oSection);
+                        }.bind(this)
+                    }),
+                    endButton: new Button({
+                        text: "Cancel",
+                        press: function () {
+                            this.oDialog.close();
+                        }.bind(this)
+                    })
+                });
+        
+                this.getView().addDependent(this.oDialog);
+            }
+        
+            this.oDialog.open();
+        },
         
         _loadData: function (sSolId) {
             var dataModel = this.getOwnerComponent().getModel("tableDataMock");
