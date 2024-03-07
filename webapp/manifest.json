@@ -107,7 +107,22 @@
           "viewPath": "fiorilibappname.view",
           "controlId": "app",
           "controlAggregation": "pages",
-          "clearControlAggregation": false
+          "clearControlAggregation": false,
+          "sample": {
+            "stretch": true,
+            "files": [
+              "view/Object.view.xml",
+              "controller/Object.controller.js",
+              "./SharedBlocks/businessDescription/Description.controller.js",
+              "./SharedBlocks/businessDescription/Description.view.xml",
+              "./SharedBlocks/businessDescription/Image.controller.js",
+              "./SharedBlocks/businessDescription/Image.view.xml",
+              "./SharedBlocks/technicalInformation/Service.controller.js",
+              "./SharedBlocks/technicalInformation/Service.view.xml",
+              "./SharedBlocks/technicalInformation/Tar_Map.controller.js",
+              "./SharedBlocks/technicalInformation/Tar_Map.view.xml"
+            ]
+          }
       },
       "routes": [
           {
