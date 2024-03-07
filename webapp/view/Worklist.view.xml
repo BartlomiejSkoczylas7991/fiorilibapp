@@ -42,6 +42,9 @@
 							<Column>
 								<Label text="Status"/>
 							</Column>
+                            <Column popinDisplay="Inline" demandPopin="true">
+                                <Label text="Image"/>
+                            </Column>
 						</columns>
 						<ColumnListItem press="onPress" type="Navigation">
                             <Text text="{dataModel>SolId}"></Text>
@@ -49,6 +52,7 @@
 							<Text text="{dataModel>Subtitle}"></Text>
 							<Text text="{parts: [{path: 'dataModel>Description'}], formatter: '.truncateText'}"></Text>
 							<Text text="{dataModel>StatusDescription}"></Text>
+                            <Image src="model/image/SDR_1.jpg" width="5rem" height="5rem" />
 						</ColumnListItem>
 					</Table>
             </VBox>

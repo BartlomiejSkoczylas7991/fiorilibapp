@@ -35,14 +35,6 @@
 					<m:Text text="{viewModel>/TypeDescription}"/>
 				</expandedContent>
 
-				<snappedContent>
-					<m:Text text="{viewModel>/TypeDescription}"/>
-				</snappedContent>
-
-				<snappedTitleOnMobile>
-					<m:Title text="{viewModel>/TypeDescription}"/>
-				</snappedTitleOnMobile>
-
                 <actions>
                     <m:Button text="Edit" type="Emphasized" press="onEditPress" visible="{= !${viewModel>/isEditMode}? true : false}" />
                     <m:Button text="Save" press="onSavePress" visible="{= ${viewModel>/isEditMode}? true : false}" />
@@ -56,115 +48,41 @@
 
         <headerContent>
             <m:FlexBox wrap="Wrap" fitContainer="true" >
-                <m:Avatar class="sapUiSmallMarginEnd" src="./model/images/SDR_1.jpg" displaySize="L" />
-                <layout:VerticalLayout class="sapUiSmallMarginBeginEnd">
-			    	<m:Label text="viewModel>/AppComponentText"/>
-			    </layout:VerticalLayout>
-                <layout:VerticalLayout class="sapUiSmallMarginBeginEnd">
-			    	<m:Label text="viewModel>/TypeDescription"/>
-			    </layout:VerticalLayout>
-                <layout:VerticalLayout class="sapUiSmallMarginBeginEnd">
-			    	<m:Label text="Desktop, Tablet"/>
-			    </layout:VerticalLayout>
+                <m:Avatar class="sapUiSmallMarginEnd" src="model/images/SDR_1.jpg" displaySize="L" />
+                <l:VerticalLayout class="sapUiSmallMarginBeginEnd">
+			    	<m:Label text="Component"/>
+                    <m:Text text="{viewModel>/AppComponentText}"/>
+			    </l:VerticalLayout>
+                <l:VerticalLayout class="sapUiSmallMarginBeginEnd">
+			    	<m:Label text="Type"/>
+                    <m:Text text="{viewModel>/TypeDescription}"/>
+			    </l:VerticalLayout>
+                <l:VerticalLayout class="sapUiSmallMarginBeginEnd">
+			    	<m:Label text="Device"/>
+                    <m:Text text="Desktop, Tablet"/>
+			    </l:VerticalLayout>
             </m:FlexBox>
         </headerContent>
 
         <sections>
-            <ObjectPageSection title="TargetMappings">
-            <subSections>
-                 <ObjectPageSubSection>
-                        <m:Table id="targetMappingsTable" items="{path: 'to_Tar_Map'}">
-                            <m:columns>
-                                <m:Column>
-                                    <m:Text text="Target Mapping ID" />
-                                </m:Column>
-                                <m:Column>
-                                    <m:Text text="URL" />
-                                </m:Column>
-                                <m:Column>
-                                    <m:Text text="Type" />
-                                </m:Column>
-                                <m:Column>
-                                    <m:Text text="Param Value" />
-                                </m:Column>
-                            </m:columns>
-                            <m:items>
-                                <m:ColumnListItem>
-                                    <m:cells>
-                                        <m:Text text="{TarMapId}" />
-                                        <m:Text text="{Url}" />
-                                        <m:Text text="{Type}" />
-                                        <m:Text text="{ParamValue}" />
-                                    </m:cells>
-                                </m:ColumnListItem>
-                            </m:items>
-                        </m:Table>
+            <ObjectPageSection titleUppercase="false" id="description_id" title="Business Description">
+                <subSections>
+                    <ObjectPageSubSection id="id_descriptionSS1" titleUppercase="false">
+                     <!--   <businessDescription:Description id="descr_block" description="{viewModel>/Description}"/> -->
+                    </ObjectPageSubSection>
+                    <ObjectPageSubSection id="id_descriptionSS2" titleUppercase="false">
+                       <!-- <businessDescription:Image id="image_block"/> -->
                     </ObjectPageSubSection>
                 </subSections>
-                </ObjectPageSection>
-    
-                <ObjectPageSection title="Versions">
-                    <subSections>
-                        <ObjectPageSubSection>
-    
-                        </ObjectPageSubSection>
-                    </subSections>
-                </ObjectPageSection>
-    
-                <!-- Sekcja Service -->
-                <ObjectPageSection title="Services">
-    <subSections>
-        <ObjectPageSubSection>
-            <m:Table id="servicesTable" items="{path: 'to_Service'}">
-                <m:columns>
-                    <m:Column>
-                        <m:Text text="Service ID" />
-                    </m:Column>
-                    <m:Column>
-                        <m:Text text="URL" />
-                    </m:Column>
-                    <m:Column>
-                        <m:Text text="Version" />
-                    </m:Column>
-                    <m:Column>
-                        <m:Text text="Description" />
-                    </m:Column>
-                    <m:Column>
-                        <m:Text text="ExtServName" />
-                    </m:Column>
-                    <m:Column>
-                        <m:Text text="SoftCompVersion" />
-                    </m:Column>
-                    <m:Column>
-                        <m:Text text="BeAuthRole" />
-                    </m:Column>
-                </m:columns>
-                <m:items>
-                    <m:ColumnListItem>
-                        <m:cells>
-                            <m:Text text="{ServiceId}" />
-                            <m:Text text="{Url}" />
-                            <m:Text text="{Version}" />
-                            <m:Text text="{Description}" />
-                            <m:Text text="{ExtServName}" />
-                            <m:Text text="{SoftCompVersion}" />
-                            <m:Text text="{BeAuthRole}" />
-                        </m:cells>
-                        </m:ColumnListItem>
-                        </m:items>
-                    </m:Table>
-                </ObjectPageSubSection>
-             </subSections>
             </ObjectPageSection>
 
-            <!-- Sekcja Comments -->
-
-
-            <!-- Sekcja Attachments -->
-            <ObjectPageSection title="Attachments">
+            <ObjectPageSection titleUppercase="false" id="id_technical_information" title="Technical Information">
                 <subSections>
-                    <ObjectPageSubSection>
-
+                    <ObjectPageSubSection id="id_service" titleUppercase="false">
+                       <!-- <technicalInformation:Service id="services_block"/> -->
+                    </ObjectPageSubSection>
+                    <ObjectPageSubSection id="id_tar_map" titleUppercase="false">
+                       <!-- <technicalInformation:Tar_Map id="tar_map_block"/> -->
                     </ObjectPageSubSection>
                 </subSections>
             </ObjectPageSection>
