@@ -5,9 +5,10 @@
 sap.ui.define([
     "sap/ui/core/UIComponent",
     "sap/ui/Device",
-    "fiorilibappname/model/models"
+    "fiorilibappname/model/models",
+	"sap/ui/model/json/JSONModel"
 ],
-function (UIComponent, Device, models) {
+function (UIComponent, Device, models, JSONModel) {
     "use strict";
 
     return UIComponent.extend("fiorilibappname.Component", {
@@ -24,11 +25,13 @@ function (UIComponent, Device, models) {
             // call the base component's init function
             UIComponent.prototype.init.apply(this, arguments);
 
-            // enable routing
-            this.getRouter().initialize();
-
+            //      var oModel = new JSONModel("./model/Object.json");
+		    //      oModel.setDefaultBindingMode("OneWay");
             // set the device model
             this.setModel(models.createDeviceModel(), "device");
+
+            // enable routing
+            this.getRouter().initialize();
         }
     });
 }

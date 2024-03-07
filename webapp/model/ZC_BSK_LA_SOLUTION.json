@@ -1,0 +1,172 @@
+{ "Solutions": [
+  {
+    "SolId": "0000000001",
+    "TechnicalName": "FioriAppManager",
+    "Subtitle": "Zarządzanie aplikacjami Fiori",
+    "Url": "http://fioriappmanager.example.com",
+    "SolType": "1",
+    "TypeDescription": "Aplikacja webowa",
+    "Status": "1",
+    "StatusDescription": "Aktywna",
+    "SolutionAction": "Update",
+    "ActionDescription": "Aktualizuj aplikację",
+    "Description": "Aplikacja \"FioriAppManager\", o identyfikatorze SOL001, jest innowacyjnym narzędziem stworzonym z myślą o efektywnym zarządzaniu aplikacjami Fiori w przedsiębiorstwach. Technicznie określana jako webowa platforma zarządzania, aplikacja ta zapewnia centralizowany interfejs użytkownika, umożliwiający administratorom łatwe monitorowanie, aktualizowanie i konfigurację aplikacji Fiori. Dostępna pod adresem FioriAppManager, aplikacja ta została uruchomiona w celu usprawnienia procesów biznesowych i zwiększenia produktywności przez lepsze zarządzanie komponentami aplikacji.\n\nStatus aplikacji określony jest jako \"Aktywna\", co oznacza, że jest ona w pełni funkcjonalna i dostępna dla użytkowników. Integralną częścią funkcjonalności FioriAppManager jest możliwość aktualizacji aplikacji (\"Update\"), co pozwala na ciągłe doskonalenie i dostosowywanie aplikacji do zmieniających się wymagań biznesowych. Aplikacja została stworzona i zmodyfikowana przez 'admin' ostatnio dnia 2024-03-05, co podkreśla jej aktualność i ciągłe dostosowanie do najnowszych standardów i praktyk.\n\nWśród kluczowych cech FioriAppManager warto wymienić \"Komponent zarządzania\", który umożliwia użytkownikom intuicyjne i skuteczne zarządzanie różnymi aspektami aplikacji Fiori, od bezpieczeństwa po wydajność. Do tej pory aplikacja otrzymała pozytywne uwagi użytkowników, odzwierciedlone w komentarzach (np. \"NOTE001\", \"NOTE002\"), co świadczy o jej przydatności i funkcjonalności.\n\nIntegracja z różnymi usługami (\"SRV001\", \"SRV002\") oraz grupami (\"GRP001\") umożliwia FioriAppManager zarządzanie złożonym ekosystemem aplikacji Fiori, co przekłada się na lepszą organizację i spójność w ramach środowiska przedsiębiorstwa. Aplikacja wspiera również mapy docelowe (\"TMAP001\", \"TMAP002\") i wersje (\"VER001\", \"VER002\"), co ułatwia zarządzanie wersjami aplikacji i zrozumienie zależności między różnymi komponentami systemu.\n\nZaprojektowana z myślą o maksymalizacji użytkowości i efektywności, FioriAppManager stanowi kluczowe narzędzie dla każdej organizacji korzystającej z aplikacji Fiori, pomagając w zarządzaniu cyklem życia aplikacji, od wdrożenia po codzienne użytkowanie.",
+    "AppComponentText": "Komponent zarządzania",
+    "ChangedAt": "2024-03-05T12:00:00",
+    "ChangedBy": "admin",
+    "CreatedAt": "2024-01-01T12:00:00",
+    "CreatedBy": "creator",
+    "to_Comments": [
+      {
+        "NoteNumber": "NOTE001",
+        "Title": "General Feedback",
+        "Created": "2024-03-05T10:00:00",
+        "CreatedBy": "user1",
+        "Text": "This is a general feedback for the first solution."
+      },
+      {
+        "NoteNumber": "NOTE002",
+        "Title": "Feature Request",
+        "Created": "2024-03-06T15:30:00",
+        "CreatedBy": "user2",
+        "Text": "There is a request for a new feature in the first solution."
+      }
+    ],
+    "to_Service": [
+      {
+          "ServiceId": "SRV001",
+          "Url": "http://fioriservice.example.com",
+          "Version": "1.0",
+          "Description": "Serwis do integracji z aplikacjami Fiori",
+          "ExtServName": "FioriIntegrationService",
+          "SoftCompVersion": "1.2.3",
+          "BeAuthRole": "FioriAdmin"
+      },
+      {
+          "ServiceId": "SRV002",
+          "Url": "http://additionalfioriservice.example.com",
+          "Version": "2.0",
+          "Description": "Dodatkowy serwis do obsługi zaawansowanych funkcji Fiori",
+          "ExtServName": "AdvancedFioriService",
+          "SoftCompVersion": "2.4.6",
+          "BeAuthRole": "AdvancedUser"
+      }
+    ],
+     "to_S_Group": [
+      {"GroupId": "GRP001"}
+    ],
+    "to_S_Role": [
+      {"RoleId": "ROL001"},
+      {"RoleId": "ROL002"},
+      {"RoleId": "ROL003"}
+    ],
+    "to_S_Catalog": [
+      {"CatalogId": "CAT001"},
+      {"CatalogId": "CAT002"}
+    ],
+    "to_S_Tile": [
+      {"TileId": "TIL001"},
+      {"TileId": "TIL002"}
+    ],
+    "to_Tar_Map": [
+      {
+          "TarMapId": "TMAP001",
+          "SolId": "0000000001",
+          "Url": "http://mapsolution.example.com/map1",
+          "Type": "Functional",
+          "ParamValue": "param1"
+      },
+      {
+          "TarMapId": "TMAP002",
+          "SolId": "0000000001",
+          "Url": "http://mapsolution.example.com/map2",
+          "Type": "Technical",
+          "ParamValue": "param2"
+      }
+    ],
+    "to_Version": [
+      {
+        "VersionId": "VER001",
+        "Status": "Active",
+        "Title": "Initial Release",
+        "Description": "The first release of the solution."
+      },
+      {
+        "VersionId": "VER002",
+        "Status": "Deprecated",
+        "Title": "Second Release",
+        "Description": "The second release of the solution, now deprecated."
+      }
+    ],
+    "to_Attachment": []
+  },
+  {
+    "SolId": "0000000002",
+    "TechnicalName": "FioriHRApp",
+    "Subtitle": "Aplikacja HR dla Fiori",
+    "Url": "http://fiorihrapp.example.com",
+    "SolType": "Mobile",
+    "TypeDescription": "Aplikacja mobilna",
+    "Status": "In Development",
+    "StatusDescription": "W trakcie tworzenia",
+    "SolutionAction": "Deploy",
+    "ActionDescription": "Wdrożenie aplikacji",
+    "Description": "Aplikacja HR zaprojektowana do zarządzania zasobami ludzkimi w Fiori",
+    "AppComponentText": "HR Management Component",
+    "ChangedAt": "2024-03-10T15:00:00",
+    "ChangedBy": "hradmin",
+    "CreatedAt": "2024-02-20T11:00:00",
+    "CreatedBy": "hrcreator",
+    "to_Comments": [
+      {
+        "NoteNumber": "NOTE003",
+        "Title": "Bug Report",
+        "Created": "2024-03-07T09:20:00",
+        "CreatedBy": "user3",
+        "Text": "A bug was found in the second solution."
+      }
+    ],
+    "to_Service": [
+      {
+          "ServiceId": "SRV003",
+          "Url": "http://hrfioriservice.example.com",
+          "Version": "1.0",
+          "Description": "Serwis HR dla aplikacji Fiori HR",
+          "ExtServName": "HRFioriService",
+          "SoftCompVersion": "3.1.4",
+          "BeAuthRole": "HRManager"
+      }
+   ],
+     "to_S_Group": [
+      {"GroupId": "GRP002"}
+    ],
+    "to_S_Role": [
+      {"RoleId": "ROL002"},
+      {"RoleId": "ROL003"}
+    ],
+    "to_S_Catalog": [
+      {"CatalogId": "CAT002"}
+    ],
+    "to_S_Tile": [
+      {"TileId": "TIL002"}
+    ],
+    "to_Tar_Map": [
+      {
+          "TarMapId": "TMAP003",
+          "SolId": "0000000003",
+          "Url": "http://mapsolution.example.com/map1",
+          "Type": "Functional",
+          "ParamValue": "param1"
+      }],
+      "to_Version": [
+        {
+          "VersionId": "VER003",
+          "Status": "In Development",
+          "Title": "Upcoming Release",
+          "Description": "The upcoming third release of the solution."
+        }
+      ],
+    "to_Attachment": []
+  }
+]
+}

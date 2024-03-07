@@ -14,28 +14,37 @@
         <semantic:titleHeading>
 			<Title text="{i18n>worklist}" />
 		</semantic:titleHeading>
+           
+        <semantic:headerContent>
+            <Button icon="sap-icon://add" text="{i18n>addButton}" press="onAddButtonPress" />
+            <Button icon="sap-icon://edit" text="{i18n>editButton}" press="onEditButtonPress" />
+        </semantic:headerContent>
         
         <semantic:content>
             <VBox fitContainer="true">
-                <smartTable:SmartTable
-                    id="idSmartSolutionTable"
-                    entitySet="ZC_BSK_LA_SOLUTION"
-                    tableType="ResponsiveTable"
-                    showRowCount="true"
-                    enableAutoBinding="true"
-                    class="sapUiResponsiveContentPadding"
-                    useVariantManagement="true"
-                    useTablePersonalisation="true"
-                    header="{i18n>worklistTitle}"
-                    initiallyVisibleFields="SolId,TechnicalName,StatusDescription,ActionDescription">
-                        <smartTable:customToolbar>
-                            <OverflowToolbar>
-                                <ToolbarSpacer/>
-                                <Button icon="sap-icon://add" press="onAddButtonPress"/>
-                            </OverflowToolbar>
-                        </smartTable:customToolbar>
-                        <Table id="idSolutionTable" selectionChange="onPress" mode="SingleSelectMaster" />
-                </smartTable:SmartTable>
+                <Table class="sapUiSizeCompact" id="table1" includeItemInSelection="true" items="{path: 'dataModel>/Solutions'}" mode="MultiSelect"
+						selectionChange="onselectionChange">
+						<columns>
+							<Column>
+								<Label text="Technical Name"/>
+							</Column>
+							<Column>
+								<Label text="Subtitle"/>
+							</Column>
+							<Column>
+								<Label text="Description"/>
+							</Column>
+							<Column>
+								<Label text="Status Description"/>
+							</Column>
+						</columns>
+						<ColumnListItem press="onPress" type="Navigation">
+							<Text text="{dataModel>TechnicalName}"></Text>
+							<Text text="{dataModel>Subtitle}"></Text>
+							<Text text="{parts: [{path: 'dataModel>Description'}], formatter: '.truncateText'}"></Text>
+							<Text text="{dataModel>StatusDescription}"></Text>
+						</ColumnListItem>
+					</Table>
             </VBox>
         </semantic:content>
     </semantic:SemanticPage>
