@@ -68,8 +68,8 @@
                     <m:Text text="Desktop, Tablet"/>
 			    </layout:VerticalLayout>
                 <layout:VerticalLayout class="sapUiSmallMarginBeginEnd">
-			    	<m:Label text="Device"/>
-                    <m:Text text="Desktop, Tablet"/>
+			    	<m:Label text="Type"/>
+                    <m:Text text="Transactional"/>
 			    </layout:VerticalLayout>
 
 

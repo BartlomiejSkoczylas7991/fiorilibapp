@@ -10,7 +10,7 @@ sap.ui.define([
     return Controller.extend("fiorilibappname.controller.Object", {
 
         onInit: function () {
-            var viewModel = this.getOwnerComponent().getModel("viewModel");
+            var viewModel = this.getOwnerComponent().getModel();
             this.getView().setModel(viewModel, "viewModel");
             var viewDetail = new JSONModel({});
             this.getView().setModel(viewDetail, "viewDetail");
