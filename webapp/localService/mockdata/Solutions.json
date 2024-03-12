@@ -1,8 +1,7 @@
 //
-// https://a4m.c4b.sapfioneer.com:44300/sap/opu/odata/sap/ZBSK_LA_SOL;v=2/$metadata
+// https://a4m.c4b.sapfioneer.com:44300/sap/opu/odata/sap/ZBSK_LA_SOL/$metadata // tu nawet lekko zmienić można
 
-{ "@odata.context":
-  "https://a4m.c4b.sapfioneer.com:44300/sap/opu/odata/sap/ZBSK_LA_SOL;v=2/$metadata##ZC_BSK_LA_SOLUTIONType",
+{
   "Solutions": [
   {
     "SolId": "0000000001",
