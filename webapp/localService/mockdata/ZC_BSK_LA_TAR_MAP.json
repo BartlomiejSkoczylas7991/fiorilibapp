@@ -1,0 +1,27 @@
+[
+    {
+      "TarMapId": "TMAP001",
+      "SolId": "SOL001",
+      "Url": "http://mapsolution.example.com/map1",
+      "Type": "Functional",
+      "ParamValue": "param1",
+      "_Solution": "SOL001"
+    },
+    {
+      "TarMapId": "TMAP002",
+      "SolId": "SOL001",
+      "Url": "http://mapsolution.example.com/map2",
+      "Type": "Technical",
+      "ParamValue": "param2",
+      "_Solution": "SOL001"
+    },
+    {
+      "TarMapId": "TMAP003",
+      "SolId": "SOL002",
+      "Url": "http://hrmapsolution.example.com/map1",
+      "Type": "Strategic",
+      "ParamValue": "param3",
+      "_Solution": "SOL002"
+    }
+  ]
+  

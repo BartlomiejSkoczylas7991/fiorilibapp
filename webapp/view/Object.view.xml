@@ -11,7 +11,7 @@
     xmlns:tech_inf="fiorilibappname.SharedBlocks.technicalInformation"
     xmlns:imp_notes="fiorilibappname.SharedBlocks.ImportantNotes"
     height="100%">
-    <m:Page>
+    <m:Page showNavButton="false">
     <ObjectPageLayout 
         id="ObjectPageLayout" 
         upperCaseAnchorBar="false"
@@ -29,7 +29,7 @@
                 <snappedHeading>
                     <m:FlexBox fitContainer="true" alignItems="Center">
 						<m:Title text="{viewModel>/TechnicalName}" />
-						<m:Label text="{viewModel>/StatusDescription}" />
+						<m:Label text="{viewModel>/SubTitle}" />
 					</m:FlexBox>
                 </snappedHeading>
 
@@ -52,7 +52,6 @@
             <m:FlexBox wrap="Wrap" fitContainer="true" >
                 <m:Avatar class="sapUiSmallMarginEnd" src="model/images/SDR_1.jpg" displaySize="L" />
 
-                
                 <layout:VerticalLayout class="sapUiSmallMarginBeginEnd">
 			    	<m:Label text="Component"/>
                     <m:Text text="{viewModel>/AppComponentText}"/>
@@ -61,7 +60,6 @@
 			    	<m:Label text="Type"/>
                     <m:Text text="{viewModel>/TypeDescription}"/>
 			    </layout:VerticalLayout>
-
 
                 <layout:VerticalLayout class="sapUiSmallMarginBeginEnd">
 			    	<m:Label text="Device"/>

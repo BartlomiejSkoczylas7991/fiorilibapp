@@ -20,7 +20,6 @@
             <OverflowToolbar>
                 <ToolbarSpacer/>
                 <Button icon="sap-icon://add" press="onAddButtonPress"/>
-                <Button text="Choose Role" press="onOpenRoleDialog"/>
                 <Button type="Transparent" text="Delete"/>
             </OverflowToolbar>
         </semantic:headerContent>
@@ -28,10 +27,6 @@
         <semantic:content>
             <VBox fitContainer="true">
                 <Toolbar>
-                    <Label text="Filter by Group:"/>
-                    <SearchField width="auto" search="onFilterByGroup"/>
-                    <Label text="Filter by Role:"/>
-                    <SearchField width="auto" search="onFilterByRole"/>
                     <SearchField width="100%" search="onSearch"/>
                 </Toolbar>
                 <Table  class="sapUiSizeCompact" 

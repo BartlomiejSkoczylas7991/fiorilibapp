@@ -1,0 +1,23 @@
+[
+    {
+      "SolId": "SOL001",
+      "RoleId": "ROL001"
+    },
+    {
+      "SolId": "SOL001",
+      "RoleId": "ROL002"
+    },
+    {
+      "SolId": "SOL002",
+      "RoleId": "ROL002"
+    },
+    {
+      "SolId": "SOL002",
+      "RoleId": "ROL003"
+    },
+    {
+      "SolId": "SOL001",
+      "RoleId": "ROL003"
+    }
+  ]
+  

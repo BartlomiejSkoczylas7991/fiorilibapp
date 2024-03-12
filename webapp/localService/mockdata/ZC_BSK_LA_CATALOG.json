@@ -1,0 +1,22 @@
+
+[
+    {
+      "CatalogId": "CAT001",
+      "Title": "Finance Applications",
+      "Description": "Catalog of all finance related applications",
+      "ChangedAt": "2024-03-10T15:00:00",
+      "ChangedBy": "admin",
+      "CreatedAt": "2024-01-15T09:30:00",
+      "CreatedBy": "creator"
+    },
+    {
+      "CatalogId": "CAT002",
+      "Title": "HR Applications",
+      "Description": "Catalog of all HR related applications",
+      "ChangedAt": "2024-03-12T11:00:00",
+      "ChangedBy": "hradmin",
+      "CreatedAt": "2024-01-20T10:00:00",
+      "CreatedBy": "hrcreator"
+    }
+  ]
+  

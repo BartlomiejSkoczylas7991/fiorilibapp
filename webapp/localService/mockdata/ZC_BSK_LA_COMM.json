@@ -1,0 +1,30 @@
+[
+    {
+      "NoteNumber": "NOTE001",
+      "SolId": "SOL001",
+      "Title": "General Feedback",
+      "Created": "2024-03-05T10:00:00",
+      "CreatedBy": "user1",
+      "Text": "This is a general feedback for the first solution.",
+      "_Solution": "SOL001"
+    },
+    {
+      "NoteNumber": "NOTE002",
+      "SolId": "SOL001",
+      "Title": "Feature Request",
+      "Created": "2024-03-06T15:30:00",
+      "CreatedBy": "user2",
+      "Text": "There is a request for a new feature in the first solution.",
+      "_Solution": "SOL001"
+    },
+    {
+      "NoteNumber": "NOTE003",
+      "SolId": "SOL002",
+      "Title": "Bug Report",
+      "Created": "2024-03-07T09:20:00",
+      "CreatedBy": "user3",
+      "Text": "A bug was found in the second solution.",
+      "_Solution": "SOL002"
+    }
+  ]
+  

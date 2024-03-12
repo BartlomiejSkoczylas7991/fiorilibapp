@@ -1,0 +1,151 @@
+
+
+{
+    "d": {
+      "results": [
+        {
+          "__metadata": {
+            "id": "https://a4m.c4b.sapfioneer.com:44300/sap/opu/odata/sap/ZBSK_LA_SOL/ZC_BSK_LA_SOLUTION('0000000001')",
+            "uri": "https://a4m.c4b.sapfioneer.com:44300/sap/opu/odata/sap/ZBSK_LA_SOL/ZC_BSK_LA_SOLUTION('0000000001')",
+            "type": "cds_zbsk_sd_solution.ZC_BSK_LA_SOLUTIONType"
+          },
+          "SolId": "0000000001",
+          "TechnicalName": "FioriAppManager",
+          "Subtitle": "Zarządzanie aplikacjami Fiori",
+          "Url": "http://fioriappmanager.example.com",
+          "SolType": "Web",
+          "TypeDescription": "Aplikacja webowa",
+          "Status": "Active",
+          "StatusDescription": "Aktywna",
+          "SolutionAction": "Update",
+          "ActionDescription": "Aktualizuj aplikację",
+          "Description": "Aplikacja 'FioriAppManager', o identyfikatorze SOL001, jest innowacyjnym narzędziem stworzonym z myślą o efektywnym zarządzaniu aplikacjami Fiori.",
+          "AppComponentText": "Komponent zarządzania",
+          "ChangedAt": "/Date(1678137600000)/",
+          "ChangedBy": "admin",
+          "CreatedAt": "/Date(1672444800000)/",
+          "CreatedBy": "creator",
+          "to_Comments": {
+            "results": [
+              {
+                "__metadata": {
+                  "id": "https://a4m.c4b.sapfioneer.com:44300/sap/opu/odata/sap/ZBSK_LA_SOL/ZC_BSK_LA_SOLUTION('0000000001')/to_Comments('0000000001')",
+                  "uri": "https://a4m.c4b.sapfioneer.com:44300/sap/opu/odata/sap/ZBSK_LA_SOL/ZC_BSK_LA_SOLUTION('0000000001')/to_Comments('0000000001')",
+                  "type": "cds_zbsk_sd_solution.ZC_BSK_LA_COMMENTType"
+                },
+                "NoteNumber": "0000000001",
+                "Text": "Example comment 1",
+                "CreatedBy": "user1"
+              },
+              {
+                "__metadata": {
+                  "id": "https://a4m.c4b.sapfioneer.com:44300/sap/opu/odata/sap/ZBSK_LA_SOL/ZC_BSK_LA_SOLUTION('0000000001')/to_Comments('0000000002')",
+                  "uri": "https://a4m.c4b.sapfioneer.com:44300/sap/opu/odata/sap/ZBSK_LA_SOL/ZC_BSK_LA_SOLUTION('0000000001')/to_Comments('0000000002')",
+                  "type": "cds_zbsk_sd_solution.ZC_BSK_LA_COMMENTType"
+                },
+                "NoteNumber": "0000000002",
+                "Text": "Example comment 2",
+                "CreatedBy": "user2"
+              }
+            ]
+          },
+          "to_Service": {
+            "results": [
+              {
+                "__metadata": {
+                  "id": "https://a4m.c4b.sapfioneer.com:44300/sap/opu/odata/sap/ZBSK_LA_SOL/ZC_BSK_LA_SOLUTION('0000000001')/to_Service('0000000001')",
+                  "uri": "https://a4m.c4b.sapfioneer.com:44300/sap/opu/odata/sap/ZBSK_LA_SOL/ZC_BSK_LA_SOLUTION('0000000001')/to_Service('0000000001')",
+                  "type": "cds_zbsk_sd_solution.ZC_BSK_LA_SERVICEType"
+                },
+                "ServiceId": "0000000001",
+                "Description": "Example service 1"
+              },
+              {
+                "__metadata": {
+                  "id": "https://a4m.c4b.sapfioneer.com:44300/sap/opu/odata/sap/ZBSK_LA_SOL/ZC_BSK_LA_SOLUTION('0000000001')/to_Service('0000000002')",
+                  "uri": "https://a4m.c4b.sapfioneer.com:44300/sap/opu/odata/sap/ZBSK_LA_SOL/ZC_BSK_LA_SOLUTION('0000000001')/to_Service('0000000002')",
+                  "type": "cds_zbsk_sd_solution.ZC_BSK_LA_SERVICEType"
+                },
+                "ServiceId": "0000000002",
+                "Description": "Example service 2"
+              }
+            ]
+          },
+          "to_S_Group": {
+            "results": [
+              {
+                "__metadata": {
+                  "id": "https://a4m.c4b.sapfioneer.com:44300/sap/opu/odata/sap/ZBSK_LA_SOL/ZC_BSK_LA_SOLUTION('0000000001')/to_S_Group('0000000001')",
+                  "uri": "https://a4m.c4b.sapfioneer.com:44300/sap/opu/odata/sap/ZBSK_LA_SOL/ZC_BSK_LA_SOLUTION('0000000001')/to_S_Group('0000000001')",
+                  "type": "cds_zbsk_sd_solution.ZC_BSK_LA_GROUPType"
+                },
+                "GroupId": "0000000001",
+                "GroupName": "Example Group 1"
+              }
+            ]
+          },
+          "to_S_Role": {
+            "results": [
+              {
+                "__metadata": {
+                  "id": "https://a4m.c4b.sapfioneer.com:44300/sap/opu/odata/sap/ZBSK_LA_SOL/ZC_BSK_LA_SOLUTION('0000000001')/to_S_Role('0000000001')",
+                  "uri": "https://a4m.c4b.sapfioneer.com:44300/sap/opu/odata/sap/ZBSK_LA_SOL/ZC_BSK_LA_SOLUTION('0000000001')/to_S_Role('0000000001')",
+                  "type": "cds_zbsk_sd_solution.ZC_BSK_LA_ROLEType"
+                },
+                "RoleId": "0000000001",
+                "RoleName": "Example Role 1"
+              },
+              {
+                "__metadata": {
+                  "id": "https://a4m.c4b.sapfioneer.com:44300/sap/opu/odata/sap/ZBSK_LA_SOL/ZC_BSK_LA_SOLUTION('0000000001')/to_S_Role('0000000002')",
+                  "uri": "https://a4m.c4b.sapfioneer.com:44300/sap/opu/odata/sap/ZBSK_LA_SOL/ZC_BSK_LA_SOLUTION('0000000001')/to_S_Role('0000000002')",
+                  "type": "cds_zbsk_sd_solution.ZC_BSK_LA_ROLEType"
+                },
+                "RoleId": "0000000002",
+                "RoleName": "Example Role 2"
+              }
+            ]
+          },
+          "to_S_Catalog": {
+            "results": [
+              {
+                "__metadata": {
+                  "id": "https://a4m.c4b.sapfioneer.com:44300/sap/opu/odata/sap/ZBSK_LA_SOL/ZC_BSK_LA_SOLUTION('0000000001')/to_S_Catalog('0000000001')",
+                  "uri": "https://a4m.c4b.sapfioneer.com:44300/sap/opu/odata/sap/ZBSK_LA_SOL/ZC_BSK_LA_SOLUTION('0000000001')/to_S_Catalog('0000000001')",
+                  "type": "cds_zbsk_sd_solution.ZC_BSK_LA_CATALOGType"
+                },
+                "CatalogId": "0000000001",
+                "CatalogName": "Example Catalog 1"
+              }
+            ]
+          },
+          "to_S_Tile": {
+            "results": [
+              {
+                "__metadata": {
+                  "id": "https://a4m.c4b.sapfioneer.com:44300/sap/opu/odata/sap/ZBSK_LA_SOL/ZC_BSK_LA_SOLUTION('0000000001')/to_S_Tile('0000000001')",
+                  "uri": "https://a4m.c4b.sapfioneer.com:44300/sap/opu/odata/sap/ZBSK_LA_SOL/ZC_BSK_LA_SOLUTION('0000000001')/to_S_Tile('0000000001')",
+                  "type": "cds_zbsk_sd_solution.ZC_BSK_LA_TILEType"
+                },
+                "TileId": "0000000001",
+                "TileName": "Example Tile 1"
+              }
+            ]
+          },
+          "to_Tar_Map": {
+            "results": [
+              {
+                "__metadata": {
+                  "id": "https://a4m.c4b.sapfioneer.com:44300/sap/opu/odata/sap/ZBSK_LA_SOL/ZC_BSK_LA_SOLUTION('0000000001')/to_Tar_Map('0000000001')",
+                  "uri": "https://a4m.c4b.sapfioneer.com:44300/sap/opu/odata/sap/ZBSK_LA_SOL/ZC_BSK_LA_SOLUTION('0000000001')/to_Tar_Map('0000000001')",
+                  "type": "cds_zbsk_sd_solution.ZC_BSK_LA_TAR_MAPType"
+                },
+                "TarMapId": "0000000001",
+                "MappingName": "Example Mapping 1"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }

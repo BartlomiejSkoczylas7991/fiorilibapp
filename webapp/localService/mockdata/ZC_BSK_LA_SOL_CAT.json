@@ -1,0 +1,15 @@
+[
+    {
+      "SolId": "SOL001",
+      "CatalogId": "CAT001"
+    },
+    {
+      "SolId": "SOL002",
+      "CatalogId": "CAT002"
+    },
+    {
+      "SolId": "SOL001",
+      "CatalogId": "CAT002"
+    }
+  ]
+  

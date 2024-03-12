@@ -15,10 +15,7 @@ server:
             - /resources
             - /test-resources
           url: https://ui5.sap.com
-        backend:
-          - path: /sap
-            url: https://a4m.c4b.sapfioneer.com:44300
-            client: '100'
+          
     - name: fiori-tools-appreload
       afterMiddleware: compression
       configuration:

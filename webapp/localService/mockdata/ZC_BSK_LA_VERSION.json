@@ -1,0 +1,27 @@
+[
+    {
+      "VersionId": "VER001",
+      "SolId": "SOL001",
+      "Status": "Active",
+      "Title": "Initial Release",
+      "Description": "The first release of the solution.",
+      "_Solution": "SOL001"
+    },
+    {
+      "VersionId": "VER002",
+      "SolId": "SOL001",
+      "Status": "Deprecated",
+      "Title": "Second Release",
+      "Description": "The second release of the solution, now deprecated.",
+      "_Solution": "SOL001"
+    },
+    {
+      "VersionId": "VER003",
+      "SolId": "SOL002",
+      "Status": "In Development",
+      "Title": "Upcoming Release",
+      "Description": "The upcoming third release of the solution.",
+      "_Solution": "SOL002"
+    }
+  ]
+  

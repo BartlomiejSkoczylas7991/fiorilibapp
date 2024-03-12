@@ -1,0 +1,15 @@
+[
+    {
+      "SolId": "SOL001",
+      "TileId": "TIL001"
+    },
+    {
+      "SolId": "SOL002",
+      "TileId": "TIL002"
+    },
+    {
+      "SolId": "SOL001",
+      "TileId": "TIL002"
+    }
+  ]
+  

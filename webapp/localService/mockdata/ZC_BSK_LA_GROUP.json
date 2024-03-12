@@ -1,0 +1,15 @@
+[
+    {
+      "GroupId": "GRP001",
+      "Title": "Group Finance",
+      "Description": "Finance management solutions",
+      "_Group_Solution": ["SOL001"]
+    },
+    {
+      "GroupId": "GRP002",
+      "Title": "Group HR",
+      "Description": "Human resources management solutions",
+      "_Group_Solution": ["SOL002"]
+    }
+  ]
+  

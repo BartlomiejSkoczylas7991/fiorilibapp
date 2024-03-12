@@ -6,7 +6,7 @@ sap.ui.define([
     return Controller.extend("fiorilibappname.controller.Worklist", {
         onInit: function () {
             this._bIsFilterBarInitialized = false;
-            var dataModel = this.getOwnerComponent().getModel("tableDataMock");
+            var dataModel = this.getOwnerComponent().getModel();
             console.log(dataModel.getData());
             var oRouter = this.getOwnerComponent().getRouter();
             oRouter.getRoute("Detail").attachPatternMatched(this._onObjectMatched, this);
@@ -57,8 +57,8 @@ sap.ui.define([
       },    
 
       truncateText: function(sText) {
-        if (sText && sText.length > 300) {
-            return sText.substring(0, 300) + '...';
+        if (sText && sText.length > 200) {
+            return sText.substring(0, 200) + '...';
         } else {
             return sText;
         }

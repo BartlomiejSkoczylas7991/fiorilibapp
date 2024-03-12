@@ -1,0 +1,33 @@
+[
+    {
+      "RoleId": "ROL001",
+      "TechName": "Administrator",
+      "AccessLevel": "High",
+      "Description": "Full access to all Fiori applications",
+      "ChangedAt": "2024-03-15T12:00:00",
+      "ChangedBy": "admin",
+      "CreatedAt": "2024-01-10T09:00:00",
+      "CreatedBy": "creator"
+    },
+    {
+      "RoleId": "ROL002",
+      "TechName": "User",
+      "AccessLevel": "Medium",
+      "Description": "Standard access with limited privileges",
+      "ChangedAt": "2024-03-16T13:30:00",
+      "ChangedBy": "useradmin",
+      "CreatedAt": "2024-01-12T10:30:00",
+      "CreatedBy": "usercreator"
+    },
+    {
+      "RoleId": "ROL003",
+      "TechName": "Guest",
+      "AccessLevel": "Low",
+      "Description": "Limited access for external users",
+      "ChangedAt": "2024-03-18T14:00:00",
+      "ChangedBy": "guestadmin",
+      "CreatedAt": "2024-01-14T11:00:00",
+      "CreatedBy": "guestcreator"
+    }
+  ]
+  

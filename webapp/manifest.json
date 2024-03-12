@@ -24,11 +24,7 @@
           "localUri": "localService/metadata.xml",
           "odataVersion": "2.0"
         }
-      },
-      "tableData_alias": {
-				"uri": "model/ZC_BSK_LA_SOLUTION.json",
-				"type": "JSON"
-			}
+      }
     }
   },
   "sap.ui": {
@@ -86,11 +82,7 @@
         "type": "sap.ui.model.json.JSONModel",
         "settings": {},
         "preload": true
-      },
-      "tableDataMock": {
-				"type": "sap.ui.model.json.JSONModel",
-				"dataSource": "tableData_alias"
-			}
+      }
     },
     "resources": {
       "css": [
