@@ -1,5 +1,5 @@
 <mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m">
     <VBox class="sapUiSmallMargin" fitContainer="true">
-        <Image src="images/SDR_1.jpg" width="100%"></Image>
+        <m:Image src="images/SDR_1.jpg" width="100px" height="100px" />
     </VBox>
 </mvc:View>

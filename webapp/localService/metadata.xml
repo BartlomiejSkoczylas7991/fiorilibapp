@@ -99,7 +99,7 @@
                 <Property Name="to_S_Role_oc" Type="Edm.Boolean" sap:label="Dynamic CbA-Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="to_S_Tile_oc" Type="Edm.Boolean" sap:label="Dynamic CbA-Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="to_Tar_Map_oc" Type="Edm.Boolean" sap:label="Dynamic CbA-Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="to_Version_oc" Type="Edm.Boolean" sap:label="Dynamic CbA-Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="to_Component_oc" Type="Edm.Boolean" sap:label="Dynamic CbA-Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="SolId" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="NonNegative" sap:label="Application ID" sap:quickinfo="The data element of App ID" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="TechnicalName" Type="Edm.String" MaxLength="50" sap:text="TechnicalName" sap:label="Technical Name" sap:quickinfo="The data element for name of the Fiori App"/>
                 <Property Name="Url" Type="Edm.String" MaxLength="255" sap:label="URL" sap:quickinfo="The url to the app"/>
@@ -123,7 +123,7 @@
                 <NavigationProperty Name="to_S_Role" Relationship="cds_zbsk_sd_solution.assoc_8587CCF01ACC55ADE5195075AD38666C" FromRole="FromRole_assoc_8587CCF01ACC55ADE5195075AD38666C" ToRole="ToRole_assoc_8587CCF01ACC55ADE5195075AD38666C"/>
                 <NavigationProperty Name="to_S_Tile" Relationship="cds_zbsk_sd_solution.assoc_FF6C12BF95B2A8F5AF2A881698984BAF" FromRole="FromRole_assoc_FF6C12BF95B2A8F5AF2A881698984BAF" ToRole="ToRole_assoc_FF6C12BF95B2A8F5AF2A881698984BAF"/>
                 <NavigationProperty Name="to_Tar_Map" Relationship="cds_zbsk_sd_solution.assoc_D93853FB432DE0164DC786070571610B" FromRole="FromRole_assoc_D93853FB432DE0164DC786070571610B" ToRole="ToRole_assoc_D93853FB432DE0164DC786070571610B"/>
-                <NavigationProperty Name="to_Version" Relationship="cds_zbsk_sd_solution.assoc_705E960FD585278B112D5236B5E93F10" FromRole="FromRole_assoc_705E960FD585278B112D5236B5E93F10" ToRole="ToRole_assoc_705E960FD585278B112D5236B5E93F10"/>
+                <NavigationProperty Name="to_Component" Relationship="cds_zbsk_sd_solution.assoc_705E960FD585278B112D5236B5E93F10" FromRole="FromRole_assoc_705E960FD585278B112D5236B5E93F10" ToRole="ToRole_assoc_705E960FD585278B112D5236B5E93F10"/>
             </EntityType>
             <EntityType Name="ZC_BSK_LA_SOL_CATType" sap:label="Consumption view Solution Category" sap:content-version="1">
                 <Key>
@@ -178,13 +178,13 @@
                 <Property Name="ParamValue" Type="Edm.String" MaxLength="100" sap:label="T. Map. Param. Val." sap:quickinfo="A data element for the parameter value of the target map."/>
                 <NavigationProperty Name="to_Solution" Relationship="cds_zbsk_sd_solution.assoc_CBAB132FFA69F06C30F3F1BF0C4BDCB1" FromRole="FromRole_assoc_CBAB132FFA69F06C30F3F1BF0C4BDCB1" ToRole="ToRole_assoc_CBAB132FFA69F06C30F3F1BF0C4BDCB1"/>
             </EntityType>
-            <EntityType Name="ZC_BSK_LA_VERSIONType" sap:label="Consumption view Version" sap:content-version="1">
+            <EntityType Name="ZC_BSK_LA_COMPType" sap:label="Consumption view Version" sap:content-version="1">
                 <Key>
-                    <PropertyRef Name="VersionId"/>
+                    <PropertyRef Name="CompId"/>
                 </Key>
                 <Property Name="Delete_mc" Type="Edm.Boolean" sap:label="Dyn. Method Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="Update_mc" Type="Edm.Boolean" sap:label="Dyn. Method Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="VersionId" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="NonNegative" sap:label="Version ID" sap:quickinfo="A data element for the version ID" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="CompId" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="NonNegative" sap:label="Version ID" sap:quickinfo="A data element for the version ID" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="SolId" Type="Edm.String" MaxLength="10" sap:display-format="NonNegative" sap:label="Application ID" sap:quickinfo="The data element of App ID" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="Status" Type="Edm.String" MaxLength="20" sap:label="Version Status" sap:quickinfo="A data element for the version's status."/>
                 <Property Name="Title" Type="Edm.String" MaxLength="100" sap:label="Text name" sap:quickinfo="A data element for the text table"/>
@@ -366,7 +366,7 @@
                 <End Type="cds_zbsk_sd_solution.ZC_BSK_LA_SOLUTIONType" Multiplicity="1" Role="FromRole_assoc_705E960FD585278B112D5236B5E93F10">
                     <OnDelete Action="Cascade"/>
                 </End>
-                <End Type="cds_zbsk_sd_solution.ZC_BSK_LA_VERSIONType" Multiplicity="*" Role="ToRole_assoc_705E960FD585278B112D5236B5E93F10"/>
+                <End Type="cds_zbsk_sd_solution.ZC_BSK_LA_COMPONENTType" Multiplicity="*" Role="ToRole_assoc_705E960FD585278B112D5236B5E93F10"/>
                 <ReferentialConstraint>
                     <Principal Role="FromRole_assoc_705E960FD585278B112D5236B5E93F10">
                         <PropertyRef Name="SolId"/>
@@ -381,7 +381,7 @@
                 <End Type="cds_zbsk_sd_solution.ZC_BSK_LA_SOLUTIONType" Multiplicity="1" Role="ToRole_assoc_A72190A5D94B550EAACB0F0B5D03E911"/>
             </Association>
             <Association Name="assoc_D4448482697E5C853C037D63D6C32C9A" sap:content-version="1">
-                <End Type="cds_zbsk_sd_solution.ZC_BSK_LA_VERSIONType" Multiplicity="1" Role="FromRole_assoc_D4448482697E5C853C037D63D6C32C9A"/>
+                <End Type="cds_zbsk_sd_solution.ZC_BSK_LA_COMPONENTType" Multiplicity="1" Role="FromRole_assoc_D4448482697E5C853C037D63D6C32C9A"/>
                 <End Type="cds_zbsk_sd_solution.ZC_BSK_LA_SOLUTIONType" Multiplicity="1" Role="ToRole_assoc_D4448482697E5C853C037D63D6C32C9A"/>
             </Association>
             <EntityContainer Name="cds_zbsk_sd_solution_Entities" m:IsDefaultEntityContainer="true" sap:message-scope-supported="true" sap:supported-formats="atom json xlsx">
@@ -396,7 +396,7 @@
                 <EntitySet Name="ZC_BSK_LA_SOL_ROLE" EntityType="cds_zbsk_sd_solution.ZC_BSK_LA_SOL_ROLEType" sap:updatable="false" sap:content-version="1" sap:deletable-path="Delete_mc"/>
                 <EntitySet Name="ZC_BSK_LA_SOL_TILE" EntityType="cds_zbsk_sd_solution.ZC_BSK_LA_SOL_TILEType" sap:updatable="false" sap:content-version="1" sap:deletable-path="Delete_mc"/>
                 <EntitySet Name="ZC_BSK_LA_TAR_MAP" EntityType="cds_zbsk_sd_solution.ZC_BSK_LA_TAR_MAPType" sap:content-version="1" sap:deletable-path="Delete_mc" sap:updatable-path="Update_mc"/>
-                <EntitySet Name="ZC_BSK_LA_VERSION" EntityType="cds_zbsk_sd_solution.ZC_BSK_LA_VERSIONType" sap:content-version="1" sap:deletable-path="Delete_mc" sap:updatable-path="Update_mc"/>
+                <EntitySet Name="ZC_BSK_LA_VERSION" EntityType="cds_zbsk_sd_solution.ZC_BSK_LA_COMPONENTType" sap:content-version="1" sap:deletable-path="Delete_mc" sap:updatable-path="Update_mc"/>
                 <EntitySet Name="ZI_BSK_SOL_STATUS" EntityType="cds_zbsk_sd_solution.ZI_BSK_SOL_STATUSType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
                 <AssociationSet Name="assoc_9FFDE3D6B2E5A1A3902039F66BCFB56E" Association="cds_zbsk_sd_solution.assoc_9FFDE3D6B2E5A1A3902039F66BCFB56E" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
                     <End EntitySet="ZC_BSK_LA_SOLUTION" Role="FromRole_assoc_9FFDE3D6B2E5A1A3902039F66BCFB56E"/>
@@ -423,7 +423,7 @@
                     <End EntitySet="ZC_BSK_LA_SERVICE" Role="ToRole_assoc_49E13C53D26E4A713D603D414AA63376"/>
                 </AssociationSet>
                 <AssociationSet Name="assoc_D4448482697E5C853C037D63D6C32C9A" Association="cds_zbsk_sd_solution.assoc_D4448482697E5C853C037D63D6C32C9A" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
-                    <End EntitySet="ZC_BSK_LA_VERSION" Role="FromRole_assoc_D4448482697E5C853C037D63D6C32C9A"/>
+                    <End EntitySet="ZC_BSK_LA_COMPONENT" Role="FromRole_assoc_D4448482697E5C853C037D63D6C32C9A"/>
                     <End EntitySet="ZC_BSK_LA_SOLUTION" Role="ToRole_assoc_D4448482697E5C853C037D63D6C32C9A"/>
                 </AssociationSet>
                 <AssociationSet Name="assoc_FF6C12BF95B2A8F5AF2A881698984BAF" Association="cds_zbsk_sd_solution.assoc_FF6C12BF95B2A8F5AF2A881698984BAF" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
@@ -464,7 +464,7 @@
                 </AssociationSet>
                 <AssociationSet Name="assoc_705E960FD585278B112D5236B5E93F10" Association="cds_zbsk_sd_solution.assoc_705E960FD585278B112D5236B5E93F10" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
                     <End EntitySet="ZC_BSK_LA_SOLUTION" Role="FromRole_assoc_705E960FD585278B112D5236B5E93F10"/>
-                    <End EntitySet="ZC_BSK_LA_VERSION" Role="ToRole_assoc_705E960FD585278B112D5236B5E93F10"/>
+                    <End EntitySet="ZC_BSK_LA_COMPONENT" Role="ToRole_assoc_705E960FD585278B112D5236B5E93F10"/>
                 </AssociationSet>
                 <AssociationSet Name="assoc_DCEB6820DF8E36BD5A7D18407018D99D" Association="cds_zbsk_sd_solution.assoc_DCEB6820DF8E36BD5A7D18407018D99D" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
                     <End EntitySet="ZC_BSK_LA_SOL_ROLE" Role="FromRole_assoc_DCEB6820DF8E36BD5A7D18407018D99D"/>
@@ -647,7 +647,7 @@
                                 <PropertyPath>to_S_Role_oc</PropertyPath>
                                 <PropertyPath>to_S_Tile_oc</PropertyPath>
                                 <PropertyPath>to_Tar_Map_oc</PropertyPath>
-                                <PropertyPath>to_Version_oc</PropertyPath>
+                                <PropertyPath>to_Component_oc</PropertyPath>
                             </Collection>
                         </PropertyValue>
                     </Record>
@@ -721,10 +721,10 @@
                                     </PropertyValue>
                                 </Record>
                                 <Record>
-                                    <PropertyValue Property="NavigationProperty" NavigationPropertyPath="to_Version"/>
+                                    <PropertyValue Property="NavigationProperty" NavigationPropertyPath="to_Component"/>
                                     <PropertyValue Property="InsertRestrictions">
                                         <Record>
-                                            <PropertyValue Property="Insertable" Path="to_Version_oc"/>
+                                            <PropertyValue Property="Insertable" Path="to_Component_oc"/>
                                         </Record>
                                     </PropertyValue>
                                 </Record>
@@ -747,7 +747,7 @@
                                 <PropertyPath>to_S_Role_oc</PropertyPath>
                                 <PropertyPath>to_S_Tile_oc</PropertyPath>
                                 <PropertyPath>to_Tar_Map_oc</PropertyPath>
-                                <PropertyPath>to_Version_oc</PropertyPath>
+                                <PropertyPath>to_Component_oc</PropertyPath>
                             </Collection>
                         </PropertyValue>
                     </Record>
