@@ -86,11 +86,7 @@
         "type": "sap.ui.model.json.JSONModel",
         "settings": {},
         "preload": true
-      },
-      "tableDataMock": {
-				"type": "sap.ui.model.json.JSONModel",
-				"dataSource": "tableData_alias"
-			}
+      }
     },
     "resources": {
       "css": [

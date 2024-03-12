@@ -6,7 +6,7 @@ sap.ui.define([
     return Controller.extend("fiorilibappname.controller.Worklist", {
         onInit: function () {
             this._bIsFilterBarInitialized = false;
-            var dataModel = this.getOwnerComponent().getModel("tableDataMock");
+            var dataModel = this.getOwnerComponent().getModel();
             console.log(dataModel.getData());
             var oRouter = this.getOwnerComponent().getRouter();
             oRouter.getRoute("Detail").attachPatternMatched(this._onObjectMatched, this);

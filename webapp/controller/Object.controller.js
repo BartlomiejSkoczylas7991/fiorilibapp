@@ -98,7 +98,7 @@ sap.ui.define([
         },
         
         _loadData: function (sSolId) {
-            var dataModel = this.getOwnerComponent().getModel("tableDataMock");
+            var dataModel = this.getOwnerComponent().getModel();
             var solutions = dataModel.getProperty("/Solutions");
             var selectedSolution = null;
         
