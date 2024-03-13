@@ -7,8 +7,16 @@ sap.ui.define([
         init: function () {
             // create
             const oMockServer = new MockServer({
-                rootUri: "https://a4m.c4b.sapfioneer.com:44300/sap/opu/odata/sap/ZBSK_LA_SOL;v=2/"
+                rootUri: "/sap/opu/odata/sap/ZBSK_LA_SOL;v=2/"
             });
+
+            const oUrlParams = new URLSearchParams(window.location.search);
+
+			// configure mock server with a delay
+			MockServer.config({
+				autoRespond: true,
+				autoRespondAfter: oUrlParams.get("serverDelay") || 999
+			});
 
             // simulate
             oMockServer.simulate("../localService/metadata.xml", {

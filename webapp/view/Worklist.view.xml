@@ -32,7 +32,7 @@
                 <Table  class="sapUiSizeCompact" 
                         id="table1" 
                         includeItemInSelection="true" 
-                        items="{path: 'dataModel>/Solutions'}" 
+                        items="{path: 'dataModel>/ZC_BSK_LA_SOLUTION'}" 
 						selectionChange="onSelectionChange">
 						<columns>
                             <Column>
