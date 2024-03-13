@@ -99,7 +99,7 @@ sap.ui.define([
         
         _loadData: function (sSolId) {
             var dataModel = this.getOwnerComponent().getModel();
-            var solutions = dataModel.getProperty("/Solutions");
+            var solutions = dataModel.getProperty("/ZC_BSK_LA_SOLUTION");
             var selectedSolution = null;
         
             for (var i = 0; i < solutions.length; i++) {

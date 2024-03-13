@@ -1,7 +1,7 @@
 [
     {
-      "ServiceId": "SRV001",
-      "SolId": "SOL001",
+      "ServiceId": "0000000001",
+      "SolId": "0000000001",
       "Url": "http://fioriservice.example.com",
       "Version": "1.0",
       "Description": "Serwis do integracji z aplikacjami Fiori",
@@ -11,8 +11,8 @@
       "_Solution": "SOL001"
     },
     {
-      "ServiceId": "SRV002",
-      "SolId": "SOL001",
+      "ServiceId": "0000000002",
+      "SolId": "0000000001",
       "Url": "http://additionalfioriservice.example.com",
       "Version": "2.0",
       "Description": "Dodatkowy serwis do obsługi zaawansowanych funkcji Fiori",

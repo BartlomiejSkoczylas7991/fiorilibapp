@@ -17,7 +17,7 @@
     },
     "dataSources": {
       "mainService": {
-        "uri": "/sap/opu/odata/sap/ZBSK_LA_SOL;v=2/",
+        "uri": "/sap/opu/odata/sap/ZBSK_LA_SOL/",
         "type": "OData",
         "settings": {
           "annotations": [],
@@ -70,7 +70,8 @@
           "defaultBindingMode": "TwoWay",
           "defaultCountMode": "Inline",
           "useBatch": true
-        }
+        },
+        "preload": true
       },
       "i18n": {
         "type": "sap.ui.model.resource.ResourceModel",

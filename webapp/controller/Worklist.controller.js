@@ -1,31 +1,46 @@
 sap.ui.define([
     "sap/ui/core/mvc/Controller",
-  ], function (Controller, JSONModel, MessageBox) {
+    "sap/ui/model/json/JSONModel",
+    "sap/ui/model/odata/v2/ODataModel"
+  ], function (Controller, JSONModel, ODataModel) {
     "use strict";
   
     return Controller.extend("fiorilibappname.controller.Worklist", {
-        onInit: function () {
-            this._bIsFilterBarInitialized = false;
-            var dataModel = this.getOwnerComponent().getModel();
-            console.log(dataModel.getData());
-            var oRouter = this.getOwnerComponent().getRouter();
-            oRouter.getRoute("Detail").attachPatternMatched(this._onObjectMatched, this);
-        
-           //var oViewModel = new JSONModel({
-           //  isFilterBarVisible: false,
-           //  filterBarLabel: "",
-           //  delay: 0,
-           //  title: this.getResourceBundle().getText("worklistTitleCount", [0]),
-           //  noDataText: this.getResourceBundle().getText("worklistNoDataText"),
-           //  sortBy: "TechnicalName",
-           //  groupBy: "None"
-           //});
-            this.getView().setModel(dataModel, "dataModel");
-          },
+      onInit: function () {
+          var sUri = "/sap/opu/odata/sap/ZBSK_LA_SOL/";
+          var oViewModel = new JSONModel({ loading: true });
+          this.getView().setModel(oViewModel, "viewModel");
+
+          var oODataModel = new ODataModel(sUri, {
+              json: true,
+              loadMetadataAsync: true
+          });
+
+          // Bind the OData model to the view to use it for binding in the view
+          this.getView().setModel(oODataModel, "oBindedModel");
+
+          // Asynchronously load OData model metadata, then read data
+          oODataModel.metadataLoaded().then(function() {
+              oODataModel.read("/ZC_BSK_LA_SOLUTION", {
+                  success: function(oData) {
+                      var oDataModel = new JSONModel(oData.results);
+                      this.getView().setModel(oDataModel, "SolutionsData"); // Assign fetched data to the view model
+                      oViewModel.setProperty("/loading", false); // Update loading state
+                  }.bind(this),
+                  error: function() {
+                      oViewModel.setProperty("/loading", false); // Update loading state on error
+                  }
+              });
+          }.bind(this));
+
+          // Initialize router
+          var oRouter = this.getOwnerComponent().getRouter();
+          oRouter.getRoute("Detail").attachPatternMatched(this._onObjectMatched, this);
+      },
   
       onPress: function (oEvent) {
         var oItem = oEvent.getParameter("listItem") || oEvent.getSource();
-        var oBindingContext = oItem.getBindingContext("dataModel");
+        var oBindingContext = oItem.getBindingContext();
     
         if (!oBindingContext) {
             MessageBox.error("Nie znaleziono kontekstu wiązania.");

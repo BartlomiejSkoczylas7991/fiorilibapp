@@ -7,7 +7,7 @@ sap.ui.define([
         init: function () {
             // create
             const oMockServer = new MockServer({
-                rootUri: "/sap/opu/odata/sap/ZBSK_LA_SOL;v=2/"
+                rootUri: "/sap/opu/odata/sap/ZBSK_LA_SOL/"
             });
 
             const oUrlParams = new URLSearchParams(window.location.search);
