@@ -1,0 +1,474 @@
+{ "Solutions": [
+    {
+      "SolId": "0000000001",
+      "TechnicalName": "FioriAppManager",
+      "Subtitle": "Zarządzanie aplikacjami Fiori",
+      "Url": "http://fioriappmanager.example.com",
+      "SolType": "1",
+      "TypeDescription": "Aplikacja webowa",
+      "Status": "1",
+      "StatusDescription": "Active",
+      "SolutionAction": "Update",
+      "ActionDescription": "Aktualizuj aplikację",
+      "Description": "Aplikacja \"FioriAppManager\", o identyfikatorze SOL001, jest innowacyjnym narzędziem stworzonym z myślą o efektywnym zarządzaniu aplikacjami Fiori w przedsiębiorstwach. Technicznie określana jako webowa platforma zarządzania, aplikacja ta zapewnia centralizowany interfejs użytkownika, umożliwiający administratorom łatwe monitorowanie, aktualizowanie i konfigurację aplikacji Fiori. Dostępna pod adresem FioriAppManager, aplikacja ta została uruchomiona w celu usprawnienia procesów biznesowych i zwiększenia produktywności przez lepsze zarządzanie komponentami aplikacji.\n\nStatus aplikacji określony jest jako \"Aktywna\", co oznacza, że jest ona w pełni funkcjonalna i dostępna dla użytkowników. Integralną częścią funkcjonalności FioriAppManager jest możliwość aktualizacji aplikacji (\"Update\"), co pozwala na ciągłe doskonalenie i dostosowywanie aplikacji do zmieniających się wymagań biznesowych. Aplikacja została stworzona i zmodyfikowana przez 'admin' ostatnio dnia 2024-03-05, co podkreśla jej aktualność i ciągłe dostosowanie do najnowszych standardów i praktyk.\n\nWśród kluczowych cech FioriAppManager warto wymienić \"Komponent zarządzania\", który umożliwia użytkownikom intuicyjne i skuteczne zarządzanie różnymi aspektami aplikacji Fiori, od bezpieczeństwa po wydajność. Do tej pory aplikacja otrzymała pozytywne uwagi użytkowników, odzwierciedlone w komentarzach (np. \"NOTE001\", \"NOTE002\"), co świadczy o jej przydatności i funkcjonalności.\n\nIntegracja z różnymi usługami (\"SRV001\", \"SRV002\") oraz grupami (\"GRP001\") umożliwia FioriAppManager zarządzanie złożonym ekosystemem aplikacji Fiori, co przekłada się na lepszą organizację i spójność w ramach środowiska przedsiębiorstwa. Aplikacja wspiera również mapy docelowe (\"TMAP001\", \"TMAP002\") i wersje (\"VER001\", \"VER002\"), co ułatwia zarządzanie wersjami aplikacji i zrozumienie zależności między różnymi komponentami systemu.\n\nZaprojektowana z myślą o maksymalizacji użytkowości i efektywności, FioriAppManager stanowi kluczowe narzędzie dla każdej organizacji korzystającej z aplikacji Fiori, pomagając w zarządzaniu cyklem życia aplikacji, od wdrożenia po codzienne użytkowanie.",
+      "AppComponentText": "Komponent zarządzania",
+      "ChangedAt": "2024-03-05T12:00:00",
+      "ChangedBy": "admin",
+      "CreatedAt": "2024-01-01T12:00:00",
+      "CreatedBy": "creator",
+      "InstallationInstructions": {
+        "Title": "Instrukcja Instalacji",
+        "Steps": [
+          {
+            "StepNumber": "1",
+            "Description": "Pobierz pakiet instalacyjny z [http://fioriappmanager.example.com/download](http://fioriappmanager.example.com/download)."
+          },
+          {
+            "StepNumber": "2",
+            "Description": "Rozpakuj pobrany pakiet."
+          },
+          {
+            "StepNumber": "3",
+            "Description": "Uruchom skrypt instalacyjny w terminalu."
+          },
+          {
+            "StepNumber": "4",
+            "Description": "Postępuj zgodnie z instrukcjami na ekranie, aby zakończyć instalację."
+          }
+        ]
+      },
+      "to_Comments": [
+        {
+          "NoteNumber": "0000000001",
+          "Title": "General Feedback",
+          "System": "Front-End Server",
+          "Created": "2024-03-05T10:00:00",
+          "CreatedBy": "user1",
+          "Text": "This is a general feedback for the first solution."
+        },
+        {
+          "NoteNumber": "0000000002",
+          "Title": "Feature Request",
+          "System": "Back-End Server",
+          "Created": "2024-03-06T15:30:00",
+          "CreatedBy": "user2",
+          "Text": "There is a request for a new feature in the first solution."
+        }
+      ],
+      "to_Service": [
+        {
+            "ServiceId": "0000000001",
+            "Url": "http://fioriservice.example.com",
+            "Version": "1.0",
+            "Description": "Serwis do integracji z aplikacjami Fiori",
+            "ExtServName": "FioriI",
+            "SoftCompVersion": "2",
+            "BeAuthRole": "FioriAdmin"
+        },
+        {
+            "ServiceId": "0000000002",
+            "Url": "http://additionalfioriservice.example.com",
+            "Version": "2.0",
+            "Description": "Dodatkowy serwis do obsługi zaawansowanych funkcji Fiori",
+            "ExtServName": "AdvancedFioriService",
+            "SoftCompVersion": "2.4.6",
+            "BeAuthRole": "AdvancedUser"
+        }
+      ],
+       "to_S_Group": [
+        {"GroupId": "0000000001"}
+      ],
+      "to_S_Role": [
+        {"RoleId": "0000000001"},
+        {"RoleId": "0000000002"},
+        {"RoleId": "0000000003"}
+      ],
+      "to_S_Catalog": [
+        {"CatalogId": "0000000001"},
+        {"CatalogId": "0000000002"}
+      ],
+      "to_S_Tile": [
+        {"TileId": "0000000001"},
+        {"TileId": "0000000002"}
+      ],
+      "to_Tar_Map": [
+        {
+            "TarMapId": "0000000001",
+            "SolId": "0000000001",
+            "Url": "http://mapsolution.example.com/map1",
+            "Type": "Functional",
+            "ParamValue": "param1"
+        },
+        {
+            "TarMapId": "0000000002",
+            "SolId": "0000000001",
+            "Url": "http://mapsolution.example.com/map2",
+            "Type": "Technical",
+            "ParamValue": "param2"
+        }
+      ],
+      "to_Version": [
+        {
+          "VersionId": "0000000001",
+          "Status": "Active",
+          "Title": "Initial Release",
+          "Description": "The first release of the solution."
+        },
+        {
+          "VersionId": "VER002",
+          "Status": "Deprecated",
+          "Title": "Second Release",
+          "Description": "The second release of the solution, now deprecated."
+        }
+      ],
+      "to_Attachment": [],
+      "Images": [
+        {
+          "Name": "First Image",
+          "Pic": "./model/images/SDR_1.jpg"
+        }
+      ]
+    },
+    {
+      "SolId": "0000000002",
+      "TechnicalName": "FioriHRApp",
+      "Subtitle": "Aplikacja HR dla Fiori",
+      "Url": "http://fiorihrapp.example.com",
+      "SolType": "Mobile",
+      "TypeDescription": "Aplikacja mobilna",
+      "Status": "In Development",
+      "StatusDescription": "In development phase",
+      "SolutionAction": "Deploy",
+      "ActionDescription": "Wdrożenie aplikacji",
+      "Description": "Aplikacja HR zaprojektowana do zarządzania zasobami ludzkimi w Fiori",
+      "AppComponentText": "HR Management Component",
+      "ChangedAt": "2024-03-10T15:00:00",
+      "ChangedBy": "hradmin",
+      "CreatedAt": "2024-02-20T11:00:00",
+      "CreatedBy": "hrcreator",
+      "to_Comments": [
+        {
+          "NoteNumber": "0000000003",
+          "Title": "Bug Report",
+          "System": "Front-End Server",
+          "Created": "2024-03-07T09:20:00",
+          "CreatedBy": "user3",
+          "Text": "A bug was found in the second solution."
+        }
+      ],
+      "to_Service": [
+        {
+            "ServiceId": "SRV003",
+            "Url": "http://hrfioriservice.example.com",
+            "Version": "1.0",
+            "Description": "Serwis HR dla aplikacji Fiori HR",
+            "ExtServName": "HRFioriService",
+            "SoftCompVersion": "3.1.4",
+            "BeAuthRole": "HRManager"
+        }
+     ],
+       "to_S_Group": [
+        {"GroupId": "0000000002"}
+      ],
+      "to_S_Role": [
+        {"RoleId": "0000000002"},
+        {"RoleId": "0000000003"}
+      ],
+      "to_S_Catalog": [
+        {"CatalogId": "0000000002"}
+      ],
+      "to_S_Tile": [
+        {"TileId": "0000000002"}
+      ],
+      "to_Tar_Map": [
+        {
+            "TarMapId": "TMAP003",
+            "SolId": "0000000003",
+            "Url": "http://mapsolution.example.com/map1",
+            "Type": "Functional",
+            "ParamValue": "param1"
+        }],
+        "to_Version": [
+          {
+            "VersionId": "0000000003",
+            "Status": "In Development",
+            "Title": "Upcoming Release",
+            "Description": "The upcoming third release of the solution."
+          }
+        ],
+      "to_Attachment": [],
+      "Images": [
+        {
+          "Name": "First Image",
+          "Pic": "./model/images/SDR_1.jpg"
+        }
+      ]
+    },
+    {
+        "SolId": "0000000003",
+        "TechnicalName": "FioriSalesApp",
+        "Subtitle": "Aplikacja Sales dla Fiori",
+        "Url": "http://fiorisalesapp.example.com",
+        "SolType": "Web",
+        "TypeDescription": "Aplikacja webowa",
+        "Status": "Active",
+        "StatusDescription": "Active",
+        "SolutionAction": "Update",
+        "ActionDescription": "Aktualizuj aplikację",
+        "Description": "Aplikacja Sales jest przeznaczona do zarządzania sprzedażą w przedsiębiorstwie. Umożliwia śledzenie danych sprzedażowych, analizy trendów oraz planowania sprzedaży.",
+        "AppComponentText": "Sales Management Component",
+        "ChangedAt": "2024-03-15T10:00:00",
+        "ChangedBy": "salesadmin",
+        "CreatedAt": "2024-01-15T08:30:00",
+        "CreatedBy": "salescreator",
+        "to_Comments": [
+          {
+            "NoteNumber": "NOTE004",
+            "Title": "Update Planned",
+            "System": "Back-End Server",
+            "Created": "2024-03-12T11:30:00",
+            "CreatedBy": "user4",
+            "Text": "Planned update for improving performance."
+          }
+        ],
+        "to_Service": [
+          {
+            "ServiceId": "SRV004",
+            "Url": "http://salesfioriservice.example.com",
+            "Version": "2.5",
+            "Description": "Serwis dla aplikacji Fiori Sales",
+            "ExtServName": "SalesFioriService",
+            "SoftCompVersion": "5.2.7",
+            "BeAuthRole": "SalesManager"
+          }],
+          "to_S_Group": [
+            {"GroupId": "0000000003"}
+          ],
+          "to_S_Role": [
+            {"RoleId": "0000000004"},
+            {"RoleId": "0000000005"}
+          ],
+          "to_S_Catalog": [
+            {"CatalogId": "0000000003"}
+          ],
+          "to_S_Tile": [
+            {"TileId": "0000000003"}
+          ],
+          "to_Tar_Map": [
+            {
+              "TarMapId": "0000000004",
+              "SolId": "0000000004",
+              "Url": "http://mapsolution.example.com/map2",
+              "Type": "Analytical",
+              "ParamValue": "param2"
+            }
+          ],
+          "to_Version": [
+            {
+              "VersionId": "0000000004",
+              "Status": "Released",
+              "Title": "Second Release",
+              "Description": "This is the second release of the solution, which includes additional features."
+            }
+          ],
+          "to_Attachment": [
+            {
+              "AttachmentId": "0000000001",
+              "FileName": "SalesReport2024.pdf",
+              "MimeType": "application/pdf",
+              "Url": "http://attachments.example.com/salesreport2024.pdf"
+            }
+          ],
+          "Images": [
+            {
+              "Name": "First Image",
+              "Pic": "./model/images/SDR_1.jpg"
+            }
+          ]
+        },
+        {
+          "SolId": "0000000004",
+          "TechnicalName": "FioriInventoryApp",
+          "Subtitle": "Inventory Management for Fiori",
+          "Url": "http://fioriinventoryapp.example.com",
+          "SolType": "Web",
+          "TypeDescription": "Web Application",
+          "Status": "Under Development",
+          "StatusDescription": "In development phase",
+          "SolutionAction": "Deploy",
+          "ActionDescription": "Deploy application",
+          "Description": "This application is designed to help with inventory management, allowing users to track stock levels, orders, and deliveries.",
+          "AppComponentText": "Inventory Management Component",
+          "ChangedAt": "2024-04-05T14:00:00",
+          "ChangedBy": "inventorydev",
+          "CreatedAt": "2024-03-20T09:00:00",
+          "CreatedBy": "inventoryadmin",
+          "to_Comments": [
+            {
+              "NoteNumber": "0000000005",
+              "Title": "Development Update",
+              "System": "Front-End Server",
+              "Created": "2024-03-25T10:45:00",
+              "CreatedBy": "user5",
+              "Text": "The development of new tracking features is on schedule."
+            }
+          ],
+          "to_Service": [
+            {
+              "ServiceId": "0000000005",
+              "Url": "http://inventoryfioriservice.example.com",
+              "Version": "1.2",
+              "Description": "Service for Fiori Inventory App",
+              "ExtServName": "InventoryFioriService",
+              "SoftCompVersion": "1.2.1",
+              "BeAuthRole": "InventoryManager"
+            }
+          ],
+          "to_S_Group": [
+            {"GroupId": "0000000004"}
+          ],
+          "to_S_Role": [
+            {"RoleId": "0000000006"},
+            {"RoleId": "0000000007"}
+          ],
+          "to_S_Catalog": [
+            {"CatalogId": "0000000004"}
+          ],
+          "to_S_Tile": [
+            {"TileId": "0000000004"}
+          ],
+          "to_Tar_Map": [
+            {
+              "TarMapId": "0000000005",
+              "SolId": "0000000005",
+              "Url": "http://inventorysolution.example.com/map3",
+              "Type": "Functional",
+              "ParamValue": "param3"
+            }
+          ],
+          "to_Version": [
+            {
+              "VersionId": "0000000005",
+              "Status": "Planned",
+              "Title": "Initial Release",
+              "Description": "The first release of the inventory management solution."
+            }
+          ],
+          "to_Attachment": [
+            {
+              "AttachmentId": "0000000002",
+              "FileName": "InventorySetupGuide.pdf",
+              "MimeType": "application/pdf",
+              "Url": "http://attachments.example.com/inventorysetupguide.pdf"
+            }
+          ],
+          "Images": [
+            {
+              "Name": "First Image",
+              "Pic": "./model/images/SDR_1.jpg"
+            }
+          ]
+        }
+      ],
+      "Role": [
+        {
+          "RoleId": "0000000001",
+          "TechName": "Administrator",
+          "AccessLevel": "High",
+          "Description": "Full access to all Fiori applications",
+          "ChangedAt": "2024-03-15T12:00:00",
+          "ChangedBy": "admin",
+          "CreatedAt": "2024-01-10T09:00:00",
+          "CreatedBy": "creator",
+          "_Role_Solution": ["0000000001"]
+        },
+        {
+          "RoleId": "0000000002",
+          "TechName": "User",
+          "AccessLevel": "Medium",
+          "Description": "Standard access with limited privileges",
+          "ChangedAt": "2024-03-16T13:30:00",
+          "ChangedBy": "useradmin",
+          "CreatedAt": "2024-01-12T10:30:00",
+          "CreatedBy": "usercreator",
+          "_Role_Solution": ["0000000001","0000000002"]
+        },
+        {
+          "RoleId": "0000000003",
+          "TechName": "Guest",
+          "AccessLevel": "Low",
+          "Description": "Limited access for external users",
+          "ChangedAt": "2024-03-18T14:00:00",
+          "ChangedBy": "guestadmin",
+          "CreatedAt": "2024-01-14T11:00:00",
+          "CreatedBy": "guestcreator",
+          "_Role_Solution": ["0000000003"]
+        }
+      ],
+      "Group": [
+        {
+          "GroupId": "0000000001",
+          "Title": "Group Finance",
+          "Description": "Finance management solutions",
+          "_Role_Solution": ["0000000001"]
+        },
+        {
+          "GroupId": "0000000002",
+          "Title": "Group HR",
+          "Description": "Human resources management solutions",
+          "_Role_Solution": ["0000000001","0000000002"]
+        }
+      ],
+      "Catalog": [
+          {
+            "CatalogId": "0000000001",
+            "Title": "Finance Applications",
+            "Description": "Catalog of all finance related applications",
+            "ChangedAt": "2024-03-10T15:00:00",
+            "ChangedBy": "admin",
+            "CreatedAt": "2024-01-15T09:30:00",
+            "CreatedBy": "creator",
+            "_Role_Solution": ["0000000001"]
+          },
+          {
+            "CatalogId": "CAT002",
+            "Title": "HR Applications",
+            "Description": "Catalog of all HR related applications",
+            "ChangedAt": "2024-03-12T11:00:00",
+            "ChangedBy": "hradmin",
+            "CreatedAt": "2024-01-20T10:00:00",
+            "CreatedBy": "hrcreator",
+            "_Role_Solution": ["0000000002"]
+          }
+      ],
+      "Tile": [
+        {
+          "TileId": "0000000001",
+          "Title": "Expense Reporting",
+          "Subtitle": "Submit and track expenses",
+          "Information": "Quick access to submit or review expenses",
+          "TileType": "Application",
+          "Description": "Enables users to submit and track their expenses",
+          "ParamValue": "expenses",
+          "ChangedAt": "2024-03-15T10:30:00",
+          "ChangedBy": "finadmin",
+          "CreatedAt": "2024-02-05T08:20:00",
+          "CreatedBy": "fincreator",
+          "_Role_Solution": ["0000000002"]
+        },
+        {
+          "TileId": "0000000002",
+          "Title": "Leave Requests",
+          "Subtitle": "Manage leave requests",
+          "Information": "Apply for leave and check approval status",
+          "TileType": "Application",
+          "Description": "Allows employees to apply for and manage leave requests",
+          "ParamValue": "leave",
+          "ChangedAt": "2024-03-17T12:00:00",
+          "ChangedBy": "hradmin",
+          "CreatedAt": "2024-02-10T09:25:00",
+          "CreatedBy": "hrcreator",
+          "_Role_Solution": ["0000000001"]
+        }
+      ]
+    }
