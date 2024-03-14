@@ -47,7 +47,6 @@
                     <m:Button type="Transparent" text="Copy"/>
                     <m:Button text="Cancel" press="onCancelPress" visible="{= ${viewModel>/isEditMode}? true : false}" />
                     <m:Button type="Transparent" text="Delete" press="onDeletePress" visible="{= !${viewModel>/isEditMode}? true : false}" />
-                    <m:Button id="buttonBack" text="Back" type="Back" press=".onNavBack" />
                 </actions>
             </ObjectPageDynamicHeaderTitle>
         </headerTitle>

@@ -31,15 +31,6 @@
                         <smartTable:customToolbar>
                             <OverflowToolbar>
                                 <ToolbarSpacer/>
-                                <Button text="Tile" press="onRoleDialogOpen"/>
-                                <ToolbarSpacer width="2rem"/>
-                                <Button text="Catalog" press="onRoleDialogOpen"/>
-                                <ToolbarSpacer width="2rem"/>
-                                <Button text="Group" press="onRoleDialogOpen"/>
-                                <ToolbarSpacer width="2rem"/>
-                                <Button text="Role" press="onRoleDialogOpen"/>
-                                <ToolbarSpacer/>
-                                <Button text="Delete" press="onDeleteButton"/>
                                 <Button text="Create"  press="onAddButtonPress"/>
                             </OverflowToolbar>
                         </smartTable:customToolbar>
