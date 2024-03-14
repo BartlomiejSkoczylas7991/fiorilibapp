@@ -11,7 +11,6 @@ sap.ui.define([
 
             const oUrlParams = new URLSearchParams(window.location.search);
 
-			// configure mock server with a delay
 			MockServer.config({
 				autoRespond: true,
 				autoRespondAfter: oUrlParams.get("serverDelay") || 999

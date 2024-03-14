@@ -80,11 +80,6 @@
       },
       "viewModel": {
         "type": "sap.ui.model.json.JSONModel",
-        "settings": {},
-        "preload": true
-      },
-      "jsonModelFile": {
-        "type": "sap.ui.model.json.JSONModel",
         "uri": "model/ZC_SOLUTION.json"
       }
     },

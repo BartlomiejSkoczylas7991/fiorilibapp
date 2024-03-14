@@ -72,24 +72,21 @@
 			    	<m:Label text="Device"/>
                     <m:Text text="Desktop, Tablet"/>
 			    </l:VerticalLayout>
-                <f:SimpleForm id = ".idSimpleFormHeader" visible="{= ${viewModel>/isEditMode}? true : false}" layout="ResponsiveGridLayout" editable="true">
-                    <f:content>
-                        <m:Label text="Technical Name" />
-                        <m:Input id="idInputTechnicalName" value="{viewDetail>/TechnicalName}" />
-                        <m:Label text="URL" />
-                        <m:Input id="idInputUrl" value="{viewDetail>/Url}" />
-                        <m:Label text="Description" />
-                        <m:TextArea id="idInputDescription" value="{viewDetail>/Description}" rows="4" />
-                    </f:content>
-                </f:SimpleForm>
-
             </m:FlexBox>
-        </headerContent>
-
-        <sections>
+        </headerContent>        <sections>
             <ObjectPageSection title="Business Description">
                 <subSections>
                     <ObjectPageSubSection title="Description">
+                        <f:SimpleForm id = ".idSimpleFormHeader" visible="{= ${viewModel>/isEditMode}? true : false}" layout="ResponsiveGridLayout" editable="true">
+                            <f:content>
+                                <m:Label text="Technical Name" />
+                                <m:Input id="idInputTechnicalName" value="{viewDetail>/TechnicalName}" />
+                                <m:Label text="URL" />
+                                <m:Input id="idInputUrl" value="{viewDetail>/Url}" />
+                                <m:Label text="Description" />
+                                <m:TextArea id="idInputDescription" value="{viewDetail>/Description}" rows="4" />
+                            </f:content>
+                        </f:SimpleForm>
                         <blocks>
                             <description:Description id="descrblock" description="{viewModel>/Description}" visible="{= !${viewModel>/isEditMode}? true : false}"/>
                             <f:SimpleForm id="descriptionForm" editable="{= ${viewModel>/isEditMode}? true : false}" visible="{= ${viewModel>/isEditMode}? true : false}">

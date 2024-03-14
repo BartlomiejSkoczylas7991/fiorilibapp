@@ -17,12 +17,17 @@ sap.ui.define([
         });
         this.getView().setModel(oODataModel, "oBindedModel");
 
+
         oODataModel.metadataLoaded().then(function() {
             oODataModel.read("/ZC_BSK_LA_SOLUTION", {
                 success: function(oData) {
                     var oDataModel = new JSONModel(oData.results);
                     this.getView().setModel(oDataModel, "SolutionsData");
                     oViewModel.setProperty("/loading", false); 
+                    var oSmartTable = this.byId("idSmartSolutionTable");
+                    if (oSmartTable) {
+                        oSmartTable.rebindTable();
+        }
                 }.bind(this),
                 error: function() {
                     oViewModel.setProperty("/loading", false); 
