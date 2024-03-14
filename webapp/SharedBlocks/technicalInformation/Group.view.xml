@@ -1,0 +1,29 @@
+<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m">
+    <Table items="{viewModel>/Group}">
+        <headerToolbar>
+            <Toolbar>
+                <Title text="Group(s)"/>
+            </Toolbar>
+        </headerToolbar>
+        <columns>
+            <Column>
+                <Text text="Group ID"/>
+            </Column>
+            <Column>
+                <Text text="Title"/>
+            </Column>
+            <Column>
+                <Text text="Description"/>
+            </Column>
+        </columns>
+        <items>
+            <ColumnListItem>
+                <cells>
+                    <Text text="{viewModel>GroupId}"/>
+                    <Text text="{viewModel>Title}"/>
+                    <Text text="{viewModel>Description}"/>
+                </cells>
+            </ColumnListItem>
+        </items>
+    </Table>
+</mvc:View>

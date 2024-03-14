@@ -493,5 +493,33 @@
           "CreatedBy": "hrcreator",
           "_Role_Solution": ["0000000001"]
         }
-      ]
+      ],
+      "FrontEndComponents": [
+        {
+            "ProductVersion": "SAP FIORI FOR SAP S/4HANA 2023",
+            "SupportPackageStack": "01 (02/2024) FPS",
+            "SoftwareComponentVersion": "UIAPFI70 902 - SP 0001",
+            "PrerequisiteForInstallation": "SAP FIORI FOR SAP S/4HANA 2023 - SPS 01 (02/2024) FPS",
+            "AddOn": "SAP FIORI FES 2023 FOR S/4HANA - SPS 01 (02/2024)"
+        },
+        {
+            "ProductVersion": "SAP Fiori for SAP S/4HANA 2023",
+            "SupportPackageStack": "01 (02/2024) FPS",
+            "SoftwareComponentVersion": "UIAPFI70 902 - SP 0002",
+            "PrerequisiteForInstallation": "SAP FIORI FOR SAP S/4HANA 2023 - SPS 01 (02/2024) FPS",
+            "AddOn": "SAP FIORI FES 2023 FOR S/4HANA - SPS 01 (02/2024)"
+        }
+    ],
+    "BackEndComponents": [
+        {
+            "ProductVersion": "SAP S/4HANA 2023",
+            "SupportPackageStack": "01 (02/2024) FPS",
+            "SoftwareComponentVersion": "S4CORE 108 - SP 0001"
+        },
+        {
+            "ProductVersion": "SAP S/4HANA 2023",
+            "SupportPackageStack": "01 (02/2024) FPS",
+            "SoftwareComponentVersion": "S4CORE 108 - SP 0002"
+        }
+    ]
     }

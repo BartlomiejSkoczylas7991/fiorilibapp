@@ -1,0 +1,43 @@
+<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m">
+    <Table items="{viewModel>/Catalog}">
+        <headerToolbar>
+            <Toolbar>
+                <Title text="Catalog(s)"/>
+            </Toolbar>
+        </headerToolbar>
+        <columns>
+            <Column>
+                <Text text="Catalog ID"/>
+            </Column>
+            <Column>
+                <Text text="Title"/>
+            </Column>
+            <Column>
+                <Text text="Description"/>
+            </Column>
+            <Column>
+                <Text text="Changed At"/>
+            </Column>
+            <Column>
+                <Text text="Changed By"/>
+            </Column>
+            <Column>
+                <Text text="Created At"/>
+            </Column>
+            <Column>
+                <Text text="Created By"/>
+            </Column>
+        </columns>
+        <items>
+            <ColumnListItem>
+                <cells>
+                    <Text text="{viewModel>CatalogId}"/>
+                    <Text text="{viewModel>Title}"/>
+                    <Text text="{viewModel>Description}"/>
+                    <Text text="{viewModel>CreatedAt}"/>
+                    <Text text="{viewModel>CreatedBy}"/>
+                </cells>
+            </ColumnListItem>
+        </items>
+    </Table>
+</mvc:View>

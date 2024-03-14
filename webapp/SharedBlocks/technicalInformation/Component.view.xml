@@ -1,0 +1,6 @@
+<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:l="sap.ui.layout">
+    <l:VerticalLayout class="sapUiContentPadding">
+        <Title text="Front End Components"/>
+       
+    </l:VerticalLayout>
+</mvc:View>

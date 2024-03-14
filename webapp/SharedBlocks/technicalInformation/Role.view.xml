@@ -1,0 +1,47 @@
+<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m">
+    <Table items="{viewModel>/Role}">
+        <headerToolbar>
+            <Toolbar>
+                <Title text="Role(s)"/>
+            </Toolbar>
+        </headerToolbar>
+        <columns>
+            <Column>
+                <Text text="Role ID"/>
+            </Column>
+            <Column>
+                <Text text="Tech Name"/>
+            </Column>
+            <Column>
+                <Text text="Access Level"/>
+            </Column>
+            <Column>
+                <Text text="Description"/>
+            </Column>
+            <Column>
+                <Text text="Changed At"/>
+            </Column>
+            <Column>
+                <Text text="Changed By"/>
+            </Column>
+            <Column>
+                <Text text="Created At"/>
+            </Column>
+            <Column>
+                <Text text="Created By"/>
+            </Column>
+        </columns>
+        <items>
+            <ColumnListItem>
+                <cells>
+                    <Text text="{viewModel>RoleId}"/>
+                    <Text text="{viewModel>TechName}"/>
+                    <Text text="{viewModel>AccessLevel}"/>
+                    <Text text="{viewModel>Description}"/>
+                    <Text text="{viewModel>CreatedAt}"/>
+                    <Text text="{viewModel>CreatedBy}"/>
+                </cells>
+            </ColumnListItem>
+        </items>
+    </Table>
+</mvc:View>

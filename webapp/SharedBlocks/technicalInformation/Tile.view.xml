@@ -1,0 +1,45 @@
+<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m">
+    <Table items="{viewModel>/Tile}">
+        <headerToolbar>
+            <Toolbar>
+                <Title text="Tile(s)"/>
+            </Toolbar>
+        </headerToolbar>
+        <columns>
+            <Column>
+                <Text text="Tile ID"/>
+            </Column>
+            <Column>
+                <Text text="Title"/>
+            </Column>
+            <Column>
+                <Text text="Subtitle"/>
+            </Column>
+            <Column>
+                <Text text="Information"/>
+            </Column>
+            <Column>
+                <Text text="Tile Type"/>
+            </Column>
+            <Column>
+                <Text text="Description"/>
+            </Column>
+            <Column>
+                <Text text="Parameter Value"/>
+            </Column>
+        </columns>
+        <items>
+            <ColumnListItem>
+                <cells>
+                    <Text text="{viewModel>TileId}"/>
+                    <Text text="{viewModel>Title}"/>
+                    <Text text="{viewModel>Subtitle}"/>
+                    <Text text="{viewModel>Information}"/>
+                    <Text text="{viewModel>TileType}"/>
+                    <Text text="{viewModel>Description}"/>
+                    <Text text="{viewModel>ParamValue}"/>
+                </cells>
+            </ColumnListItem>
+        </items>
+    </Table>
+</mvc:View>

@@ -43,7 +43,7 @@
                                 <Button text="Create"  press="onAddButtonPress"/>
                             </OverflowToolbar>
                         </smartTable:customToolbar>
-                        <Table id="idSolutionTable" mode="MultiSelect" selectionChange="onPress" />
+                        <Table id="idSolutionTable" mode="SingleSelectMaster" selectionChange="onPress" />
                 </smartTable:SmartTable>
             </VBox>
         </semantic:content>

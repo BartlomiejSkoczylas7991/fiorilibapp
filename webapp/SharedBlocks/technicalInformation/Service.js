@@ -1,7 +1,7 @@
 sap.ui.define(['sap/uxap/BlockBase'], function (BlockBase) {
 	"use strict";
 
-	var BlockEmpDetailPart2 = BlockBase.extend("sap.uxap.sample.SharedBlocks.employment.BlockEmpDetailPart2", {
+	var Service = BlockBase.extend("fiorilibappname.SharedBlocks.technicalInformation.Service", {
 		metadata: {
 			views: {
 				Collapsed: {
@@ -16,5 +16,5 @@ sap.ui.define(['sap/uxap/BlockBase'], function (BlockBase) {
 		}
 	});
 
-	return BlockEmpDetailPart2;
+	return Service;
 });

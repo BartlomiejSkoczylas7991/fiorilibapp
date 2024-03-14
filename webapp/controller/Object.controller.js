@@ -27,24 +27,24 @@ sap.ui.define([
 
         _onObjectMatched: function (oEvent) {
             const sRouteName = oEvent.getParameter("name");
-            var ViewModel = this.getOwnerComponent().getModel("viewModel");
+            var viewModel = this.getOwnerComponent().getModel("viewModel");
             var oDetailModel = this.getView().getModel("viewDetail");
 
             let emptyData = {};
 
             if (sRouteName === "Create") {
-                ViewModel.setData(emptyData);
+                viewModel.setData(emptyData);
                 oDetailModel.setData(emptyData); 
                 this.getView().getModel("viewDetail").setData(emptyData);
-                ViewModel.setProperty("/isEditMode", true);
+                viewModel.setProperty("/isEditMode", true);
             } else if (sRouteName === "Detail") {
                 this._sSolId = oEvent.getParameter("arguments").SolId;
-                ViewModel.setProperty("/isEditMode", false);
+                viewModel.setProperty("/isEditMode", false);
                 if (this._sSolId) {
                     this._loadData(this._sSolId);
                 } else {
-                    ViewModel.setProperty("/isEditMode", true);
-                    ViewModel.setData(emptyData);
+                    viewModel.setProperty("/isEditMode", true);
+                    viewModel.setData(emptyData);
                     this.getView().getModel("viewDetail").setData(emptyData);
                 }
             }
@@ -222,28 +222,28 @@ sap.ui.define([
         },
 
         _loadImages: function (sSolId) {
-            var aMediaGalleryLayout = Object.keys(library.MediaGalleryLayout).map(function(key){return {'key': key};}),
-				aMediaGalleryMenuHorizontalAlign = Object.keys(library.MediaGalleryMenuHorizontalAlign).map(function(key){return {'key': key};}),
-				aMediaGalleryMenuVerticalAlign = Object.keys(library.MediaGalleryMenuVerticalAlign).map(function(key){return {'key': key};});
-
-			var oImageModel = new JSONModel({
-				Analytical: sap.ui.require.toUrl("fiorilibappname/images/Analytical.jpg"),
-				Invoices: sap.ui.require.toUrl("fiorilibappname/images/Invoices.jpg"),
-				Liquidity: sap.ui.require.toUrl("fiorilibappname/images/Liquidity.jpg"),
-				Manage_Payment_Blocks: sap.ui.require.toUrl("fiorilibappname/images/Manage_Payment_Blocks.jpg"),
-				PCItemsByAA: sap.ui.require.toUrl("fiorilibappname/images/PCItemsByAA.jpg"),
-				reconrep: sap.ui.require.toUrl("fiorilibappname/images/reconrep.png"),
-				galleryTypes: aMediaGalleryLayout,
-				horizontalTypes: aMediaGalleryMenuHorizontalAlign,
-				verticalTypes: aMediaGalleryMenuVerticalAlign,
-				selectedType : aMediaGalleryLayout[0].key,
-				selectedHorizontalType : aMediaGalleryMenuHorizontalAlign[0].key,
-				selectedVerticalType : aMediaGalleryMenuVerticalAlign[0].key,
-				selectedInteractiveDisplayArea: true,
-				selectedShowAllThumbnails: false
-			});
-
-            this.getView().setModel(this.oImageModel);
+           // var aMediaGalleryLayout = Object.keys(library.MediaGalleryLayout).map(function(key){return {'key': key};}),
+			//	aMediaGalleryMenuHorizontalAlign = Object.keys(library.MediaGalleryMenuHorizontalAlign).map(function(key){return {'key': key};}),
+			//	aMediaGalleryMenuVerticalAlign = Object.keys(library.MediaGalleryMenuVerticalAlign).map(function(key){return {'key': key};});
+//
+			//var oImageModel = new JSONModel({
+			//	Analytical: sap.ui.require.toUrl("fiorilibappname/images/Analytical.jpg"),
+			//	Invoices: sap.ui.require.toUrl("fiorilibappname/images/Invoices.jpg"),
+			//	Liquidity: sap.ui.require.toUrl("fiorilibappname/images/Liquidity.jpg"),
+			//	Manage_Payment_Blocks: sap.ui.require.toUrl("fiorilibappname/images/Manage_Payment_Blocks.jpg"),
+			//	PCItemsByAA: sap.ui.require.toUrl("fiorilibappname/images/PCItemsByAA.jpg"),
+			//	reconrep: sap.ui.require.toUrl("fiorilibappname/images/reconrep.png"),
+			//	galleryTypes: aMediaGalleryLayout,
+			//	horizontalTypes: aMediaGalleryMenuHorizontalAlign,
+			//	verticalTypes: aMediaGalleryMenuVerticalAlign,
+			//	selectedType : aMediaGalleryLayout[0].key,
+			//	selectedHorizontalType : aMediaGalleryMenuHorizontalAlign[0].key,
+			//	selectedVerticalType : aMediaGalleryMenuVerticalAlign[0].key,
+			//	selectedInteractiveDisplayArea: true,
+			//	selectedShowAllThumbnails: false
+			//});
+//
+           // this.getView().setModel(this.oImageModel);
         },
 
         onSelectType: function (oEvent) {
@@ -383,11 +383,6 @@ sap.ui.define([
         onNavToDescription: function() {
             var oObjectPageLayout = this.byId("ObjectPageLayout");
             oObjectPageLayout.setSelectedSection(this.getView().byId("descriptionSection"));
-        },
-        
-        onNavToImage: function() {
-            var oObjectPageLayout = this.byId("ObjectPageLayout");
-            oObjectPageLayout.setSelectedSection(this.getView().byId("imageSection"));
         }
     });
 });

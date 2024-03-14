@@ -10,7 +10,9 @@
     xmlns:f="sap.ui.layout.form"
     xmlns:description="fiorilibappname.SharedBlocks.businessDescription"
     xmlns:tech_inf="fiorilibappname.SharedBlocks.technicalInformation"
-    xmlns:imp_notes="fiorilibappname.SharedBlocks.ImportantNotes"
+    xmlns:imp_notes="fiorilibappname.SharedBlocks.importantNotes"
+    xmlns:attachm="fiorilibappname.SharedBlocks.attachments"
+    xmlns:relatedApps="fiorilibappname.SharedBlocks.relatedApps"
     height="100%">
     <m:Page showNavButton="true"
 		    navButtonPress=".onNavBack">
@@ -54,24 +56,33 @@
             <m:FlexBox wrap="Wrap" fitContainer="true" >
                 <m:Avatar class="sapUiSmallMarginEnd" displaySize="L" />
 
-                <l:VerticalLayout class="sapUiSmallMarginBeginEnd">
+                <l:VerticalLayout class="sapUiSmallMarginBeginEnd" visible="{= !${viewModel>/isEditMode}? true : false}">
 			    	<m:Label text="Component"/>
                     <m:Text text="{viewModel>/AppComponentText}"/>
 			    </l:VerticalLayout>
-                <l:VerticalLayout class="sapUiSmallMarginBeginEnd">
+                <l:VerticalLayout class="sapUiSmallMarginBeginEnd" visible="{= !${viewModel>/isEditMode}? true : false}">
 			    	<m:Label text="Type"/>
                     <m:Text text="{viewModel>/TypeDescription}"/>
 			    </l:VerticalLayout>
 
-                <l:VerticalLayout class="sapUiSmallMarginBeginEnd">
+                <l:VerticalLayout class="sapUiSmallMarginBeginEnd" visible="{= !${viewModel>/isEditMode}? true : false}">
 			    	<m:Label text="Device"/>
                     <m:Text text="Desktop, Tablet"/>
 			    </l:VerticalLayout>
-                <l:VerticalLayout class="sapUiSmallMarginBeginEnd">
+                <l:VerticalLayout class="sapUiSmallMarginBeginEnd" visible="{= !${viewModel>/isEditMode}? true : false}">
 			    	<m:Label text="Device"/>
                     <m:Text text="Desktop, Tablet"/>
 			    </l:VerticalLayout>
-
+                <f:SimpleForm id = ".idSimpleFormHeader" visible="{= ${viewModel>/isEditMode}? true : false}" layout="ResponsiveGridLayout" editable="true">
+                    <f:content>
+                        <m:Label text="Technical Name" />
+                        <m:Input id="idInputTechnicalName" value="{viewDetail>/TechnicalName}" />
+                        <m:Label text="URL" />
+                        <m:Input id="idInputUrl" value="{viewDetail>/Url}" />
+                        <m:Label text="Description" />
+                        <m:TextArea id="idInputDescription" value="{viewDetail>/Description}" rows="4" />
+                    </f:content>
+                </f:SimpleForm>
 
             </m:FlexBox>
         </headerContent>
@@ -131,12 +142,38 @@
                             <tech_inf:Tar_Map/>
                         </blocks>
                      </ObjectPageSubSection>
+                     <ObjectPageSubSection title="Role">
+                        <blocks>
+                            <tech_inf:Role/>
+                        </blocks>
+                     </ObjectPageSubSection>
+                     <ObjectPageSubSection title="Groups">
+                        <blocks>
+                            <tech_inf:Group/>
+                        </blocks>
+                     </ObjectPageSubSection>
+                     <ObjectPageSubSection title="Catalogs">
+                        <blocks>
+                            <tech_inf:Catalog/>
+                        </blocks>
+                     </ObjectPageSubSection>
+                     <ObjectPageSubSection title="Tiles">
+                        <blocks>
+                            <tech_inf:Tile/>
+                        </blocks>
+                     </ObjectPageSubSection>
+                     <ObjectPageSubSection title="Components">
+                        <blocks>
+                            <tech_inf:Component/>
+                        </blocks>
+                     </ObjectPageSubSection>
                  </subSections>
              </ObjectPageSection>
              <ObjectPageSection title="Attachments">
                 <subSections>
                     <ObjectPageSubSection title="Attachments">
                         <blocks>
+                            <attachm:Attachment/>
                         </blocks>
                     </ObjectPageSubSection>
                 </subSections>
@@ -145,6 +182,7 @@
                 <subSections>
                     <ObjectPageSubSection title="Related Apps">
                         <blocks>
+                            <relatedApps:relatedApps/>
                         </blocks>
                     </ObjectPageSubSection>
                 </subSections>
