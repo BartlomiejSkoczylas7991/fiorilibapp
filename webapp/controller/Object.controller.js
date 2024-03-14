@@ -27,24 +27,24 @@ sap.ui.define([
 
         _onObjectMatched: function (oEvent) {
             const sRouteName = oEvent.getParameter("name");
-            var oViewModel = this.getOwnerComponent().getModel("viewModel");
+            var ViewModel = this.getOwnerComponent().getModel("viewModel");
             var oDetailModel = this.getView().getModel("viewDetail");
 
             let emptyData = {};
 
             if (sRouteName === "Create") {
-                oViewModel.setData(emptyData);
+                ViewModel.setData(emptyData);
                 oDetailModel.setData(emptyData); 
                 this.getView().getModel("viewDetail").setData(emptyData);
-                oViewModel.setProperty("/isEditMode", true);
+                ViewModel.setProperty("/isEditMode", true);
             } else if (sRouteName === "Detail") {
                 this._sSolId = oEvent.getParameter("arguments").SolId;
-                oViewModel.setProperty("/isEditMode", false);
+                ViewModel.setProperty("/isEditMode", false);
                 if (this._sSolId) {
                     this._loadData(this._sSolId);
                 } else {
-                    oViewModel.setProperty("/isEditMode", true);
-                    oViewModel.setData(emptyData);
+                    ViewModel.setProperty("/isEditMode", true);
+                    ViewModel.setData(emptyData);
                     this.getView().getModel("viewDetail").setData(emptyData);
                 }
             }
