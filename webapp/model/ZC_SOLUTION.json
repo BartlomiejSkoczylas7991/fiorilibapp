@@ -16,6 +16,12 @@
       "ChangedBy": "admin",
       "CreatedAt": "2024-01-01T12:00:00",
       "CreatedBy": "creator",
+      "UserRating": "4.2",
+      "RatingScale": "5",
+      "NumberOfUsers": "200",
+      "LastUpdated": "2024-03-15",
+      "Language": "English",
+      "SupportContact": "salessupport@fiorisalesapp.example.com",
       "InstallationInstructions": {
         "Title": "Instrukcja Instalacji",
         "Steps": [
@@ -110,10 +116,23 @@
       "to_Attachment": [],
       "Images": [
         {
-          "Name": "First Image",
-          "Pic": "./model/images/SDR_1.jpg"
+          "Name": "Analytical",
+          "src": "./images/Analytical.jpg"
+        },
+        {
+          "Name": "Invoices",
+          "src": "./images/Invoices.jpg"
+        },
+        {
+          "Name": "Liquidity",
+          "src": "./images/Liquidity.jpg"
         }
-      ]
+      ],
+      "selectedShowAllThumbnails": false,
+      "selectedType": "Auto",
+      "selectedHorizontalType": "Center",
+      "selectedVerticalType": "Center",
+      "selectedInteractiveDisplayArea": false
     },
     {
       "SolId": "0000000002",
@@ -132,6 +151,12 @@
       "ChangedBy": "hradmin",
       "CreatedAt": "2024-02-20T11:00:00",
       "CreatedBy": "hrcreator",
+      "UserRating": "In Review",
+      "RatingScale": "5",
+      "NumberOfUsers": "In Review",
+      "LastUpdated": "2024-03-10",
+      "Language": "English",
+      "SupportContact": "hrsupport@fiorihrapp.example.com",
       "to_Comments": [
         {
           "NoteNumber": "0000000003",
@@ -177,8 +202,16 @@
       "to_Attachment": [],
       "Images": [
         {
-          "Name": "First Image",
-          "Pic": "./model/images/SDR_1.jpg"
+          "Name": "Manage Payment Blocks",
+          "Pic": "./images/Manage_Payment_Blocks.jpg"
+        },
+        {
+          "Name": "Item",
+          "Pic": "./images/PCItemsByAA.jpg"
+        },
+        {
+          "Name": "Reconrep",
+          "Pic": "./images/reconrep.png"
         }
       ]
     },
@@ -199,6 +232,12 @@
         "ChangedBy": "salesadmin",
         "CreatedAt": "2024-01-15T08:30:00",
         "CreatedBy": "salescreator",
+        "UserRating": "4.5",
+        "RatingScale": "5",
+        "NumberOfUsers": "150",
+        "LastUpdated": "2024-03-05",
+        "Language": "English",
+        "SupportContact": "support@fioriappmanager.example.com",
         "to_Comments": [
           {
             "NoteNumber": "NOTE004",
@@ -251,8 +290,16 @@
           ],
           "Images": [
             {
-              "Name": "First Image",
-              "Pic": "./model/images/SDR_1.jpg"
+              "Name": "Manage Payment Blocks",
+              "Pic": "./images/Manage_Payment_Blocks.jpg"
+            },
+            {
+              "Name": "Item",
+              "Pic": "./images/PCItemsByAA.jpg"
+            },
+            {
+              "Name": "Reconrep",
+              "Pic": "./images/reconrep.png"
             }
           ]
         },
@@ -273,6 +320,12 @@
           "ChangedBy": "inventorydev",
           "CreatedAt": "2024-03-20T09:00:00",
           "CreatedBy": "inventoryadmin",
+          "UserRating": "In Review",
+          "RatingScale": "5",
+          "NumberOfUsers": "In Review",
+          "LastUpdated": "2024-04-05",
+          "Language": "English",
+          "SupportContact": "inventorysupport@fioriinventoryapp.example.com",
           "to_Comments": [
             {
               "NoteNumber": "0000000005",
@@ -326,8 +379,16 @@
           ],
           "Images": [
             {
-              "Name": "First Image",
-              "Pic": "./model/images/SDR_1.jpg"
+              "Name": "Manage Payment Blocks",
+              "Pic": "./images/Manage_Payment_Blocks.jpg"
+            },
+            {
+              "Name": "Item",
+              "Pic": "./images/PCItemsByAA.jpg"
+            },
+            {
+              "Name": "Reconrep",
+              "Pic": "./images/reconrep.png"
             }
           ]
         }

@@ -1,0 +1,18 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+    <SelectDialog
+        id="groupSelectDialog"
+        noDataText="No Group Found"
+        title="Select Group"
+        search=".onSearchGroup"
+        multiSelect="true"
+        confirm=".onDialogCloseGroup"
+        cancel=".onDialogCloseGroup"
+        items="{
+            path: 'jsonModelFile>/Group'
+        }">
+        <StandardListItem
+            title="{jsonModelFile>Title}"
+            description="{jsonModelFile>Description}"
+            type="Active"/>
+    </SelectDialog>
+</core:FragmentDefinition>

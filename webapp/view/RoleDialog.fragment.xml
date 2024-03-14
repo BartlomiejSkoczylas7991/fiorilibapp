@@ -1,0 +1,18 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+    <SelectDialog
+        id="roleSelectDialog"
+        noDataText="No Roles Found"
+        title="Select Role"
+        search=".onSearchRole"
+        multiSelect="true"
+        confirm=".onDialogCloseRole"
+        cancel=".onDialogCloseRole"
+        items="{
+            path: 'jsonModelFile>/Role'
+        }">
+        <StandardListItem
+            title="{jsonModelFile>TechName}"
+            description="{jsonModelFile>Description}"
+            type="Active"/>
+    </SelectDialog>
+</core:FragmentDefinition>

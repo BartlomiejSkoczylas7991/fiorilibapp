@@ -4,14 +4,16 @@
     xmlns:mvc="sap.ui.core.mvc"
     xmlns="sap.uxap"
     xmlns:m="sap.m"
+    xmlns:fiori="sap.ui.webc.fiori"
     xmlns:core="sap.ui.core"
-    xmlns:layout="sap.ui.layout"
+    xmlns:l="sap.ui.layout"
     xmlns:f="sap.ui.layout.form"
     xmlns:description="fiorilibappname.SharedBlocks.businessDescription"
     xmlns:tech_inf="fiorilibappname.SharedBlocks.technicalInformation"
     xmlns:imp_notes="fiorilibappname.SharedBlocks.ImportantNotes"
     height="100%">
-    <m:Page showNavButton="false">
+    <m:Page showNavButton="true"
+		    navButtonPress=".onNavBack">
     <ObjectPageLayout 
         id="ObjectPageLayout" 
         upperCaseAnchorBar="false"
@@ -50,25 +52,25 @@
 
         <headerContent>
             <m:FlexBox wrap="Wrap" fitContainer="true" >
-                <m:Avatar class="sapUiSmallMarginEnd" src="model/images/SDR_1.jpg" displaySize="L" />
+                <m:Avatar class="sapUiSmallMarginEnd" displaySize="L" />
 
-                <layout:VerticalLayout class="sapUiSmallMarginBeginEnd">
+                <l:VerticalLayout class="sapUiSmallMarginBeginEnd">
 			    	<m:Label text="Component"/>
                     <m:Text text="{viewModel>/AppComponentText}"/>
-			    </layout:VerticalLayout>
-                <layout:VerticalLayout class="sapUiSmallMarginBeginEnd">
+			    </l:VerticalLayout>
+                <l:VerticalLayout class="sapUiSmallMarginBeginEnd">
 			    	<m:Label text="Type"/>
                     <m:Text text="{viewModel>/TypeDescription}"/>
-			    </layout:VerticalLayout>
+			    </l:VerticalLayout>
 
-                <layout:VerticalLayout class="sapUiSmallMarginBeginEnd">
+                <l:VerticalLayout class="sapUiSmallMarginBeginEnd">
 			    	<m:Label text="Device"/>
                     <m:Text text="Desktop, Tablet"/>
-			    </layout:VerticalLayout>
-                <layout:VerticalLayout class="sapUiSmallMarginBeginEnd">
+			    </l:VerticalLayout>
+                <l:VerticalLayout class="sapUiSmallMarginBeginEnd">
 			    	<m:Label text="Device"/>
                     <m:Text text="Desktop, Tablet"/>
-			    </layout:VerticalLayout>
+			    </l:VerticalLayout>
 
 
             </m:FlexBox>
@@ -93,7 +95,7 @@
                     <ObjectPageSubSection title="Image">
                         <blocks>
                             <m:VBox class="sapUiSmallMargin" fitContainer="true">
-                                <m:Image src="{viewModel>/ImageUrl}" width="100%" mode="Background" backgroundSize="cover" backgroundPosition="center"></m:Image>
+                                <description:Image/>
                             </m:VBox>
                         </blocks>
                     </ObjectPageSubSection>

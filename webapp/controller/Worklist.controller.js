@@ -17,21 +17,19 @@ sap.ui.define([
         });
         this.getView().setModel(oODataModel, "oBindedModel");
 
-        // Asynchronously load OData model metadata, then read data
         oODataModel.metadataLoaded().then(function() {
             oODataModel.read("/ZC_BSK_LA_SOLUTION", {
                 success: function(oData) {
                     var oDataModel = new JSONModel(oData.results);
-                    this.getView().setModel(oDataModel, "SolutionsData"); // Assign fetched data to the view model
-                    oViewModel.setProperty("/loading", false); // Update loading state
+                    this.getView().setModel(oDataModel, "SolutionsData");
+                    oViewModel.setProperty("/loading", false); 
                 }.bind(this),
                 error: function() {
-                    oViewModel.setProperty("/loading", false); // Update loading state on error
+                    oViewModel.setProperty("/loading", false); 
                 }
             });
         }.bind(this));
 
-          // Initialize router
           var oRouter = this.getOwnerComponent().getRouter();
           oRouter.getRoute("Detail").attachPatternMatched(this._onObjectMatched, this);
       },
@@ -105,19 +103,149 @@ sap.ui.define([
       });
       oBinding.filter([oGroupFilter]);
     },
-  
-    onFilterByRole: function(oEvent) {
-        var sQuery = oEvent.getParameter("query").toLowerCase();
-        var oTable = this.getView().byId("table1");
-        var oBinding = oTable.getBinding("items");
-        var oRoleFilter = new sap.ui.model.Filter("to_S_Role", function(oRole) {
-            return oRole.some(function(oItem) {
-                return oItem.RoleId.toLowerCase().indexOf(sQuery) > -1;
+    // Role
+      onRoleDialogOpen: function() {
+        var oView = this.getView();
+        if (!this.byId("roleSelectDialog")) {
+            sap.ui.core.Fragment.load({
+                id: oView.getId(),
+                name: "fiorilibappname.view.RoleDialog",
+                controller: this
+            }).then(function(oDialog){
+                oView.addDependent(oDialog);
+                oDialog.open();
             });
-        });
-        oBinding.filter([oRoleFilter]);
-    },
+           } else {
+               this.byId("roleSelectDialog").open();
+        }
+      },
+
+      onSearchRole: function(oEvent) {
+        var sValue = oEvent.getParameter("value");
+        var oFilter = new sap.ui.model.Filter("Name", sap.ui.model.FilterOperator.Contains, sValue);
+        var oBinding = oEvent.getSource().getBinding("items");
+        oBinding.filter([oFilter]);
+      },
+
+      onDialogCloseRole: function(oEvent) {
+         var oSelectedItem = oEvent.getParameter("selectedItem");
+         if (oSelectedItem) {
+             var oViewModel = this.getView().getModel("viewModel");
+             oViewModel.setProperty("/selectedRole", oSelectedItem.getTitle());
+
+             sap.m.MessageToast.show("Selected Role: " + oSelectedItem.getTitle());
+         } else {
+             sap.m.MessageToast.show("No role selected");
+         }
+      },
+      // Tile
+      onTileDialogOpen: function() {
+        var oView = this.getView();
+        if (!this.byId("tileSelectDialog")) {
+            sap.ui.core.Fragment.load({
+                id: oView.getId(),
+                name: "fiorilibappname.view.TileDialog",
+                controller: this
+            }).then(function(oDialog){
+                oView.addDependent(oDialog);
+                oDialog.open();
+            });
+           } else {
+               this.byId("tileSelectDialog").open();
+        }
+      },
+
+      onSearchTile: function(oEvent) {
+        var sValue = oEvent.getParameter("value");
+        var oFilter = new sap.ui.model.Filter("Name", sap.ui.model.FilterOperator.Contains, sValue);
+        var oBinding = oEvent.getSource().getBinding("items");
+        oBinding.filter([oFilter]);
+      },
+
+      onDialogCloseTile: function(oEvent) {
+         var oSelectedItem = oEvent.getParameter("selectedItem");
+         if (oSelectedItem) {
+             var oViewModel = this.getView().getModel("viewModel");
+             oViewModel.setProperty("/selectedTile", oSelectedItem.getTitle());
+
+             sap.m.MessageToast.show("Selected Tile: " + oSelectedItem.getTitle());
+         } else {
+             sap.m.MessageToast.show("No tile selected");
+         }
+      },
       
+      // group
+      onGroupDialogOpen: function() {
+        var oView = this.getView();
+        if (!this.byId("groupSelectDialog")) {
+            sap.ui.core.Fragment.load({
+                id: oView.getId(),
+                name: "fiorilibappname.view.GroupDialog",
+                controller: this
+            }).then(function(oDialog){
+                oView.addDependent(oDialog);
+                oDialog.open();
+            });
+           } else {
+               this.byId("groupSelectDialog").open();
+        }
+      },
+
+      onSearchGroup: function(oEvent) {
+        var sValue = oEvent.getParameter("value");
+        var oFilter = new sap.ui.model.Filter("Name", sap.ui.model.FilterOperator.Contains, sValue);
+        var oBinding = oEvent.getSource().getBinding("items");
+        oBinding.filter([oFilter]);
+      },
+
+      onDialogCloseGroup: function(oEvent) {
+         var oSelectedItem = oEvent.getParameter("selectedItem");
+         if (oSelectedItem) {
+             var oViewModel = this.getView().getModel("viewModel");
+             oViewModel.setProperty("/selectedGroup", oSelectedItem.getTitle());
+
+             sap.m.MessageToast.show("Selected Group: " + oSelectedItem.getTitle());
+         } else {
+             sap.m.MessageToast.show("No group selected");
+         }
+      },
+
+      // catalog
+      onCatalogDialogOpen: function() {
+        var oView = this.getView();
+        if (!this.byId("catalogSelectDialog")) {
+            sap.ui.core.Fragment.load({
+                id: oView.getId(),
+                name: "fiorilibappname.view.CatalogDialog",
+                controller: this
+            }).then(function(oDialog){
+                oView.addDependent(oDialog);
+                oDialog.open();
+            });
+           } else {
+               this.byId("catalogSelectDialog").open();
+        }
+      },
+
+      onSearchCatalog: function(oEvent) {
+        var sValue = oEvent.getParameter("value");
+        var oFilter = new sap.ui.model.Filter("Name", sap.ui.model.FilterOperator.Contains, sValue);
+        var oBinding = oEvent.getSource().getBinding("items");
+        oBinding.filter([oFilter]);
+      },
+
+      onDialogCloseCatalog: function(oEvent) {
+         var oSelectedItem = oEvent.getParameter("selectedItem");
+         if (oSelectedItem) {
+             var oViewModel = this.getView().getModel("viewModel");
+             oViewModel.setProperty("/selectedCatalog", oSelectedItem.getTitle());
+
+             sap.m.MessageToast.show("Selected Catalog: " + oSelectedItem.getTitle());
+         } else {
+             sap.m.MessageToast.show("No catalog selected");
+         }
+      },
+
       getResourceBundle: function () {
         return this.getOwnerComponent().getModel("i18n").getResourceBundle();
       }

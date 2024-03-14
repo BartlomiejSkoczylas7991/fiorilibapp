@@ -4,7 +4,8 @@ sap.ui.define([
     "sap/ui/core/format/DateFormat",
     "sap/ui/model/json/JSONModel",
     "sap/m/MessageBox",
-], function (Controller, History, DateFormat, JSONModel, MessageBox) {
+    'sap/ui/webc/fiori/library'
+], function (Controller, History, DateFormat, JSONModel, MessageBox, library) {
     "use strict";
 
     return Controller.extend("fiorilibappname.controller.Object", {
@@ -96,6 +97,20 @@ sap.ui.define([
         
             this.oDialog.open();
         },
+
+        onNavBack: function () {
+            this.selectedGenres = [];
+    
+            var oHistory = History.getInstance();
+            var sPreviousHash = oHistory.getPreviousHash();
+    
+            if (sPreviousHash !== undefined) {
+              window.history.go(-1);
+            } else {
+              var oRouter = this.getOwnerComponent().getRouter();
+              oRouter.navTo("Main", {}, true);
+            }
+          },
         
         _loadData: function (sSolId) {
             var dataModel = this.getOwnerComponent().getModel("jsonModelFile");
@@ -114,8 +129,10 @@ sap.ui.define([
                 var oDetailModel = this.getView().getModel("viewDetail");
                 oDetailModel.setData(selectedSolution);
                 oViewModel.setData(JSON.parse(JSON.stringify(selectedSolution)));
+                this._loadImages(sSolId);
             } else {
                 MessageBox.error("Error: Solution with SolId " + sSolId + " not found.");
+                // to NotFound view
             }
         },        
 
@@ -202,6 +219,92 @@ sap.ui.define([
                     MessageBox.error("Error during loading Services.");
                 }
             });
+        },
+
+        _loadImages: function (sSolId) {
+            var aMediaGalleryLayout = Object.keys(library.MediaGalleryLayout).map(function(key){return {'key': key};}),
+				aMediaGalleryMenuHorizontalAlign = Object.keys(library.MediaGalleryMenuHorizontalAlign).map(function(key){return {'key': key};}),
+				aMediaGalleryMenuVerticalAlign = Object.keys(library.MediaGalleryMenuVerticalAlign).map(function(key){return {'key': key};});
+
+			var oImageModel = new JSONModel({
+				Analytical: sap.ui.require.toUrl("fiorilibappname/images/Analytical.jpg"),
+				Invoices: sap.ui.require.toUrl("fiorilibappname/images/Invoices.jpg"),
+				Liquidity: sap.ui.require.toUrl("fiorilibappname/images/Liquidity.jpg"),
+				Manage_Payment_Blocks: sap.ui.require.toUrl("fiorilibappname/images/Manage_Payment_Blocks.jpg"),
+				PCItemsByAA: sap.ui.require.toUrl("fiorilibappname/images/PCItemsByAA.jpg"),
+				reconrep: sap.ui.require.toUrl("fiorilibappname/images/reconrep.png"),
+				galleryTypes: aMediaGalleryLayout,
+				horizontalTypes: aMediaGalleryMenuHorizontalAlign,
+				verticalTypes: aMediaGalleryMenuVerticalAlign,
+				selectedType : aMediaGalleryLayout[0].key,
+				selectedHorizontalType : aMediaGalleryMenuHorizontalAlign[0].key,
+				selectedVerticalType : aMediaGalleryMenuVerticalAlign[0].key,
+				selectedInteractiveDisplayArea: true,
+				selectedShowAllThumbnails: false
+			});
+
+            this.getView().setModel(this.oImageModel);
+        },
+
+        onSelectType: function (oEvent) {
+			this.oModel.setProperty("/selectedType", oEvent.getParameter("selectedItem").getKey());
+		},
+
+		onSelectHorizontalType: function (oEvent) {
+			this.oModel.setProperty("/selectedHorizontalType", oEvent.getParameter("selectedItem").getKey());
+		},
+
+		onSelectVerticalType: function (oEvent) {
+			this.oModel.setProperty("/selectedVerticalType", oEvent.getParameter("selectedItem").getKey());
+		},
+
+		onInteractiveChange: function (oEvent) {
+			this.oModel.setProperty("/selectedInteractiveDisplayArea", oEvent.getParameter('state'));
+		},
+
+		onShowAllChange: function (oEvent) {
+			this.oModel.setProperty("/selectedShowAllThumbnails", oEvent.getParameter('state'));
+		},
+
+		onOverflowClick: function(oEvent) {
+			var demoToast = this.getView().byId("demoToast");
+			demoToast.setText("Event overflowClick fired.");
+			demoToast.show();
+		},
+
+		onSelectionChange: function(oEvent) {
+			var demoToast = this.getView().byId("demoToast");
+			demoToast.setText("Event selectionChange fired.");
+			demoToast.show();
+		},
+
+        _loadComponents: function (sSolId) {
+
+
+        },
+
+        _loadRoles: function (sSolId) {
+
+        },
+
+        _loadGroups: function (sSolId) {
+
+        },
+
+        _loadCatalogs: function (sSolId) {
+
+        },
+
+        _loadTiles: function (sSolId) {
+
+        },
+
+        _loadComments: function (sSolId) {
+
+        },
+
+        _loadAttachments: function (sSolId) {
+
         },
 
         onDeletePress: function () {

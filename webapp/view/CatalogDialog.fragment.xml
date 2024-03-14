@@ -1,0 +1,18 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+    <SelectDialog
+        id="catalogSelectDialog"
+        noDataText="No Catalogs Found"
+        title="Select Catalog"
+        search=".onSearchCatalog"
+        multiSelect="true"
+        confirm=".onDialogCloseCatalog"
+        cancel=".onDialogCloseCatalog"
+        items="{
+            path: 'jsonModelFile>/Catalog'
+        }">
+        <StandardListItem
+            title="{jsonModelFile>Title}"
+            description="{jsonModelFile>Description}"
+            type="Active"/>
+    </SelectDialog>
+</core:FragmentDefinition>

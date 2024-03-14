@@ -27,14 +27,23 @@
                     useVariantManagement="true"
                     useTablePersonalisation="true"
                     header="{i18n>worklistTitle}"
-                    initiallyVisibleFields="SolId,TechnicalName,StatusDescription,ActionDescription">
+                    initiallyVisibleFields="SolId,TechnicalName,Subtitle,StatusDescription,ActionDescription">
                         <smartTable:customToolbar>
                             <OverflowToolbar>
                                 <ToolbarSpacer/>
-                                <Button icon="sap-icon://add" press="onAddButtonPress"/>
+                                <Button text="Tile" press="onRoleDialogOpen"/>
+                                <ToolbarSpacer width="2rem"/>
+                                <Button text="Catalog" press="onRoleDialogOpen"/>
+                                <ToolbarSpacer width="2rem"/>
+                                <Button text="Group" press="onRoleDialogOpen"/>
+                                <ToolbarSpacer width="2rem"/>
+                                <Button text="Role" press="onRoleDialogOpen"/>
+                                <ToolbarSpacer/>
+                                <Button text="Delete" press="onDeleteButton"/>
+                                <Button text="Create"  press="onAddButtonPress"/>
                             </OverflowToolbar>
                         </smartTable:customToolbar>
-                        <Table id="idSolutionTable" selectionChange="onPress" mode="SingleSelectMaster" />
+                        <Table id="idSolutionTable" mode="MultiSelect" selectionChange="onPress" />
                 </smartTable:SmartTable>
             </VBox>
         </semantic:content>

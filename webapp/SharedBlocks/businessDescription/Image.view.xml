@@ -1,5 +1,47 @@
-<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m">
-    <VBox class="sapUiSmallMargin" fitContainer="true">
-        <Image src="images/SDR_1.jpg" width="100%"></Image>
-    </VBox>
+<mvc:View
+	controllerName="sap.ui.webc.fiori.sample.MediaGallery.C"
+	xmlns="sap.m"
+	xmlns:l="sap.ui.layout"
+	xmlns:core="sap.ui.core"
+	xmlns:fiori="sap.ui.webc.fiori"
+	xmlns:main="sap.ui.webc.main"
+	xmlns:mvc="sap.ui.core.mvc"
+	height="50%">
+
+    <main:Toast id="demoToast" duration="2000" />
+
+    <l:FixFlex>
+		<l:flexContent>
+			<fiori:MediaGallery
+				layout="Vertical"
+				menuHorizontalAlign="Left"
+				menuVerticalAlign="Bottom"
+				interactiveDisplayArea="false"
+				showAllThumbnails="true"
+				displayAreaClick='onDisplayAreaClick'
+				selectionChange='onSelectionChange'
+				overflowClick='onOverflowClick'>
+				<fiori:items>
+					<fiori:MediaGalleryItem>
+						<Image src="{oImageModel>/Analytical}"/>
+					</fiori:MediaGalleryItem>
+					<fiori:MediaGalleryItem>
+						<Image src="{oImageModel>/Invoices}"/>
+					</fiori:MediaGalleryItem>
+					<fiori:MediaGalleryItem>
+						<Image src="{oImageModel>/Liquidity}"/>
+					</fiori:MediaGalleryItem>
+					<fiori:MediaGalleryItem>
+						<Image src="{oImageModel>/Manage_Payment_Blocks}"/>
+					</fiori:MediaGalleryItem>
+					<fiori:MediaGalleryItem>
+						<Image src="{oImageModel>/PCItemsByAA}"/>
+					</fiori:MediaGalleryItem>
+					<fiori:MediaGalleryItem>
+						<Image src="{oImageModel>/reconrep}"/>
+					</fiori:MediaGalleryItem>
+				</fiori:items>
+			</fiori:MediaGallery>
+		</l:flexContent>
+	</l:FixFlex>
 </mvc:View>
