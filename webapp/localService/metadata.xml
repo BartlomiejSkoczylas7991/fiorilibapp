@@ -37,7 +37,7 @@
                 <Property Name="ActionDescription" Type="Edm.String" MaxLength="60" sap:label="Action full" sap:quickinfo="Short Text for Fixed Values"/>
                 <Property Name="Description" Type="Edm.String" sap:label="Description" sap:quickinfo="A description for the text table"/>
                 <Property Name="AppComponentText" Type="Edm.String" MaxLength="100" sap:label="Application Component Text" sap:quickinfo="Data..."/>
-                <Property Name="ChangedAt" Type="Edm.DateTimeOffset" Precision="0" sap:label="Changed at" sap:quickinfo="UTC Time Stamp in Short Form (YYYYMMDDhhmmss)" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="ChangedAt" Type="Edm.String" Precision="0" sap:label="Changed at" sap:quickinfo="UTC Time Stamp in Short Form (YYYYMMDDhhmmss)" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="ChangedBy" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:label="Changed by" sap:quickinfo="User Name" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="CreatedAt" Type="Edm.String" MaxLength="14" sap:display-format="UpperCase" sap:label="Created at" sap:quickinfo="Data element for time of creation" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="CreatedBy" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:label="Created by" sap:quickinfo="User Name" sap:creatable="false" sap:updatable="false"/>

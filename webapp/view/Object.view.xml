@@ -129,11 +129,6 @@
                             <tech_inf:Tar_Map/>
                         </blocks>
                      </ObjectPageSubSection>
-                     <ObjectPageSubSection title="Versions">
-                        <blocks>
-                            <tech_inf:Version/>
-                        </blocks>
-                     </ObjectPageSubSection>
                  </subSections>
              </ObjectPageSection>
              <ObjectPageSection title="Attachments">

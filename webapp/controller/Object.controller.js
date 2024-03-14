@@ -98,8 +98,8 @@ sap.ui.define([
         },
         
         _loadData: function (sSolId) {
-            var dataModel = this.getOwnerComponent().getModel();
-            var solutions = dataModel.getProperty("/ZC_BSK_LA_SOLUTION");
+            var dataModel = this.getOwnerComponent().getModel("jsonModelFile");
+            var solutions = dataModel.getProperty("/Solutions");
             var selectedSolution = null;
         
             for (var i = 0; i < solutions.length; i++) {
@@ -193,7 +193,7 @@ sap.ui.define([
         },
         
         _loadServices: function (sSolId) {
-            var oModel = this.getView().getModel("odata");
+            var oModel = this.getView().getModel("jsonModelFile");
             var sPath = "/ZC_BSK_LA_SOLUTION('" + sSolId + "')/to_Service";
             oModel.read(sPath, {
                 success: function (oData) {

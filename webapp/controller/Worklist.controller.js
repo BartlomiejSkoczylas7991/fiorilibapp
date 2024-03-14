@@ -7,31 +7,29 @@ sap.ui.define([
   
     return Controller.extend("fiorilibappname.controller.Worklist", {
       onInit: function () {
-          var sUri = "/sap/opu/odata/sap/ZBSK_LA_SOL/";
-          var oViewModel = new JSONModel({ loading: true });
-          this.getView().setModel(oViewModel, "viewModel");
+        var sUri = "/sap/opu/odata/sap/ZBSK_LA_SOL/";
+        var oViewModel = new JSONModel({ loading: true });
+        this.getView().setModel(oViewModel, "viewModel");
 
-          var oODataModel = new ODataModel(sUri, {
-              json: true,
-              loadMetadataAsync: true
-          });
+        var oODataModel = new ODataModel(sUri, {
+            json: true,
+            loadMetadataAsync: true
+        });
+        this.getView().setModel(oODataModel, "oBindedModel");
 
-          // Bind the OData model to the view to use it for binding in the view
-          this.getView().setModel(oODataModel, "oBindedModel");
-
-          // Asynchronously load OData model metadata, then read data
-          oODataModel.metadataLoaded().then(function() {
-              oODataModel.read("/ZC_BSK_LA_SOLUTION", {
-                  success: function(oData) {
-                      var oDataModel = new JSONModel(oData.results);
-                      this.getView().setModel(oDataModel, "SolutionsData"); // Assign fetched data to the view model
-                      oViewModel.setProperty("/loading", false); // Update loading state
-                  }.bind(this),
-                  error: function() {
-                      oViewModel.setProperty("/loading", false); // Update loading state on error
-                  }
-              });
-          }.bind(this));
+        // Asynchronously load OData model metadata, then read data
+        oODataModel.metadataLoaded().then(function() {
+            oODataModel.read("/ZC_BSK_LA_SOLUTION", {
+                success: function(oData) {
+                    var oDataModel = new JSONModel(oData.results);
+                    this.getView().setModel(oDataModel, "SolutionsData"); // Assign fetched data to the view model
+                    oViewModel.setProperty("/loading", false); // Update loading state
+                }.bind(this),
+                error: function() {
+                    oViewModel.setProperty("/loading", false); // Update loading state on error
+                }
+            });
+        }.bind(this));
 
           // Initialize router
           var oRouter = this.getOwnerComponent().getRouter();

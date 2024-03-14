@@ -107,20 +107,6 @@
             "ParamValue": "param2"
         }
       ],
-      "to_Version": [
-        {
-          "VersionId": "0000000001",
-          "Status": "Active",
-          "Title": "Initial Release",
-          "Description": "The first release of the solution."
-        },
-        {
-          "VersionId": "VER002",
-          "Status": "Deprecated",
-          "Title": "Second Release",
-          "Description": "The second release of the solution, now deprecated."
-        }
-      ],
       "to_Attachment": [],
       "Images": [
         {
@@ -188,14 +174,6 @@
             "Type": "Functional",
             "ParamValue": "param1"
         }],
-        "to_Version": [
-          {
-            "VersionId": "0000000003",
-            "Status": "In Development",
-            "Title": "Upcoming Release",
-            "Description": "The upcoming third release of the solution."
-          }
-        ],
       "to_Attachment": [],
       "Images": [
         {
@@ -261,14 +239,6 @@
               "Url": "http://mapsolution.example.com/map2",
               "Type": "Analytical",
               "ParamValue": "param2"
-            }
-          ],
-          "to_Version": [
-            {
-              "VersionId": "0000000004",
-              "Status": "Released",
-              "Title": "Second Release",
-              "Description": "This is the second release of the solution, which includes additional features."
             }
           ],
           "to_Attachment": [
@@ -344,14 +314,6 @@
               "Url": "http://inventorysolution.example.com/map3",
               "Type": "Functional",
               "ParamValue": "param3"
-            }
-          ],
-          "to_Version": [
-            {
-              "VersionId": "0000000005",
-              "Status": "Planned",
-              "Title": "Initial Release",
-              "Description": "The first release of the inventory management solution."
             }
           ],
           "to_Attachment": [

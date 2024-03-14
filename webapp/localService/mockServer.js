@@ -5,7 +5,6 @@ sap.ui.define([
 
     return {
         init: function () {
-            // create
             const oMockServer = new MockServer({
                 rootUri: "/sap/opu/odata/sap/ZBSK_LA_SOL/"
             });
@@ -18,10 +17,8 @@ sap.ui.define([
 				autoRespondAfter: oUrlParams.get("serverDelay") || 999
 			});
 
-            // simulate
             oMockServer.simulate("../localService/metadata.xml", {
-                sMockdataBaseUrl: "../localService/mockdata",
-                bGenerateMissingMockData: true
+                sMockdataBaseUrl: "../localService/mockdata"
             });
             // const sPath = sap.ui.require.toUrl("fiorilibappname/localService");
             // oMockServer.simulate(sPath + "/metadata.xml", sPath + "/mockdata");
