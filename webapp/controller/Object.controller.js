@@ -113,7 +113,7 @@ sap.ui.define([
           },
         
         _loadData: function (sSolId) {
-            var dataModel = this.getOwnerComponent().getModel("jsonModelFile");
+            var dataModel = this.getOwnerComponent().getModel("viewModel");
             var solutions = dataModel.getProperty("/Solutions");
             var selectedSolution = null;
         
@@ -187,6 +187,7 @@ sap.ui.define([
         },
 
         onCancelPress: function() {
+            this.getOwnerComponent().getModel("viewModel").setProperty("/isEditMode", false);
             if (this._sSolId) {
                 this._loadData(this._sSolId);
             } else {
@@ -194,7 +195,6 @@ sap.ui.define([
                 this.getView().getModel("viewDetail").setData(emptyData);
                 this.getView().getModel("viewModel").setData(emptyData);
             }
-            this.getOwnerComponent().getModel("viewModel").setProperty("/isEditMode", false);
         },
 
         _loadTargetMappings: function (sSolId) {

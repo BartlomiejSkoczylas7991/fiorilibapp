@@ -22,7 +22,7 @@
                     entitySet="ZC_BSK_LA_SOLUTION"
                     tableType="ResponsiveTable"
                     showRowCount="true"
-                    enableAutoBinding="false"
+                    enableAutoBinding="true"
                     class="sapUiResponsiveContentPadding"
                     useVariantManagement="true"
                     useTablePersonalisation="true"
