@@ -11,11 +11,6 @@ sap.ui.define([
     return Controller.extend("fiorilibappname.controller.Object", {
 
         onInit: function () {
-            var viewModel = this.getOwnerComponent().getModel("viewModel");
-            this.getView().setModel(viewModel, "viewModel");
-            var viewDetail = new JSONModel({});
-            this.getView().setModel(viewDetail, "viewDetail");
-
             var oRouter = this.getOwnerComponent().getRouter();
             oRouter.getRoute("Detail").attachPatternMatched(this._onObjectMatched, this);
             oRouter.getRoute("Create").attachPatternMatched(this._onObjectMatched, this);
@@ -26,9 +21,13 @@ sap.ui.define([
         },
 
         _onObjectMatched: function (oEvent) {
-            const sRouteName = oEvent.getParameter("name");
             var viewModel = this.getOwnerComponent().getModel("viewModel");
+            this.getView().setModel(viewModel, "viewModel");
+            var viewDetail = new JSONModel({});
+            this.getView().setModel(viewDetail, "viewDetail");
+            const sRouteName = oEvent.getParameter("name");
             var oDetailModel = this.getView().getModel("viewDetail");
+            var sSolId = oEvent.getParameter("arguments").SolId;
 
             let emptyData = {};
 
@@ -97,25 +96,13 @@ sap.ui.define([
         
             this.oDialog.open();
         },
-
-        onNavBack: function () {
-            this.selectedGenres = [];
-    
-            var oHistory = History.getInstance();
-            var sPreviousHash = oHistory.getPreviousHash();
-    
-            if (sPreviousHash !== undefined) {
-              window.history.go(-1);
-            } else {
-              var oRouter = this.getOwnerComponent().getRouter();
-              oRouter.navTo("Main", {}, true);
-            }
-          },
         
         _loadData: function (sSolId) {
             var dataModel = this.getOwnerComponent().getModel("viewModel");
+            this.getView().setModel(dataModel, "viewModel");
             var solutions = dataModel.getProperty("/Solutions");
             var selectedSolution = null;
+            
         
             for (var i = 0; i < solutions.length; i++) {
                 if (solutions[i].SolId === sSolId) {
@@ -225,12 +212,19 @@ sap.ui.define([
             var oDetailModel = this.getView().getModel("viewDetail");
             var images = oDetailModel.getProperty("/Images") || [];
             var imagePaths = images.map(function(img) {
-                return {src: sap.ui.require.toUrl("fiorilibappname/images" + img.src), width: "100px", height: "100px"};
+                return {src: sap.ui.require.toUrl("fiorilibappname/images" + img.src)};
             });
             var oImageModel = new sap.ui.model.json.JSONModel({
                 Images: imagePaths
             });
             this.getView().setModel(oImageModel, "imageModel");
+            this.getView().getModel().refresh();
+        },
+
+        onOpenDialogPress: function() {
+            var oDialog = this.getView().byId("fullScreenCarouselDialog");
+            console.log("IT HAS")
+            oDialog.open();
         },
         
 
