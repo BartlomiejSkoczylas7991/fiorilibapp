@@ -95,9 +95,7 @@
                     </ObjectPageSubSection>
                     <ObjectPageSubSection title="Image">
                         <blocks>
-                            <m:VBox class="sapUiSmallMargin" fitContainer="true">
-                                <description:Image/>
-                            </m:VBox>
+                            <description:Image/>
                         </blocks>
                     </ObjectPageSubSection>
                 </subSections>

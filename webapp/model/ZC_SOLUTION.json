@@ -117,15 +117,15 @@
       "Images": [
         {
           "Name": "Analytical",
-          "src": "./images/Analytical.jpg"
+          "src": "/Analytical.jpg"
         },
         {
           "Name": "Invoices",
-          "src": "./images/Invoices.jpg"
+          "src": "/Invoices.jpg"
         },
         {
           "Name": "Liquidity",
-          "src": "./images/Liquidity.jpg"
+          "src": "/Liquidity.jpg"
         }
       ],
       "selectedShowAllThumbnails": false,
@@ -203,15 +203,15 @@
       "Images": [
         {
           "Name": "Manage Payment Blocks",
-          "Pic": "./images/Manage_Payment_Blocks.jpg"
+          "Pic": "/images/Manage_Payment_Blocks.jpg"
         },
         {
           "Name": "Item",
-          "Pic": "./images/PCItemsByAA.jpg"
+          "Pic": "/images/PCItemsByAA.jpg"
         },
         {
           "Name": "Reconrep",
-          "Pic": "./images/reconrep.png"
+          "Pic": "/images/reconrep.png"
         }
       ]
     },
@@ -291,15 +291,15 @@
           "Images": [
             {
               "Name": "Manage Payment Blocks",
-              "Pic": "./images/Manage_Payment_Blocks.jpg"
+              "Pic": "/images/Manage_Payment_Blocks.jpg"
             },
             {
               "Name": "Item",
-              "Pic": "./images/PCItemsByAA.jpg"
+              "Pic": "/images/PCItemsByAA.jpg"
             },
             {
               "Name": "Reconrep",
-              "Pic": "./images/reconrep.png"
+              "Pic": "/images/reconrep.png"
             }
           ]
         },
@@ -380,15 +380,15 @@
           "Images": [
             {
               "Name": "Manage Payment Blocks",
-              "Pic": "./images/Manage_Payment_Blocks.jpg"
+              "Pic": "/images/Manage_Payment_Blocks.jpg"
             },
             {
               "Name": "Item",
-              "Pic": "./images/PCItemsByAA.jpg"
+              "Pic": "/images/PCItemsByAA.jpg"
             },
             {
               "Name": "Reconrep",
-              "Pic": "./images/reconrep.png"
+              "Pic": "/images/reconrep.png"
             }
           ]
         }

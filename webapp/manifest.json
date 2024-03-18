@@ -122,8 +122,6 @@
               "./SharedBlocks/technicalInformation/Role.view.xml",
               "./SharedBlocks/technicalInformation/Tar_Map.js",
               "./SharedBlocks/technicalInformation/Tar_Map.view.xml",
-              "./SharedBlocks/technicalInformation/Version.js",
-              "./SharedBlocks/technicalInformation/Version.view.xml",
               "./SharedBlocks/importantNotes/Comments.js",
               "./SharedBlocks/importantNotes/Comments.view.xml",
               "./SharedBlocks/attachments/Attachment.js",
@@ -181,7 +179,8 @@
       "id": "App"
     },
     "resourceRoots": {
-      "fiorilibappname.SharedBlocks": "./SharedBlocks"
+      "fiorilibappname.SharedBlocks": "./SharedBlocks",
+      "fiorilibappname/images": "./images"
     }
   }
 }

@@ -221,30 +221,18 @@ sap.ui.define([
             });
         },
 
-        _loadImages: function (sSolId) {
-           // var aMediaGalleryLayout = Object.keys(library.MediaGalleryLayout).map(function(key){return {'key': key};}),
-			//	aMediaGalleryMenuHorizontalAlign = Object.keys(library.MediaGalleryMenuHorizontalAlign).map(function(key){return {'key': key};}),
-			//	aMediaGalleryMenuVerticalAlign = Object.keys(library.MediaGalleryMenuVerticalAlign).map(function(key){return {'key': key};});
-//
-			//var oImageModel = new JSONModel({
-			//	Analytical: sap.ui.require.toUrl("fiorilibappname/images/Analytical.jpg"),
-			//	Invoices: sap.ui.require.toUrl("fiorilibappname/images/Invoices.jpg"),
-			//	Liquidity: sap.ui.require.toUrl("fiorilibappname/images/Liquidity.jpg"),
-			//	Manage_Payment_Blocks: sap.ui.require.toUrl("fiorilibappname/images/Manage_Payment_Blocks.jpg"),
-			//	PCItemsByAA: sap.ui.require.toUrl("fiorilibappname/images/PCItemsByAA.jpg"),
-			//	reconrep: sap.ui.require.toUrl("fiorilibappname/images/reconrep.png"),
-			//	galleryTypes: aMediaGalleryLayout,
-			//	horizontalTypes: aMediaGalleryMenuHorizontalAlign,
-			//	verticalTypes: aMediaGalleryMenuVerticalAlign,
-			//	selectedType : aMediaGalleryLayout[0].key,
-			//	selectedHorizontalType : aMediaGalleryMenuHorizontalAlign[0].key,
-			//	selectedVerticalType : aMediaGalleryMenuVerticalAlign[0].key,
-			//	selectedInteractiveDisplayArea: true,
-			//	selectedShowAllThumbnails: false
-			//});
-//
-           // this.getView().setModel(this.oImageModel);
+        _loadImages: function() {
+            var oDetailModel = this.getView().getModel("viewDetail");
+            var images = oDetailModel.getProperty("/Images") || [];
+            var imagePaths = images.map(function(img) {
+                return {src: sap.ui.require.toUrl("fiorilibappname/images" + img.src), width: "100px", height: "100px"};
+            });
+            var oImageModel = new sap.ui.model.json.JSONModel({
+                Images: imagePaths
+            });
+            this.getView().setModel(oImageModel, "imageModel");
         },
+        
 
         onSelectType: function (oEvent) {
 			this.oModel.setProperty("/selectedType", oEvent.getParameter("selectedItem").getKey());
