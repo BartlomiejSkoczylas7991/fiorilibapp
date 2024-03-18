@@ -1,5 +1,5 @@
 <mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m">
-    <Table items="{viewModel>/Group}">
+    <Table items="{singleSolutionModel>/Group}">
         <headerToolbar>
             <Toolbar>
                 <Title text="Group(s)"/>
@@ -19,9 +19,9 @@
         <items>
             <ColumnListItem>
                 <cells>
-                    <Text text="{viewModel>GroupId}"/>
-                    <Text text="{viewModel>Title}"/>
-                    <Text text="{viewModel>Description}"/>
+                    <Text text="{singleSolutionModel>GroupId}"/>
+                    <Text text="{singleSolutionModel>Title}"/>
+                    <Text text="{singleSolutionModel>Description}"/>
                 </cells>
             </ColumnListItem>
         </items>

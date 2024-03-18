@@ -2,29 +2,29 @@
     <VBox class="sapUiSmallMargin">
         <f:SimpleForm 
             layout="ResponsiveGridLayout" 
-            editable="{= ${viewModel>/isEditMode}? true : false}" 
+            editable="{= ${viewGlobal>/isEditMode}? true : false}" 
             title="Edit Service" 
-            visible="{= ${viewModel>/isEditMode}? true : false}"
+            visible="{= ${viewGlobal>/isEditMode}? true : false}"
             columnsM="2"
 			columnsL="3"
             columnsXL="4"> 
             <f:content> 
                 <Label text="Name"/> 
-                <Input value="{viewDetail>/Name}"/> 
+                <Input value="{detailView>/Name}"/> 
                 <Label text="URL"/> 
-                <Input value="{viewDetail>/Url}"/> 
+                <Input value="{detailView>/Url}"/> 
                 <Label text="Description"/> 
-                <TextArea value="{viewDetail>/Description}" rows="4"/> 
+                <TextArea value="{detailView>/Description}" rows="4"/> 
                 <Label text="Software Component Version"/> 
-                <Input value="{viewDetail>/SoftwareComponentVersion}"/> 
+                <Input value="{detailView>/SoftwareComponentVersion}"/> 
                 <Label text="Back End Authorization"/> 
-                <Input value="{viewDetail>/BackEndAuthorization}"/> 
+                <Input value="{detailView>/BackEndAuthorization}"/> 
                 <Label text="Version"/> 
-                <Input value="{viewDetail>/Version}"/> 
+                <Input value="{detailView>/Version}"/> 
             </f:content> 
         </f:SimpleForm>
     </VBox>
-    <Table items="{viewModel>/to_Service}" visible="{= !${viewModel>/isEditMode}? true : false}">
+    <Table items="{singleSolutionModel>/to_Service}" visible="{= !${viewGlobal>/isEditMode}? true : false}">
         <headerToolbar>
             <Toolbar>
                 <Title text="Odata Service(s)"/>
@@ -56,18 +56,18 @@
         <items>
             <ColumnListItem>
                 <cells>
-                    <Text text="{viewModel>ServiceId}"/>
-                    <Text text="{viewModel>Description}"/>
-                    <Text text="{viewModel>Version}"/>
-                    <Link text="{viewModel>Url}" href="{viewModel>Url}" target="_blank"/>
-                    <Text text="{viewModel>ExtServName}"/>
-                    <Text text="{viewModel>SoftCompVersion}"/>
-                    <Text text="{viewModel>BeAuthRole}"/>
+                    <Text text="{singleSolutionModel>ServiceId}"/>
+                    <Text text="{singleSolutionModel>Description}"/>
+                    <Text text="{singleSolutionModel>Version}"/>
+                    <Link text="{singleSolutionModel>Url}" href="{singleSolutionModel>Url}" target="_blank"/>
+                    <Text text="{singleSolutionModel>ExtServName}"/>
+                    <Text text="{singleSolutionModel>SoftCompVersion}"/>
+                    <Text text="{singleSolutionModel>BeAuthRole}"/>
                 </cells>
             </ColumnListItem>
         </items>
     </Table>
-    <Table items="{viewDetail>/to_Service}" visible="{= ${viewModel>/isEditMode}? true : false}" mode="MultiSelect">
+    <Table items="{detailView>/to_Service}" visible="{= ${viewGlobal>/isEditMode}? true : false}" mode="MultiSelect">
         <headerToolbar>
             <Toolbar>
                 <Title text="Odata Service(s)"/>
@@ -99,16 +99,15 @@
         <items>
             <ColumnListItem>
                 <cells>
-                    <Text text="{viewDetail>ServiceId}"/>
-                    <Text text="{viewDetail>Description}"/>
-                    <Text text="{viewDetail>Version}"/>
-                    <Link text="{viewDetail>Url}" href="{viewDetail>Url}" target="_blank"/>
-                    <Text text="{viewDetail>ExtServName}"/>
-                    <Text text="{viewDetail>SoftCompVersion}"/>
-                    <Text text="{viewDetail>BeAuthRole}"/>
+                    <Text text="{detailView>ServiceId}"/>
+                    <Text text="{detailView>Description}"/>
+                    <Text text="{detailView>Version}"/>
+                    <Link text="i18n>linkService" href="{detailView>Url}" target="_blank"/>
+                    <Text text="{detailView>ExtServName}"/>
+                    <Text text="{detailView>SoftCompVersion}"/>
+                    <Text text="{detailView>BeAuthRole}"/>
                 </cells>
             </ColumnListItem>
         </items>
     </Table>
-    
 </mvc:View>

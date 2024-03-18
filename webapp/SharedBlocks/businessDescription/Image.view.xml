@@ -20,9 +20,9 @@
 			resizable="true" 
 			draggable="true">
 			<Button icon="sap-icon://decline" press=".onCloseDialog" type="Transparent" class="sapUiDialogCloseButton"/>
-			<Carousel id="fullScreenCarousel" pages="{imageModel>/Images}">
+			<Carousel id="fullScreenCarousel" pages="{singleSolutionModel>/Images}">
 				<pages>
-			      <Image src="{imageModel>src}"/>
+			      <Image src="{singleSolutionModel>src}"/>
 				</pages>
 			</Carousel>
 		</Dialog>

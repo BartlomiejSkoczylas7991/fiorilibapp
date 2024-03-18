@@ -1,5 +1,5 @@
 <mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m">
-    <Table items="{viewModel>/to_Tar_Map}">
+    <Table items="{singleSolutionModel>/to_Tar_Map}">
         <headerToolbar>
             <Toolbar>
                 <Title text="Target Mappings"/>
@@ -22,10 +22,10 @@
         <items>
             <ColumnListItem>
                 <cells>
-                    <Text text="{viewModel>TarMapId}"/>
-                    <Text text="{viewModel>Type}"/>
-                    <Link text="{viewModel>Url}" href="{viewModel>Url}" target="_blank"/>
-                    <Text text="{viewModel>ParamValue}"/>
+                    <Text text="{singleSolutionModel>TarMapId}"/>
+                    <Text text="{singleSolutionModel>Type}"/>
+                    <Link text="{singleSolutionModel>Url}" href="{singleSolutionModel>Url}" target="_blank"/>
+                    <Text text="{singleSolutionModel>ParamValue}"/>
                 </cells>
             </ColumnListItem>
         </items>

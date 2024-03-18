@@ -15,36 +15,32 @@ sap.ui.define([
             oRouter.getRoute("Detail").attachPatternMatched(this._onObjectMatched, this);
             oRouter.getRoute("Create").attachPatternMatched(this._onObjectMatched, this);
         
+            this.getView().setModel(new JSONModel(), "singleSolutionModel");
+            this.getView().setModel(new JSONModel(), "detailView");
+        
             this._dateFormatter = DateFormat.getDateInstance({
                 pattern: "dd.MM.yyyy",
             });
         },
 
         _onObjectMatched: function (oEvent) {
-            var viewModel = this.getOwnerComponent().getModel("viewModel");
-            this.getView().setModel(viewModel, "viewModel");
-            var viewDetail = new JSONModel({});
-            this.getView().setModel(viewDetail, "viewDetail");
-            const sRouteName = oEvent.getParameter("name");
-            var oDetailModel = this.getView().getModel("viewDetail");
+            var oViewGlobalModel = this.getView().getModel("viewGlobal");
+            var oSingleSolutionModel = this.getView().getModel("singleSolutionModel");
+            var oDetailModel = this.getView().getModel("detailView");
             var sSolId = oEvent.getParameter("arguments").SolId;
-
-            let emptyData = {};
-
+        
+            const sRouteName = oEvent.getParameter("name");
             if (sRouteName === "Create") {
-                viewModel.setData(emptyData);
-                oDetailModel.setData(emptyData); 
-                this.getView().getModel("viewDetail").setData(emptyData);
-                viewModel.setProperty("/isEditMode", true);
+                oDetailModel.setData({}); 
+                oViewGlobalModel.setProperty("/isEditMode", true);
+                oSingleSolutionModel.setData({});
+                oDetailModel.setData({});
             } else if (sRouteName === "Detail") {
-                this._sSolId = oEvent.getParameter("arguments").SolId;
-                viewModel.setProperty("/isEditMode", false);
-                if (this._sSolId) {
-                    this._loadData(this._sSolId);
+                oViewGlobalModel.setProperty("/isEditMode", false);
+                if (sSolId) {
+                    this._loadData(sSolId);
                 } else {
-                    viewModel.setProperty("/isEditMode", true);
-                    viewModel.setData(emptyData);
-                    this.getView().getModel("viewDetail").setData(emptyData);
+                    // navigation to error
                 }
             }
         },
@@ -53,19 +49,10 @@ sap.ui.define([
             this.oRouter.detachRouteMatched(this.onRouteMatched, this);
         },
 
-        _initializeNewSolution: function () {
-            var oNewSolutionData = {
-                TechnicalName: "",
-                Url: "",
-                Description: "",
-            };
-            this.getView().getModel().setData(oNewSolutionData);
-        },
-
         onBeforeNavigate: function (oEvent) {
-            var oViewModel = this.getView().getModel("viewModel");
+            var oGlobalModel = this.getView().getModel("viewGlobal");
         
-            if (!oViewModel.getProperty("/isEditMode")) {
+            if (!oGlobalModel.getProperty("/isEditMode")) {
                 return;
             }
         
@@ -98,33 +85,25 @@ sap.ui.define([
         },
         
         _loadData: function (sSolId) {
-            var dataModel = this.getOwnerComponent().getModel("viewModel");
-            this.getView().setModel(dataModel, "viewModel");
-            var solutions = dataModel.getProperty("/Solutions");
-            var selectedSolution = null;
-            
-        
-            for (var i = 0; i < solutions.length; i++) {
-                if (solutions[i].SolId === sSolId) {
-                    selectedSolution = solutions[i];
-                    break;
-                }
-            }
-        
-            if (selectedSolution) {
-                var oViewModel = this.getView().getModel("viewModel");
-                var oDetailModel = this.getView().getModel("viewDetail");
-                oDetailModel.setData(selectedSolution);
-                oViewModel.setData(JSON.parse(JSON.stringify(selectedSolution)));
-                this._loadImages(sSolId);
+            var oGlobalModel = this.getOwnerComponent().getModel("viewGlobal");
+            var aSolutions = oGlobalModel.getProperty("/Solutions");
+            var oSelectedSolution = aSolutions.find(solution => solution.SolId === sSolId);
+            if (oSelectedSolution) {
+                this.getView().getModel("singleSolutionModel").setData(oSelectedSolution);
+                this.getView().getModel("detailView").setData(jQuery.extend(true, {}, oSelectedSolution));
             } else {
-                MessageBox.error("Error: Solution with SolId " + sSolId + " not found.");
-                // to NotFound view
+                MessageBox.error("Solution with SolId " + sSolId + " not found.");
+                this.getOwnerComponent().getRouter().navTo("Worklist");
             }
+
+            if (oSelectedSolution) {
+                this._loadImages(sSolId);
+            } 
         },        
 
         onNavBack: function () {
-            this.getView().getModel("viewModel").setData({});
+            this.getView().getModel("singleSolutionModel").setData({});
+            this.getView().getModel("detailView").setData({});
 
             var oHistory = History.getInstance();
             var sPreviousHash = oHistory.getPreviousHash();
@@ -138,20 +117,20 @@ sap.ui.define([
         },
     
         onEditPress: function() {
-            var oViewModelData = this.getView().getModel("viewModel").getData();
-            this.getView().getModel("viewDetail").setData(JSON.parse(JSON.stringify(oViewModelData)));
-            this.getView().getModel("viewModel").setProperty("/isEditMode", true);
+            this.getView().getModel("viewGlobal").setProperty("/isEditMode", true);
+            var oViewModelData = this.getView().getModel("singleSolutionModel").getData();
+            this.getView().getModel("detailView").setData(JSON.parse(JSON.stringify(oViewModelData)));
         },        
 
         onSavePress: function() {
-            var oDetailData = this.getView().getModel("viewDetail").getData();
+            var oDetailData = this.getView().getModel("detailView").getData();
             var oDataModel = this.getOwnerComponent().getModel();
             if (this._sSolId) {
                 var sPath = "/ZC_BSK_LA_SOLUTION('" + this._sSolId + "')";
                 oDataModel.update(sPath, oDetailData, {
                     success: function() {
                         MessageBox.success("Object updated successfully.");
-                        this.getView().getModel("viewModel").setProperty("/isEditMode", false);
+                        this.getView().getModel("detailView").setProperty("/isEditMode", false);
                         this._loadData(this._sSolId);
                     }.bind(this),
                     error: function() {
@@ -162,7 +141,7 @@ sap.ui.define([
                 oDataModel.create("/ZC_BSK_LA_SOLUTION", oDetailData, {
                     success: function() {
                         MessageBox.success("New object created successfully.");
-                        this.getView().getModel("viewModel").setProperty("/isEditMode", false);
+                        this.getView().getModel("singleSolutionModel").setProperty("/isEditMode", false);
                         // mogę zrobić sobie nawigację do tego obiektu - generalnie rozwinąć do batcha
                         this.getOwnerComponent().getRouter().navTo("Worklist");
                     }.bind(this),
@@ -174,13 +153,12 @@ sap.ui.define([
         },
 
         onCancelPress: function() {
-            this.getOwnerComponent().getModel("viewModel").setProperty("/isEditMode", false);
+            this.getOwnerComponent().getModel("viewGlobal").setProperty("/isEditMode", false);
             if (this._sSolId) {
                 this._loadData(this._sSolId);
             } else {
-                let emptyData = { TechnicalName: "", Url: "", Description: "" };
-                this.getView().getModel("viewDetail").setData(emptyData);
-                this.getView().getModel("viewModel").setData(emptyData);
+                this.getView().getModel("detailView").setData({});
+                this.getView().getModel("singleSolutionModel").setData({});
             }
         },
 
@@ -209,7 +187,7 @@ sap.ui.define([
         },
 
         _loadImages: function() {
-            var oDetailModel = this.getView().getModel("viewDetail");
+            var oDetailModel = this.getView().getModel("singleSolutionModel");
             var images = oDetailModel.getProperty("/Images") || [];
             var imagePaths = images.map(function(img) {
                 return {src: sap.ui.require.toUrl("fiorilibappname/images" + img.src)};
@@ -221,47 +199,11 @@ sap.ui.define([
             this.getView().getModel().refresh();
         },
 
-        onOpenDialogPress: function() {
-            var oDialog = this.getView().byId("fullScreenCarouselDialog");
-            console.log("IT HAS")
-            oDialog.open();
+        _loadAttachments: function (sSolId) {
+
         },
-        
-
-        onSelectType: function (oEvent) {
-			this.oModel.setProperty("/selectedType", oEvent.getParameter("selectedItem").getKey());
-		},
-
-		onSelectHorizontalType: function (oEvent) {
-			this.oModel.setProperty("/selectedHorizontalType", oEvent.getParameter("selectedItem").getKey());
-		},
-
-		onSelectVerticalType: function (oEvent) {
-			this.oModel.setProperty("/selectedVerticalType", oEvent.getParameter("selectedItem").getKey());
-		},
-
-		onInteractiveChange: function (oEvent) {
-			this.oModel.setProperty("/selectedInteractiveDisplayArea", oEvent.getParameter('state'));
-		},
-
-		onShowAllChange: function (oEvent) {
-			this.oModel.setProperty("/selectedShowAllThumbnails", oEvent.getParameter('state'));
-		},
-
-		onOverflowClick: function(oEvent) {
-			var demoToast = this.getView().byId("demoToast");
-			demoToast.setText("Event overflowClick fired.");
-			demoToast.show();
-		},
-
-		onSelectionChange: function(oEvent) {
-			var demoToast = this.getView().byId("demoToast");
-			demoToast.setText("Event selectionChange fired.");
-			demoToast.show();
-		},
 
         _loadComponents: function (sSolId) {
-
 
         },
 
@@ -282,10 +224,6 @@ sap.ui.define([
         },
 
         _loadComments: function (sSolId) {
-
-        },
-
-        _loadAttachments: function (sSolId) {
 
         },
 
@@ -320,51 +258,5 @@ sap.ui.define([
             var oDisplayFormat = sap.ui.core.format.DateFormat.getDateInstance({pattern: "dd.MM.yyyy HH:mm:ss"});
             return oDisplayFormat.format(oDate);
         },
-        
-
-
-        onPostComment: function (oEvent) {
-            var oModel = this.getView().getModel();
-            var sCommentText = oEvent.getParameter("value");
-        
-            if (!sCommentText.trim()) {
-                MessageBox.warning("Please enter a comment.");
-                return;
-            }
-        
-            if (!this._sSolId) {
-                MessageBox.error("Solution ID is not available.");
-                return;
-            }
-        
-            var oNewComment = {
-                SolId: this._sSolId,
-                Title: "User Comment",
-                Text: sCommentText,
-                Created: new Date()
-            };
-        
-            oModel.create("/ZC_BSK_LA_COMM", oNewComment, {
-                success: function () {
-                    MessageBox.success("Comment posted successfully.");
-                    this._refreshComments(this._sSolId);
-                }.bind(this),
-                error: function () {
-                    MessageBox.error("Error posting comment.");
-                }
-            });
-        },
-
-        _refreshComments: function (sSolId) {
-            var oCommentsList = this.byId("commentsList");
-            var oBinding = oCommentsList.getBinding("items");
-            oBinding.filter(new sap.ui.model.Filter("SolId", sap.ui.model.FilterOperator.EQ, sSolId));
-            oBinding.refresh();
-        },
-
-        onNavToDescription: function() {
-            var oObjectPageLayout = this.byId("ObjectPageLayout");
-            oObjectPageLayout.setSelectedSection(this.getView().byId("descriptionSection"));
-        }
     });
 });

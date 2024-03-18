@@ -1,5 +1,5 @@
 <mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m">
-    <Table items="{viewModel>/Role}">
+    <Table items="{singleSolutionModel>/Role}">
         <headerToolbar>
             <Toolbar>
                 <Title text="Role(s)"/>
@@ -34,12 +34,12 @@
         <items>
             <ColumnListItem>
                 <cells>
-                    <Text text="{viewModel>RoleId}"/>
-                    <Text text="{viewModel>TechName}"/>
-                    <Text text="{viewModel>AccessLevel}"/>
-                    <Text text="{viewModel>Description}"/>
-                    <Text text="{viewModel>CreatedAt}"/>
-                    <Text text="{viewModel>CreatedBy}"/>
+                    <Text text="{singleSolutionModel>RoleId}"/>
+                    <Text text="{singleSolutionModel>TechName}"/>
+                    <Text text="{singleSolutionModel>AccessLevel}"/>
+                    <Text text="{singleSolutionModel>Description}"/>
+                    <Text text="{singleSolutionModel>CreatedAt}"/>
+                    <Text text="{singleSolutionModel>CreatedBy}"/>
                 </cells>
             </ColumnListItem>
         </items>

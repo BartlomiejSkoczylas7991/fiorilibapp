@@ -8,7 +8,7 @@
     xmlns:core="sap.ui.core"
     xmlns:l="sap.ui.layout"
     xmlns:f="sap.ui.layout.form"
-    xmlns:description="fiorilibappname.SharedBlocks.businessDescription"
+    xmlns:descrip="fiorilibappname.SharedBlocks.businessDescription"
     xmlns:tech_inf="fiorilibappname.SharedBlocks.technicalInformation"
     xmlns:imp_notes="fiorilibappname.SharedBlocks.importantNotes"
     xmlns:attachm="fiorilibappname.SharedBlocks.attachments"
@@ -27,26 +27,26 @@
         <headerTitle>
             <ObjectPageDynamicHeaderTitle>
                 <expandedHeading>
-                    <m:Title text="{viewModel>/TechnicalName}" wrapping="true" />
+                    <m:Title text="{singleSolutionModel>/TechnicalName}" wrapping="true" />
                 </expandedHeading>
 
                 <snappedHeading>
                     <m:FlexBox fitContainer="true" alignItems="Center">
-						<m:Title text="{viewModel>/TechnicalName}" />
-						<m:Label text="{viewModel>/SubTitle}" />
+						<m:Title text="{singleSolutionModel>/TechnicalName}" />
+						<m:Label text="{singleSolutionModel>/SubTitle}" />
 					</m:FlexBox>
                 </snappedHeading>
 
                 <expandedContent>
-					<m:Text text="{viewModel>/TypeDescription}"/>
+					<m:Text text="{singleSolutionModel>/TypeDescription}"/>
 				</expandedContent>
 
                 <actions>
-                    <m:Button text="Edit" type="Emphasized" press="onEditPress" visible="{= !${viewModel>/isEditMode}? true : false}" />
-                    <m:Button text="Save" press="onSavePress" visible="{= ${viewModel>/isEditMode}? true : false}" />
+                    <m:Button text="Edit" type="Emphasized" press="onEditPress" visible="{= !${viewGlobal>/isEditMode}? true : false}" />
+                    <m:Button text="Save" press="onSavePress" visible="{= ${viewGlobal>/isEditMode}? true : false}" />
                     <m:Button type="Transparent" text="Copy"/>
-                    <m:Button text="Cancel" press="onCancelPress" visible="{= ${viewModel>/isEditMode}? true : false}" />
-                    <m:Button type="Transparent" text="Delete" press="onDeletePress" visible="{= !${viewModel>/isEditMode}? true : false}" />
+                    <m:Button text="Cancel" press="onCancelPress" visible="{= ${viewGlobal>/isEditMode}? true : false}" />
+                    <m:Button type="Transparent" text="Delete" press="onDeletePress" visible="{= !${viewGlobal>/isEditMode}? true : false}" />
                 </actions>
             </ObjectPageDynamicHeaderTitle>
         </headerTitle>
@@ -55,20 +55,20 @@
             <m:FlexBox wrap="Wrap" fitContainer="true" >
                 <m:Avatar class="sapUiSmallMarginEnd" displaySize="L" />
 
-                <l:VerticalLayout class="sapUiSmallMarginBeginEnd" visible="{= !${viewModel>/isEditMode}? true : false}">
+                <l:VerticalLayout class="sapUiSmallMarginBeginEnd" visible="{= !${viewGlobal>/isEditMode}? true : false}">
 			    	<m:Label text="Component"/>
-                    <m:Text text="{viewModel>/AppComponentText}"/>
+                    <m:Text text="{singleSolutionModel>/AppComponentText}"/>
 			    </l:VerticalLayout>
-                <l:VerticalLayout class="sapUiSmallMarginBeginEnd" visible="{= !${viewModel>/isEditMode}? true : false}">
+                <l:VerticalLayout class="sapUiSmallMarginBeginEnd" visible="{= !${viewGlobal>/isEditMode}? true : false}">
 			    	<m:Label text="Type"/>
-                    <m:Text text="{viewModel>/TypeDescription}"/>
+                    <m:Text text="{singleSolutionModel>/TypeDescription}"/>
 			    </l:VerticalLayout>
 
-                <l:VerticalLayout class="sapUiSmallMarginBeginEnd" visible="{= !${viewModel>/isEditMode}? true : false}">
+                <l:VerticalLayout class="sapUiSmallMarginBeginEnd" visible="{= !${viewGlobal>/isEditMode}? true : false}">
 			    	<m:Label text="Device"/>
                     <m:Text text="Desktop, Tablet"/>
 			    </l:VerticalLayout>
-                <l:VerticalLayout class="sapUiSmallMarginBeginEnd" visible="{= !${viewModel>/isEditMode}? true : false}">
+                <l:VerticalLayout class="sapUiSmallMarginBeginEnd" visible="{= !${viewGlobal>/isEditMode}? true : false}">
 			    	<m:Label text="Device"/>
                     <m:Text text="Desktop, Tablet"/>
 			    </l:VerticalLayout>
@@ -78,8 +78,8 @@
                 <subSections>
                     <ObjectPageSubSection title="Description">
                         <blocks>
-                            <description:Description id="descrblock" description="{viewModel>/Description}" visible="{= !${viewModel>/isEditMode}? true : false}"/>
-                            <f:SimpleForm id = ".idSimpleFormHeader" visible="{= ${viewModel>/isEditMode}? true : false}" layout="ResponsiveGridLayout" editable="true">
+                            <descrip:Descrip id="descrblock" description="{singleSolutionModel>/Description}" visible="{= !${viewGlobal>/isEditMode}? true : false}"/>
+                            <f:SimpleForm id = ".idSimpleFormHeader" visible="{= ${viewGlobal>/isEditMode}? true : false}" layout="ResponsiveGridLayout" editable="true">
                                 <f:content>
                                     <m:Label text="Technical Name" />
                                     <m:Input id="idInputTechnicalName" value="{viewDetail>/TechnicalName}" />
@@ -95,7 +95,7 @@
                     </ObjectPageSubSection>
                     <ObjectPageSubSection title="Image">
                         <blocks>
-                            <description:Image/>
+                            <descrip:Image/>
                         </blocks>
                     </ObjectPageSubSection>
                 </subSections>

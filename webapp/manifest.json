@@ -78,7 +78,7 @@
           "bundleName": "fiorilibappname.i18n.i18n"
         }
       },
-      "viewModel": {
+      "viewGlobal": {
         "type": "sap.ui.model.json.JSONModel",
         "uri": "model/ZC_SOLUTION.json"
       }
@@ -104,8 +104,8 @@
             "files": [
               "view/Object.view.xml",
               "controller/Object.controller.js",
-              "./SharedBlocks/businessDescription/Description.js",
-              "./SharedBlocks/businessDescription/Description.view.xml",
+              "./SharedBlocks/businessDescription/Descrip.js",
+              "./SharedBlocks/businessDescription/Descrip.view.xml",
               "./SharedBlocks/businessDescription/Image.js",
               "./SharedBlocks/businessDescription/Image.view.xml",
               "./SharedBlocks/technicalInformation/Service.js",

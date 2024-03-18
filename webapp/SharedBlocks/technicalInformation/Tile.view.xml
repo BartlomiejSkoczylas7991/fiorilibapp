@@ -1,5 +1,5 @@
 <mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m">
-    <Table items="{viewModel>/Tile}">
+    <Table items="{singleSolutionModel>/Tile}">
         <headerToolbar>
             <Toolbar>
                 <Title text="Tile(s)"/>
@@ -31,13 +31,13 @@
         <items>
             <ColumnListItem>
                 <cells>
-                    <Text text="{viewModel>TileId}"/>
-                    <Text text="{viewModel>Title}"/>
-                    <Text text="{viewModel>Subtitle}"/>
-                    <Text text="{viewModel>Information}"/>
-                    <Text text="{viewModel>TileType}"/>
-                    <Text text="{viewModel>Description}"/>
-                    <Text text="{viewModel>ParamValue}"/>
+                    <Text text="{singleSolutionModel>TileId}"/>
+                    <Text text="{singleSolutionModel>Title}"/>
+                    <Text text="{singleSolutionModel>Subtitle}"/>
+                    <Text text="{singleSolutionModel>Information}"/>
+                    <Text text="{singleSolutionModel>TileType}"/>
+                    <Text text="{singleSolutionModel>Description}"/>
+                    <Text text="{singleSolutionModel>ParamValue}"/>
                 </cells>
             </ColumnListItem>
         </items>

@@ -7,34 +7,6 @@ sap.ui.define([
   
     return Controller.extend("fiorilibappname.controller.Worklist", {
       onInit: function () {
-        var sUri = "/sap/opu/odata/sap/ZBSK_LA_SOL/";
-        var oViewModel = new JSONModel({ loading: true });
-        this.getView().setModel(oViewModel, "viewModel");
-
-        var oODataModel = new ODataModel(sUri, {
-            json: true,
-            loadMetadataAsync: true
-        });
-        this.getView().setModel(oODataModel, "oBindedModel");
-
-
-        oODataModel.metadataLoaded().then(function() {
-            oODataModel.read("/ZC_BSK_LA_SOLUTION", {
-                success: function(oData) {
-                    var oDataModel = new JSONModel(oData.results);
-                    this.getView().setModel(oDataModel, "SolutionsData");
-                    oViewModel.setProperty("/loading", false); 
-                    var oSmartTable = this.byId("idSmartSolutionTable");
-                    if (oSmartTable) {
-                        oSmartTable.rebindTable();
-        }
-                }.bind(this),
-                error: function() {
-                    oViewModel.setProperty("/loading", false); 
-                }
-            });
-        }.bind(this));
-
           var oRouter = this.getOwnerComponent().getRouter();
           oRouter.getRoute("Detail").attachPatternMatched(this._onObjectMatched, this);
       },
@@ -44,13 +16,13 @@ sap.ui.define([
         var oBindingContext = oItem.getBindingContext();
     
         if (!oBindingContext) {
-            MessageBox.error("Nie znaleziono kontekstu wiązania.");
+            MessageBox.error("Binding context not found.");
             return;
         }
     
         var sSolId = oBindingContext.getProperty("SolId");
         var oRouter = this.getOwnerComponent().getRouter();
-        oRouter.navTo("Detail", {
+        this.getOwnerComponent().getRouter().navTo("Detail", {
             SolId: sSolId
             });
         },

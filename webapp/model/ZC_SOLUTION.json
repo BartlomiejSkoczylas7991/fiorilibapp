@@ -203,18 +203,19 @@
       "Images": [
         {
           "Name": "Manage Payment Blocks",
-          "Pic": "/images/Manage_Payment_Blocks.jpg"
+          "src": "/Manage_Payment_Blocks.jpg"
         },
         {
           "Name": "Item",
-          "Pic": "/images/PCItemsByAA.jpg"
+          "src": "/PCItemsByAA.jpg"
         },
         {
           "Name": "Reconrep",
-          "Pic": "/images/reconrep.png"
+          "src": "/reconrep.png"
         }
       ]
     },
+    
     {
         "SolId": "0000000003",
         "TechnicalName": "FioriSalesApp",
@@ -291,15 +292,15 @@
           "Images": [
             {
               "Name": "Manage Payment Blocks",
-              "Pic": "/images/Manage_Payment_Blocks.jpg"
+              "src": "/Manage_Payment_Blocks.jpg"
             },
             {
               "Name": "Item",
-              "Pic": "/images/PCItemsByAA.jpg"
+              "src": "/PCItemsByAA.jpg"
             },
             {
               "Name": "Reconrep",
-              "Pic": "/images/reconrep.png"
+              "src": "/reconrep.png"
             }
           ]
         },
@@ -380,15 +381,15 @@
           "Images": [
             {
               "Name": "Manage Payment Blocks",
-              "Pic": "/images/Manage_Payment_Blocks.jpg"
+              "src": "/Manage_Payment_Blocks.jpg"
             },
             {
               "Name": "Item",
-              "Pic": "/images/PCItemsByAA.jpg"
+              "src": "/PCItemsByAA.jpg"
             },
             {
               "Name": "Reconrep",
-              "Pic": "/images/reconrep.png"
+              "src": "/reconrep.png"
             }
           ]
         }

@@ -1,5 +1,5 @@
 <mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m">
-    <Table items="{viewModel>/Catalog}">
+    <Table items="{singleSolutionModel>/Catalog}">
         <headerToolbar>
             <Toolbar>
                 <Title text="Catalog(s)"/>
@@ -31,11 +31,11 @@
         <items>
             <ColumnListItem>
                 <cells>
-                    <Text text="{viewModel>CatalogId}"/>
-                    <Text text="{viewModel>Title}"/>
-                    <Text text="{viewModel>Description}"/>
-                    <Text text="{viewModel>CreatedAt}"/>
-                    <Text text="{viewModel>CreatedBy}"/>
+                    <Text text="{singleSolutionModel>CatalogId}"/>
+                    <Text text="{singleSolutionModel>Title}"/>
+                    <Text text="{singleSolutionModel>Description}"/>
+                    <Text text="{singleSolutionModel>CreatedAt}"/>
+                    <Text text="{singleSolutionModel>CreatedBy}"/>
                 </cells>
             </ColumnListItem>
         </items>
