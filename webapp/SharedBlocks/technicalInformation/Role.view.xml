@@ -1,8 +1,7 @@
-<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m">
-    <Table items="{singleSolutionModel>/Role}">
+<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="fiorilibappname.controller.Role">
+    <Table items="{singleSolutionModel>/Role}" visible="{= !${viewGlobal>/isEditMode}? true : false}">
         <headerToolbar>
             <Toolbar>
-                <Title text="Role(s)"/>
             </Toolbar>
         </headerToolbar>
         <columns>
@@ -18,18 +17,6 @@
             <Column>
                 <Text text="Description"/>
             </Column>
-            <Column>
-                <Text text="Changed At"/>
-            </Column>
-            <Column>
-                <Text text="Changed By"/>
-            </Column>
-            <Column>
-                <Text text="Created At"/>
-            </Column>
-            <Column>
-                <Text text="Created By"/>
-            </Column>
         </columns>
         <items>
             <ColumnListItem>
@@ -38,8 +25,43 @@
                     <Text text="{singleSolutionModel>TechName}"/>
                     <Text text="{singleSolutionModel>AccessLevel}"/>
                     <Text text="{singleSolutionModel>Description}"/>
-                    <Text text="{singleSolutionModel>CreatedAt}"/>
-                    <Text text="{singleSolutionModel>CreatedBy}"/>
+                </cells>
+            </ColumnListItem>
+        </items>
+    </Table>
+
+
+    <Table id="rolesTable" items="{roleModelEdit>/to_S_Role}" mode="MultiSelect" visible="{= ${viewGlobal>/isEditMode}? true : false}">
+        <headerToolbar>
+            <Toolbar>
+                <Title text="Role(s)"/>
+                <ToolbarSpacer />
+                <Button text="Add" icon="sap-icon://add" press="onAddRole" visible="{= ${viewGlobal>/isEditMode}? true : false}"/>
+                <Button text="Delete" icon="sap-icon://delete" press="onDeleteRole" visible="{= ${viewGlobal>/isEditMode}? true : false}"/>
+                <Button text="Select Role" icon="sap-icon://value-help" press="openRolesDialog" visible="{= ${viewGlobal>/isEditMode}? true : false}"/>
+            </Toolbar>
+        </headerToolbar>
+        <columns>
+            <Column>
+                <Text text="Role ID"/>
+            </Column>
+            <Column>
+                <Text text="Technical Name"/>
+            </Column>
+            <Column>
+                <Text text="Access Level"/>
+            </Column>
+            <Column>
+                <Text text="Description"/>
+            </Column>
+        </columns>
+        <items>
+            <ColumnListItem>
+                <cells>
+                    <Input value="{roleModelEdit>RoleId}" editable="false"/>
+                    <Input value="{roleModelEdit>AccessLevel}"/>
+                    <Input value="{roleModelEdit>AccessLevel}"/>
+                    <Input value="{roleModelEdit>Description}"/>
                 </cells>
             </ColumnListItem>
         </items>

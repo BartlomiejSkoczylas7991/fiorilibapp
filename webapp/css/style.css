@@ -3,3 +3,32 @@
     height: 60%;
     margin: 0 auto;
 }
+.statusActive {
+    background-color: green;
+    color: white;
+}
+
+.statusInactive {
+    background-color: red;
+    color: white;
+}
+
+.statusDeprecated {
+    background-color: gray;
+    color: white;
+}
+
+.statusUnderDevelopment {
+    background-color: orange;
+    color: white;
+}
+
+.typeApi {
+    background-color: blue;
+    color: white;
+}
+
+.typeApp {
+    background-color: purple;
+    color: white;
+}

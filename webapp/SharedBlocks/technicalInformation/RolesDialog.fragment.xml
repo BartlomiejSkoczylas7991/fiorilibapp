@@ -1,0 +1,45 @@
+<core:FragmentDefinition 
+        xmlns="sap.m" 
+        xmlns:core="sap.ui.core" 
+        xmlns:ui="sap.ui.layout" 
+        xmlns:mvc="sap.ui.core.mvc" 
+        controllerName="fiorilibappname.controller.Role">
+   <Dialog title="Select a Role" class="sapUiResponsivePadding--header sapUiResponsivePadding--content sapUiResponsivePadding--footer">
+        <content>
+            <SearchField id="roleSearch" liveChange="filterRoles" placeholder="Search by Role ID..." />
+            <Table items="{viewGlobal>/Role}" mode="MultiSelect" noDataText="No roles available">
+                <columns>
+                    <Column>
+                        <Text text="RoleID"/>
+                    </Column>
+                    <Column>
+                        <Text text="Technical Name"/>
+                    </Column>
+                    <Column>
+                        <Text text="Access Level"/>
+                    </Column>
+                    <Column>
+                        <Text text="Description"/>
+                    </Column>
+                </columns>
+                <items>
+                    <ColumnListItem type="Active">
+                        <cells>
+                            <Text text="{viewGlobal>RoleId}"/>
+                            <Text text="{viewGlobal>TechName}"/>
+                            <Text text="{viewGlobal>AccessLevel}"/>
+                            <Text text="{viewGlobal>Description}"/>
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </content>
+        <beginButton>
+            <Button text="Select" press="confirmRoleSelection"/>
+        </beginButton>
+        <endButton>
+            <Button text="Cancel" press="closeRolesDialog"/>
+        </endButton>
+    </Dialog>
+
+</core:FragmentDefinition>

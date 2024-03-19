@@ -1,8 +1,12 @@
-<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m">
-    <Table items="{singleSolutionModel>/to_Tar_Map}">
+<mvc:View 
+    xmlns:mvc="sap.ui.core.mvc" 
+    xmlns="sap.m" 
+    xmlns:f="sap.ui.layout.form" 
+    xmlns:core="sap.ui.core"
+    controllerName="fiorilibappname.controller.TargetMappings">
+    <Table items="{singleSolutionModel>/to_Tar_Map}" visible="{= !${viewGlobal>/isEditMode}? true : false}">
         <headerToolbar>
             <Toolbar>
-                <Title text="Target Mappings"/>
             </Toolbar>
         </headerToolbar>
         <columns>
@@ -26,6 +30,40 @@
                     <Text text="{singleSolutionModel>Type}"/>
                     <Link text="{singleSolutionModel>Url}" href="{singleSolutionModel>Url}" target="_blank"/>
                     <Text text="{singleSolutionModel>ParamValue}"/>
+                </cells>
+            </ColumnListItem>
+        </items>
+    </Table>
+    <Table id="targetMappingsTable" items="{detailView>/to_Tar_Map}" visible="{= ${viewGlobal>/isEditMode}? true : false}" mode="MultiSelect">
+        <headerToolbar>
+            <Toolbar>
+                <Title text="Target Mappings"/>
+                <ToolbarSpacer/>
+                <Button text="Add" icon="sap-icon://add" press="onAddTargetMapping" visible="{= ${viewGlobal>/isEditMode}? true : false}"/>
+                <Button text="Delete" icon="sap-icon://delete" press="onDeleteTargetMapping" visible="{= ${viewGlobal>/isEditMode}? true : false}"/>
+            </Toolbar>
+        </headerToolbar>
+        <columns>
+            <Column>
+                <Text text="TarMapId"/>
+            </Column>
+            <Column>
+                <Text text="Type"/>
+            </Column>
+            <Column>
+                <Text text="Url"/>
+            </Column>
+            <Column>
+                <Text text="ParamValue"/>
+            </Column>
+        </columns>
+        <items>
+            <ColumnListItem>
+                <cells>
+                    <Input value="{detailView>TarMapId}" editable="false"/>
+                    <Input value="{detailView>Type}" editable="{viewGlobal>/isEditMode}"/>
+                    <Input value="{detailView>Url}" editable="{viewGlobal>/isEditMode}"/>
+                    <TextArea value="{detailView>ParamValue}" editable="{viewGlobal>/isEditMode}" rows="3"/>
                 </cells>
             </ColumnListItem>
         </items>

@@ -1,33 +1,12 @@
-<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:f="sap.ui.layout.form">
-    <VBox class="sapUiSmallMargin">
-        <f:SimpleForm 
-            layout="ResponsiveGridLayout" 
-            editable="{= ${viewGlobal>/isEditMode}? true : false}" 
-            title="Edit Service" 
-            visible="{= ${viewGlobal>/isEditMode}? true : false}"
-            columnsM="2"
-			columnsL="3"
-            columnsXL="4"> 
-            <f:content> 
-                <Label text="Name"/> 
-                <Input value="{detailView>/Name}"/> 
-                <Label text="URL"/> 
-                <Input value="{detailView>/Url}"/> 
-                <Label text="Description"/> 
-                <TextArea value="{detailView>/Description}" rows="4"/> 
-                <Label text="Software Component Version"/> 
-                <Input value="{detailView>/SoftwareComponentVersion}"/> 
-                <Label text="Back End Authorization"/> 
-                <Input value="{detailView>/BackEndAuthorization}"/> 
-                <Label text="Version"/> 
-                <Input value="{detailView>/Version}"/> 
-            </f:content> 
-        </f:SimpleForm>
-    </VBox>
+<mvc:View 
+    xmlns:mvc="sap.ui.core.mvc" 
+    xmlns="sap.m" 
+    xmlns:f="sap.ui.layout.form" 
+    xmlns:core="sap.ui.core"
+    controllerName="fiorilibappname.controller.Service">
     <Table items="{singleSolutionModel>/to_Service}" visible="{= !${viewGlobal>/isEditMode}? true : false}">
         <headerToolbar>
             <Toolbar>
-                <Title text="Odata Service(s)"/>
             </Toolbar>
         </headerToolbar>
         <columns>
@@ -67,10 +46,13 @@
             </ColumnListItem>
         </items>
     </Table>
-    <Table items="{detailView>/to_Service}" visible="{= ${viewGlobal>/isEditMode}? true : false}" mode="MultiSelect">
+    <Table id="servicesTable" items="{detailView>/to_Service}" visible="{= ${viewGlobal>/isEditMode}? true : false}" mode="MultiSelect">
         <headerToolbar>
             <Toolbar>
                 <Title text="Odata Service(s)"/>
+                <ToolbarSpacer/>
+                <Button text="Add" icon="sap-icon://add" press="onAddService" visible="{viewGlobal>/isEditMode}"/>
+                <Button text="Delete" icon="sap-icon://delete" press="onDeleteService" visible="{viewGlobal>/isEditMode}"/>
             </Toolbar>
         </headerToolbar>
         <columns>
@@ -99,13 +81,17 @@
         <items>
             <ColumnListItem>
                 <cells>
-                    <Text text="{detailView>ServiceId}"/>
-                    <Text text="{detailView>Description}"/>
-                    <Text text="{detailView>Version}"/>
-                    <Link text="i18n>linkService" href="{detailView>Url}" target="_blank"/>
-                    <Text text="{detailView>ExtServName}"/>
-                    <Text text="{detailView>SoftCompVersion}"/>
-                    <Text text="{detailView>BeAuthRole}"/>
+                    <Input value="{detailView>ServiceId}" editable="false"/>
+                    <Input value="{detailView>Description}" editable="{viewGlobal>/isEditMode}"/>
+                    <ComboBox selectedKey="{detailView>Version}" editable="{viewGlobal>/isEditMode}">
+                        <core:Item key="1.0" text="1.0"/>
+                        <core:Item key="2.0" text="2.0"/>
+                        <core:Item key="4.0" text="4.0"/>
+                    </ComboBox>
+                    <Input value="{detailView>Url}" editable="{viewGlobal>/isEditMode}"/>
+                    <Input value="{detailView>ExtServName}" editable="{viewGlobal>/isEditMode}"/>
+                    <Input value="{detailView>SoftCompVersion}" editable="{viewGlobal>/isEditMode}"/>
+                    <Input value="{detailView>BeAuthRole}" editable="{viewGlobal>/isEditMode}"/>
                 </cells>
             </ColumnListItem>
         </items>

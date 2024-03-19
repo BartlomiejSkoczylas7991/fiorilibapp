@@ -2,7 +2,6 @@
     <Table items="{singleSolutionModel>/Group}">
         <headerToolbar>
             <Toolbar>
-                <Title text="Group(s)"/>
             </Toolbar>
         </headerToolbar>
         <columns>

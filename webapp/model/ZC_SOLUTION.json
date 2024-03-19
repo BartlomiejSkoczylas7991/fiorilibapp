@@ -7,7 +7,7 @@
       "SolType": "1",
       "TypeDescription": "Aplikacja webowa",
       "Status": "1",
-      "StatusDescription": "Active",
+      "StatusDescription": "ACTIVE",
       "SolutionAction": "Update",
       "ActionDescription": "Aktualizuj aplikację",
       "Description": "Aplikacja \"FioriAppManager\", o identyfikatorze SOL001, jest innowacyjnym narzędziem stworzonym z myślą o efektywnym zarządzaniu aplikacjami Fiori w przedsiębiorstwach. Technicznie określana jako webowa platforma zarządzania, aplikacja ta zapewnia centralizowany interfejs użytkownika, umożliwiający administratorom łatwe monitorowanie, aktualizowanie i konfigurację aplikacji Fiori. Dostępna pod adresem FioriAppManager, aplikacja ta została uruchomiona w celu usprawnienia procesów biznesowych i zwiększenia produktywności przez lepsze zarządzanie komponentami aplikacji.\n\nStatus aplikacji określony jest jako \"Aktywna\", co oznacza, że jest ona w pełni funkcjonalna i dostępna dla użytkowników. Integralną częścią funkcjonalności FioriAppManager jest możliwość aktualizacji aplikacji (\"Update\"), co pozwala na ciągłe doskonalenie i dostosowywanie aplikacji do zmieniających się wymagań biznesowych. Aplikacja została stworzona i zmodyfikowana przez 'admin' ostatnio dnia 2024-03-05, co podkreśla jej aktualność i ciągłe dostosowanie do najnowszych standardów i praktyk.\n\nWśród kluczowych cech FioriAppManager warto wymienić \"Komponent zarządzania\", który umożliwia użytkownikom intuicyjne i skuteczne zarządzanie różnymi aspektami aplikacji Fiori, od bezpieczeństwa po wydajność. Do tej pory aplikacja otrzymała pozytywne uwagi użytkowników, odzwierciedlone w komentarzach (np. \"NOTE001\", \"NOTE002\"), co świadczy o jej przydatności i funkcjonalności.\n\nIntegracja z różnymi usługami (\"SRV001\", \"SRV002\") oraz grupami (\"GRP001\") umożliwia FioriAppManager zarządzanie złożonym ekosystemem aplikacji Fiori, co przekłada się na lepszą organizację i spójność w ramach środowiska przedsiębiorstwa. Aplikacja wspiera również mapy docelowe (\"TMAP001\", \"TMAP002\") i wersje (\"VER001\", \"VER002\"), co ułatwia zarządzanie wersjami aplikacji i zrozumienie zależności między różnymi komponentami systemu.\n\nZaprojektowana z myślą o maksymalizacji użytkowości i efektywności, FioriAppManager stanowi kluczowe narzędzie dla każdej organizacji korzystającej z aplikacji Fiori, pomagając w zarządzaniu cyklem życia aplikacji, od wdrożenia po codzienne użytkowanie.",
@@ -141,8 +141,8 @@
       "Url": "http://fiorihrapp.example.com",
       "SolType": "Mobile",
       "TypeDescription": "Aplikacja mobilna",
-      "Status": "In Development",
-      "StatusDescription": "In development phase",
+      "Status": "INACTIVE",
+      "StatusDescription": "INACTIVE",
       "SolutionAction": "Deploy",
       "ActionDescription": "Wdrożenie aplikacji",
       "Description": "Aplikacja HR zaprojektowana do zarządzania zasobami ludzkimi w Fiori",
@@ -169,7 +169,7 @@
       ],
       "to_Service": [
         {
-            "ServiceId": "SRV003",
+            "ServiceId": "0000000003",
             "Url": "http://hrfioriservice.example.com",
             "Version": "1.0",
             "Description": "Serwis HR dla aplikacji Fiori HR",
@@ -193,7 +193,7 @@
       ],
       "to_Tar_Map": [
         {
-            "TarMapId": "TMAP003",
+            "TarMapId": "0000000003",
             "SolId": "0000000003",
             "Url": "http://mapsolution.example.com/map1",
             "Type": "Functional",
@@ -223,8 +223,8 @@
         "Url": "http://fiorisalesapp.example.com",
         "SolType": "Web",
         "TypeDescription": "Aplikacja webowa",
-        "Status": "Active",
-        "StatusDescription": "Active",
+        "Status": "DEPRECATED",
+        "StatusDescription": "DEPRECATED",
         "SolutionAction": "Update",
         "ActionDescription": "Aktualizuj aplikację",
         "Description": "Aplikacja Sales jest przeznaczona do zarządzania sprzedażą w przedsiębiorstwie. Umożliwia śledzenie danych sprzedażowych, analizy trendów oraz planowania sprzedaży.",
@@ -241,7 +241,7 @@
         "SupportContact": "support@fioriappmanager.example.com",
         "to_Comments": [
           {
-            "NoteNumber": "NOTE004",
+            "NoteNumber": "0000000004",
             "Title": "Update Planned",
             "System": "Back-End Server",
             "Created": "2024-03-12T11:30:00",
@@ -251,7 +251,7 @@
         ],
         "to_Service": [
           {
-            "ServiceId": "SRV004",
+            "ServiceId": "0000000004",
             "Url": "http://salesfioriservice.example.com",
             "Version": "2.5",
             "Description": "Serwis dla aplikacji Fiori Sales",
@@ -311,8 +311,8 @@
           "Url": "http://fioriinventoryapp.example.com",
           "SolType": "Web",
           "TypeDescription": "Web Application",
-          "Status": "Under Development",
-          "StatusDescription": "In development phase",
+          "Status": "UNDER_DEVELOPMENT",
+          "StatusDescription": "UNDER_DEVELOPMENT",
           "SolutionAction": "Deploy",
           "ActionDescription": "Deploy application",
           "Description": "This application is designed to help with inventory management, allowing users to track stock levels, orders, and deliveries.",
@@ -364,7 +364,7 @@
           "to_Tar_Map": [
             {
               "TarMapId": "0000000005",
-              "SolId": "0000000005",
+              "SolId": "0000000004",
               "Url": "http://inventorysolution.example.com/map3",
               "Type": "Functional",
               "ParamValue": "param3"
@@ -477,8 +477,7 @@
           "ChangedAt": "2024-03-15T10:30:00",
           "ChangedBy": "finadmin",
           "CreatedAt": "2024-02-05T08:20:00",
-          "CreatedBy": "fincreator",
-          "_Role_Solution": ["0000000002"]
+          "CreatedBy": "fincreator"
         },
         {
           "TileId": "0000000002",
@@ -491,8 +490,7 @@
           "ChangedAt": "2024-03-17T12:00:00",
           "ChangedBy": "hradmin",
           "CreatedAt": "2024-02-10T09:25:00",
-          "CreatedBy": "hrcreator",
-          "_Role_Solution": ["0000000001"]
+          "CreatedBy": "hrcreator"
         }
       ],
       "FrontEndComponents": [

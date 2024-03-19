@@ -28,8 +28,17 @@ sap.ui.define([
             var oSingleSolutionModel = this.getView().getModel("singleSolutionModel");
             var oDetailModel = this.getView().getModel("detailView");
             var sSolId = oEvent.getParameter("arguments").SolId;
-        
+
+            var oObjectPageLayout = this.getView().byId("ObjectPageLayout");
+            if (oObjectPageLayout) {
+                var oFirstSection = oObjectPageLayout.getSections()[0]; 
+                if (oFirstSection) {
+                    oObjectPageLayout.setSelectedSection(oFirstSection.getId());
+                }
+            }
+            
             const sRouteName = oEvent.getParameter("name");
+            oViewGlobalModel.setProperty("/currentRoute", sRouteName);
             if (sRouteName === "Create") {
                 oDetailModel.setData({}); 
                 oViewGlobalModel.setProperty("/isEditMode", true);
@@ -54,43 +63,26 @@ sap.ui.define([
         
             if (!oGlobalModel.getProperty("/isEditMode")) {
                 return;
-            }
-        
-            var oSection = oEvent.getParameter("section");
-            oEvent.preventDefault();
-        
-            if (!this.oDialog) {
-                this.oDialog = new Dialog({
-                    title: "Unsaved changes",
-                    content: new Text({text: "You are in 'Edit' mode. Are you sure you want to navigate to other section?"}),
-                    beginButton: new Button({
-                        text: "OK",
-                        press: function () {
-                            this.oDialog.close();
-                            this.getView().byId("ObjectPageLayout").setSelectedSection(oSection);
-                        }.bind(this)
-                    }),
-                    endButton: new Button({
-                        text: "Cancel",
-                        press: function () {
-                            this.oDialog.close();
-                        }.bind(this)
-                    })
-                });
-        
-                this.getView().addDependent(this.oDialog);
-            }
-        
-            this.oDialog.open();
+            };
         },
         
         _loadData: function (sSolId) {
             var oGlobalModel = this.getOwnerComponent().getModel("viewGlobal");
             var aSolutions = oGlobalModel.getProperty("/Solutions");
             var oSelectedSolution = aSolutions.find(solution => solution.SolId === sSolId);
+            this._sSolId = sSolId; 
             if (oSelectedSolution) {
                 this.getView().getModel("singleSolutionModel").setData(oSelectedSolution);
                 this.getView().getModel("detailView").setData(jQuery.extend(true, {}, oSelectedSolution));
+                    
+                var aRolesForSolution = oSelectedSolution.to_S_Role.map(role => {
+                    return oGlobalModel.getProperty("/Role").find(r => r.RoleId === role.RoleId);
+                }).filter(role => role);
+
+                var oRoleModelEdit = new JSONModel({to_S_Role: aRolesForSolution});
+                this.getView().setModel(oRoleModelEdit, "roleModelEdit");
+
+                this.getView().getModel("singleSolutionModel").setProperty("/Role", aRolesForSolution);
             } else {
                 MessageBox.error("Solution with SolId " + sSolId + " not found.");
                 this.getOwnerComponent().getRouter().navTo("Worklist");
@@ -120,37 +112,51 @@ sap.ui.define([
             this.getView().getModel("viewGlobal").setProperty("/isEditMode", true);
             var oViewModelData = this.getView().getModel("singleSolutionModel").getData();
             this.getView().getModel("detailView").setData(JSON.parse(JSON.stringify(oViewModelData)));
-        },        
+        },     
 
         onSavePress: function() {
-            var oDetailData = this.getView().getModel("detailView").getData();
-            var oDataModel = this.getOwnerComponent().getModel();
-            if (this._sSolId) {
-                var sPath = "/ZC_BSK_LA_SOLUTION('" + this._sSolId + "')";
-                oDataModel.update(sPath, oDetailData, {
-                    success: function() {
-                        MessageBox.success("Object updated successfully.");
-                        this.getView().getModel("detailView").setProperty("/isEditMode", false);
-                        this._loadData(this._sSolId);
-                    }.bind(this),
-                    error: function() {
-                        MessageBox.error("Update failed.");
+            var oViewGlobalModel = this.getView().getModel("viewGlobal");
+            var sCurrentRoute = oViewGlobalModel.getProperty("/currentRoute");
+            var sMessage = sCurrentRoute === "Create" ? "Czy na pewno chcesz stworzyć ten obiekt?" : "Czy na pewno chcesz edytować ten obiekt?";
+            
+            MessageBox.confirm(sMessage, {
+                actions: [MessageBox.Action.YES, MessageBox.Action.NO],
+                onClose: function(sAction) {
+                    if (sAction === MessageBox.Action.YES) {
+                        this.onNavBack();
                     }
-                });
-            } else {
-                oDataModel.create("/ZC_BSK_LA_SOLUTION", oDetailData, {
-                    success: function() {
-                        MessageBox.success("New object created successfully.");
-                        this.getView().getModel("singleSolutionModel").setProperty("/isEditMode", false);
-                        // mogę zrobić sobie nawigację do tego obiektu - generalnie rozwinąć do batcha
-                        this.getOwnerComponent().getRouter().navTo("Worklist");
-                    }.bind(this),
-                    error: function() {
-                        MessageBox.error("Creation failed.");
-                    }
-                });
-            }
+                }.bind(this)
+            });
         },
+
+            //var oDetailData = this.getView().getModel("detailView").getData();
+            //var oDataModel = this.getOwnerComponent().getModel();
+            //if (this._sSolId) {
+            //    var sPath = "/ZC_BSK_LA_SOLUTION('" + this._sSolId + "')";
+            //    oDataModel.update(sPath, oDetailData, {
+            //        success: function() {
+            //            MessageBox.success("Object updated successfully.");
+            //            this.getView().getModel("detailView").setProperty("/isEditMode", false);
+            //            this._loadData(this._sSolId);
+            //        }.bind(this),
+            //        error: function() {
+            //            MessageBox.error("Update failed.");
+            //        }
+            //    });
+            //} else {
+            //    oDataModel.create("/ZC_BSK_LA_SOLUTION", oDetailData, {
+            //        success: function() {
+            //            MessageBox.success("New object created successfully.");
+            //            this.getView().getModel("singleSolutionModel").setProperty("/isEditMode", false);
+            //            // mogę zrobić sobie nawigację do tego obiektu - generalnie rozwinąć do batcha
+            //            this.getOwnerComponent().getRouter().navTo("Worklist");
+            //        }.bind(this),
+            //        error: function() {
+            //            MessageBox.error("Creation failed.");
+            //        }
+            //    });
+            //}
+
 
         onCancelPress: function() {
             this.getOwnerComponent().getModel("viewGlobal").setProperty("/isEditMode", false);

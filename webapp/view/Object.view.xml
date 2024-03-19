@@ -69,11 +69,30 @@
                     <m:Text text="Desktop, Tablet"/>
 			    </l:VerticalLayout>
                 <l:VerticalLayout class="sapUiSmallMarginBeginEnd" visible="{= !${viewGlobal>/isEditMode}? true : false}">
-			    	<m:Label text="Device"/>
-                    <m:Text text="Desktop, Tablet"/>
+			    	<m:Label text="Status"/>
+                    <m:Text text="singleSolutionModel>/StatusDescription"/>
 			    </l:VerticalLayout>
             </m:FlexBox>
-        </headerContent>        <sections>
+            <m:FlexBox wrap="Wrap" fitContainer="true" justifyContent="SpaceBetween" alignItems="End">
+            <m:FlexBox wrap="Wrap" fitContainer="true">
+                <!-- Lewa strona: inny content -->
+                <m:Avatar class="sapUiSmallMarginEnd" displaySize="L" />
+                <l:VerticalLayout class="sapUiSmallMarginBeginEnd">
+                    <m:Label text="Component"/>
+                    <m:Text text="{singleSolutionModel>/AppComponentText}"/>
+                </l:VerticalLayout>
+            </m:FlexBox>
+            <m:FlexBox wrap="Wrap" fitContainer="true">
+                <!-- Prawa strona: Status i Typ -->
+                <m:Badge text="{singleSolutionModel>/Status}" colorScheme="8" class="customMargin"/>
+                <m:Badge text="{singleSolutionModel>/Type}" colorScheme="1" class="customMargin"/>
+                <!-- Dodatkowe przyciski i informacje -->
+                <m:Button text="Non Escrowed" type="Emphasized" class="customMargin"/>
+                <m:Button text="Delinquent" type="Reject" class="customMargin"/>
+            </m:FlexBox>
+            </m:FlexBox>
+        </headerContent>        
+        <sections>
             <ObjectPageSection title="Business Description">
                 <subSections>
                     <ObjectPageSubSection title="Description">
