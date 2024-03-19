@@ -88,33 +88,6 @@ sap.ui.define([
         oBinding.filter([oFilter]);
       },
 
-      onDialogCloseRole: function(oEvent) {
-         var oSelectedItem = oEvent.getParameter("selectedItem");
-         if (oSelectedItem) {
-             var oViewModel = this.getView().getModel("viewModel");
-             oViewModel.setProperty("/selectedRole", oSelectedItem.getTitle());
-
-             sap.m.MessageToast.show("Selected Role: " + oSelectedItem.getTitle());
-         } else {
-             sap.m.MessageToast.show("No role selected");
-         }
-      },
-      // Tile
-      onTileDialogOpen: function() {
-        var oView = this.getView();
-        if (!this.byId("tileSelectDialog")) {
-            sap.ui.core.Fragment.load({
-                id: oView.getId(),
-                name: "fiorilibappname.view.TileDialog",
-                controller: this
-            }).then(function(oDialog){
-                oView.addDependent(oDialog);
-                oDialog.open();
-            });
-           } else {
-               this.byId("tileSelectDialog").open();
-        }
-      },
 
       onSearchTile: function(oEvent) {
         var sValue = oEvent.getParameter("value");
@@ -123,52 +96,11 @@ sap.ui.define([
         oBinding.filter([oFilter]);
       },
 
-      onDialogCloseTile: function(oEvent) {
-         var oSelectedItem = oEvent.getParameter("selectedItem");
-         if (oSelectedItem) {
-             var oViewModel = this.getView().getModel("viewModel");
-             oViewModel.setProperty("/selectedTile", oSelectedItem.getTitle());
-
-             sap.m.MessageToast.show("Selected Tile: " + oSelectedItem.getTitle());
-         } else {
-             sap.m.MessageToast.show("No tile selected");
-         }
-      },
-      
-      // group
-      onGroupDialogOpen: function() {
-        var oView = this.getView();
-        if (!this.byId("groupSelectDialog")) {
-            sap.ui.core.Fragment.load({
-                id: oView.getId(),
-                name: "fiorilibappname.view.GroupDialog",
-                controller: this
-            }).then(function(oDialog){
-                oView.addDependent(oDialog);
-                oDialog.open();
-            });
-           } else {
-               this.byId("groupSelectDialog").open();
-        }
-      },
-
       onSearchGroup: function(oEvent) {
         var sValue = oEvent.getParameter("value");
         var oFilter = new sap.ui.model.Filter("Name", sap.ui.model.FilterOperator.Contains, sValue);
         var oBinding = oEvent.getSource().getBinding("items");
         oBinding.filter([oFilter]);
-      },
-
-      onDialogCloseGroup: function(oEvent) {
-         var oSelectedItem = oEvent.getParameter("selectedItem");
-         if (oSelectedItem) {
-             var oViewModel = this.getView().getModel("viewModel");
-             oViewModel.setProperty("/selectedGroup", oSelectedItem.getTitle());
-
-             sap.m.MessageToast.show("Selected Group: " + oSelectedItem.getTitle());
-         } else {
-             sap.m.MessageToast.show("No group selected");
-         }
       },
 
       // catalog
@@ -195,17 +127,17 @@ sap.ui.define([
         oBinding.filter([oFilter]);
       },
 
-      onDialogCloseCatalog: function(oEvent) {
-         var oSelectedItem = oEvent.getParameter("selectedItem");
-         if (oSelectedItem) {
-             var oViewModel = this.getView().getModel("viewModel");
-             oViewModel.setProperty("/selectedCatalog", oSelectedItem.getTitle());
-
-             sap.m.MessageToast.show("Selected Catalog: " + oSelectedItem.getTitle());
-         } else {
-             sap.m.MessageToast.show("No catalog selected");
-         }
+      onBeforeRebindClaimTable: function (oEvent) { 
+          const oBinding = oEvent.getParameter("bindingParams");
+          const aFilters =  this._getFilters();
+          aFilters.forEach(filter => oBinding.filters.push(filter));
       },
+
+      _getFilters: function() {
+        var oFilter1 = new sap.ui.model.Filter("", sap.ui.model.FilterOperator.EQ, "Val");
+        
+      },
+
 
       getResourceBundle: function () {
         return this.getOwnerComponent().getModel("i18n").getResourceBundle();
