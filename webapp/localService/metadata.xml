@@ -89,6 +89,7 @@
                 <Property Name="TypeDescription" Type="Edm.String" MaxLength="60" sap:label="Type of the app" sap:quickinfo="Short Text for Fixed Values" />
                 <Property Name="Status" Type="Edm.String" MaxLength="20" sap:label="App status" sap:quickinfo="Status of the application" />
                 <Property Name="StatusDescription" Type="Edm.String" MaxLength="60" sap:label="Status" sap:quickinfo="Short Text for Fixed Values" />
+                <Property Name="PoleProcess" Type="Edm.String" MaxLength="60" sap:label="Pole Process" sap:quickinfo="Short Text for Fixed Values" />
                 <Property Name="SolutionAction" Type="Edm.String" MaxLength="1" sap:display-format="UpperCase" sap:label="Actions" sap:quickinfo="Data element for an action of an aplication" />
                 <Property Name="ActionDescription" Type="Edm.String" MaxLength="60" sap:label="Actions" sap:quickinfo="Short Text for Fixed Values" />
                 <Property Name="Description" Type="Edm.String" sap:label="Text description" sap:quickinfo="A description for the text table" />

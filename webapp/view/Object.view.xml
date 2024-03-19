@@ -53,8 +53,8 @@
 
         <headerContent>
             <m:FlexBox wrap="Wrap" fitContainer="true" >
-                <m:Avatar class="sapUiSmallMarginEnd" displaySize="L" />
-
+                <m:Avatar src="{imageModel>/Images/0/src}" displaySize="XL" class="sapUiSmallMarginEnd" />
+                
                 <l:VerticalLayout class="sapUiSmallMarginBeginEnd" visible="{= !${viewGlobal>/isEditMode}? true : false}">
 			    	<m:Label text="Component"/>
                     <m:Text text="{singleSolutionModel>/AppComponentText}"/>
@@ -70,26 +70,17 @@
 			    </l:VerticalLayout>
                 <l:VerticalLayout class="sapUiSmallMarginBeginEnd" visible="{= !${viewGlobal>/isEditMode}? true : false}">
 			    	<m:Label text="Status"/>
-                    <m:Text text="singleSolutionModel>/StatusDescription"/>
+                    <m:Text text="{singleSolutionModel>/StatusDescription}"/>
 			    </l:VerticalLayout>
-            </m:FlexBox>
-            <m:FlexBox wrap="Wrap" fitContainer="true" justifyContent="SpaceBetween" alignItems="End">
-            <m:FlexBox wrap="Wrap" fitContainer="true">
-                <!-- Lewa strona: inny content -->
-                <m:Avatar class="sapUiSmallMarginEnd" displaySize="L" />
-                <l:VerticalLayout class="sapUiSmallMarginBeginEnd">
-                    <m:Label text="Component"/>
-                    <m:Text text="{singleSolutionModel>/AppComponentText}"/>
-                </l:VerticalLayout>
-            </m:FlexBox>
-            <m:FlexBox wrap="Wrap" fitContainer="true">
-                <!-- Prawa strona: Status i Typ -->
-                <m:Badge text="{singleSolutionModel>/Status}" colorScheme="8" class="customMargin"/>
-                <m:Badge text="{singleSolutionModel>/Type}" colorScheme="1" class="customMargin"/>
-                <!-- Dodatkowe przyciski i informacje -->
-                <m:Button text="Non Escrowed" type="Emphasized" class="customMargin"/>
-                <m:Button text="Delinquent" type="Reject" class="customMargin"/>
-            </m:FlexBox>
+
+                <l:VerticalLayout class="sapUiSmallMarginBeginEnd" visible="{= !${viewGlobal>/isEditMode}? true : false}">
+			    	<m:Label text="Language"/>
+                    <m:Text text="{singleSolutionModel>/Language}"/>
+			    </l:VerticalLayout>
+                <l:VerticalLayout class="sapUiSmallMarginBeginEnd" visible="{= !${viewGlobal>/isEditMode}? true : false}">
+			    	<m:Label text="Support Contact"/>
+                    <m:Text text="{singleSolutionModel>/SupportContact}"/>
+			    </l:VerticalLayout>
             </m:FlexBox>
         </headerContent>        
         <sections>
@@ -98,18 +89,80 @@
                     <ObjectPageSubSection title="Description">
                         <blocks>
                             <descrip:Descrip id="descrblock" description="{singleSolutionModel>/Description}" visible="{= !${viewGlobal>/isEditMode}? true : false}"/>
-                            <f:SimpleForm id = ".idSimpleFormHeader" visible="{= ${viewGlobal>/isEditMode}? true : false}" layout="ResponsiveGridLayout" editable="true">
-                                <f:content>
-                                    <m:Label text="Technical Name" />
-                                    <m:Input id="idInputTechnicalName" value="{viewDetail>/TechnicalName}" />
-                                    <m:Label text="URL" />
-                                    <m:Input id="idInputUrl" value="{viewDetail>/Url}" />
-                                    <m:Label text="Description" />
-                                    <m:TextArea id="idInputDescription" value="{viewDetail>/Description}" rows="7" />
-                                    <m:Label text="URL"/>
-                                    <m:Input value="{viewDetail>/URL}"/>
-                                 </f:content>
-                            </f:SimpleForm>
+                            <f:Form 
+                                id="EditServiceForm" 
+                                editable="{= ${viewGlobal>/isEditMode} ? true : false}"
+                                visible="{= ${viewGlobal>/isEditMode} ? true : false}">
+                                <f:layout>
+                                    <f:ResponsiveGridLayout 
+                                        labelSpanM="2" 
+                                        labelSpanL="3" 
+                                        labelSpanXL="4" 
+                                        emptySpanM="0" 
+                                        emptySpanL="0" 
+                                        emptySpanXL="0" 
+                                        columnsM="2" 
+                                        columnsL="2" 
+                                        columnsXL="2"
+                                        adjustLabelSpan="false"
+                                        singleContainerFullSize="false"/>
+                                </f:layout>
+                                <f:formContainers>
+                                    <f:FormContainer title="General Information">
+                                        <f:formElements>
+                                            <f:FormElement label="Name">
+                                                <f:fields>
+                                                    <m:Input value="{detailView>/TechnicalName}" />
+                                                </f:fields>
+                                            </f:FormElement>
+                                            <f:FormElement label="Subtitle">
+                                                <f:fields>
+                                                    <m:Input value="{detailView>/SubTitle}" />
+                                                </f:fields>
+                                            </f:FormElement>
+                                            <f:FormElement label="Type">
+                                                <f:fields>
+                                                    <m:Input value="{detailView>/TypeDescription}" />
+                                                </f:fields>
+                                            </f:FormElement>
+                                            <f:FormElement label="Status">
+                                                <f:fields>
+                                                    <m:Input value="{detailView>/StatusDescription}" showValueHelp="true" valueHelpRequest="onValueHelpRequestStatus"/>
+                                                </f:fields>
+                                            </f:FormElement>
+                                            <f:FormElement label="Component">
+                                                <f:fields>
+                                                    <m:Input value="{detailView>/AppComponentText}" />
+                                                </f:fields>
+                                            </f:FormElement>
+                                            <f:FormElement label="Support Contact">
+                                                <f:fields>
+                                                    <m:Input value="{detailView>/SupportContact}" />
+                                                </f:fields>
+                                            </f:FormElement>
+                                        </f:formElements>
+                                    </f:FormContainer>
+                                    <f:FormContainer title="Additional Information">
+                                        <f:formElements>
+                                            <f:FormElement label="URL">
+                                                <f:fields>
+                                                    <m:Input value="{detailView>/Url}" />
+                                                </f:fields>
+                                            </f:FormElement>
+                                            <f:FormElement label="Language">
+                                                <f:fields>
+                                                    <m:Input value="{detailView>/Language}" />
+                                                </f:fields>
+                                            </f:FormElement>
+                                            <f:FormElement label="Description">
+                                                <f:fields>
+                                                    <m:TextArea value="{detailView>/Description}" rows="4" />
+                                                </f:fields>
+                                            </f:FormElement>
+                                        </f:formElements>
+                                    </f:FormContainer>
+                                </f:formContainers>
+                            </f:Form>
                         </blocks>
                     </ObjectPageSubSection>
                     <ObjectPageSubSection title="Image">

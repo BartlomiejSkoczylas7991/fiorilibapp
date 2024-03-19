@@ -264,5 +264,42 @@ sap.ui.define([
             var oDisplayFormat = sap.ui.core.format.DateFormat.getDateInstance({pattern: "dd.MM.yyyy HH:mm:ss"});
             return oDisplayFormat.format(oDate);
         },
+
+        onValueHelpRequestStatus: function(oEvent) {
+            if (!this._oValueHelpDialog) {
+                this._oValueHelpDialog = sap.ui.xmlfragment("YourNamespace.view.ValueHelpDialog", this);
+                this.getView().addDependent(this._oValueHelpDialog);
+                
+
+                var oModel = new sap.ui.model.json.JSONModel({
+                    "Status": [
+                        {"key": "ACTIVE", "text": "Active"},
+                        {"key": "INACTIVE", "text": "Inactive"},
+                        {"key": "DEPRECATED", "text": "Deprecated"},
+                        {"key": "UNDER_DEVELOPMENT", "text": "Under Development"}
+                    ]
+                });
+                this._oValueHelpDialog.setModel(oModel);
+            }
+        
+            this._oValueHelpDialog.bindAggregation("items", {
+                path: "/Status",
+                template: new sap.m.StandardListItem({
+                    title: "{text}",
+                    active: true
+                })
+            });
+        
+            this._oValueHelpDialog.attachConfirm(function(oEvent) {
+                var oSelectedItem = oEvent.getParameter("selectedItem");
+                if (oSelectedItem) {
+                    var sStatusText = oSelectedItem.getTitle();
+                    var oInput = this.getView().byId("YourStatusInputId");
+                    oInput.setValue(sStatusText);
+                }
+            }.bind(this));
+        
+            this._oValueHelpDialog.open();
+        }
     });
 });

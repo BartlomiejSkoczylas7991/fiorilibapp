@@ -80,22 +80,6 @@ sap.ui.define([
       });
       oBinding.filter([oGroupFilter]);
     },
-    // Role
-      onRoleDialogOpen: function() {
-        var oView = this.getView();
-        if (!this.byId("roleSelectDialog")) {
-            sap.ui.core.Fragment.load({
-                id: oView.getId(),
-                name: "fiorilibappname.view.RoleDialog",
-                controller: this
-            }).then(function(oDialog){
-                oView.addDependent(oDialog);
-                oDialog.open();
-            });
-           } else {
-               this.byId("roleSelectDialog").open();
-        }
-      },
 
       onSearchRole: function(oEvent) {
         var sValue = oEvent.getParameter("value");
