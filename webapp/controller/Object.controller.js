@@ -35,11 +35,15 @@ sap.ui.define([
             var sSolId = parseInt(oEvent.getParameter("arguments").SolId);
 
             const sRouteName = oEvent.getParameter("name");
-
             if (sRouteName === "Create"){
                 this.getView().setModel(new JSONModel(), "viewSettings");
                 this.getView().getModel("viewSettings").setProperty("/isEditMode", true);
+                this.getView().getModel("viewSettings").setProperty("/currentRoute", sRouteName);
 
+                var oSingleSolutionModel = this.getView().getModel("singleSolutionModel");
+                var oDetailModel = this.getView().getModel("detailView");   
+                oSingleSolutionModel.setData({});
+                oDetailModel.setData({});
 
             } else if (sRouteName === "Detail"){
                 this.getOwnerComponent().getModel().metadataLoaded().then(function (){
@@ -57,24 +61,13 @@ sap.ui.define([
 
                     this.getView().setModel(new JSONModel(), "viewSettings");
                     this.getView().getModel("viewSettings").setProperty("/isEditMode", false);
+                    this.getView().getModel("viewSettings").setProperty("/currentRoute", sRouteName);
 
                 }.bind(this));
             } else {
                 // TODO:  Handle nav error
             }
-            if (sRouteName === "Create") {
-                oDetailModel.setData({}); 
-                oViewGlobalModel.setProperty("/isEditMode", true);
-                oSingleSolutionModel.setData({});
-                oDetailModel.setData({});
-            } else if (sRouteName === "Detail") {
-                oViewGlobalModel.setProperty("/isEditMode", false);
-                if (sSolId) {
-                    this._loadData(sSolId);
-                } else {
-                    // navigation to error
-                }
-            }
+           
 
             //var oViewGlobalModel = this.getOwnerComponent().getModel();
             //var oSingleSolutionModel = this.getView().getModel("singleSolutionModel");
@@ -120,6 +113,7 @@ sap.ui.define([
         },
         
         _loadData: function (sSolId) {
+            
             var oGlobalModel = this.getOwnerComponent().getModel();
             var aSolutions = oGlobalModel.getProperty("/ZC_BSK_LA_SOLUTION");
             var oSelectedSolution = aSolutions.find(solution => solution.SolId === sSolId);
@@ -168,23 +162,35 @@ sap.ui.define([
         },     
 
         onSavePress: function() {
-            var oViewGlobalModel = this.getView().getModel("viewGlobal");
-            var sCurrentRoute = oViewGlobalModel.getProperty("/currentRoute");
-            
-            const sRouteName = oEvent.getParameter("name");
+            var oDataModel = this.getView().getModel();
+            var oViewDetailData = this.getView().getModel("detailView").getData();
+            const sRouteName = this.getView().getModel("viewSettings").getProperty("/currentRoute"); 
+
             if (sRouteName === "Create"){
-                var sPath = "/ZC_BSK_LA_SOLUTION('" + this._sSolId + "')";
-                oDataModel.update(sPath, oDetailData, {
-                    success: function() {
-                        MessageBox.success("Object updated successfully.");
-                        this._loadData(this._sSolId);
-                        this.getView().getModel("viewSettings").setProperty("/isEditMode", false);
-                    }.bind(this),
-                    error: function() {
-                        MessageBox.error("Update failed.");
-                    }
+                var sPath = "/ZC_BSK_LA_SOLUTION";
+                MessageBox.confirm("Are you sure you want to save changes?", {
+                    actions: [MessageBox.Action.YES, MessageBox.Action.NO],
+                    onClose: function(sAction) {
+                        if (sAction === MessageBox.Action.YES) {
+                            if(sRouteName === "Create") {
+                                oDataModel.create(sPath, oViewDetailData, {
+                                    success: function() {
+                                        MessageBox.success("Object created successfully.");
+                                        this.getView().getModel("viewSettings").setProperty("/isEditMode", false);
+                                        this.onNavBack();
+                                    }.bind(this),
+                                    error: function() {
+                                        MessageBox.error("Creation failed.");
+                                    }
+                                });
+                            } 
+                        } 
+                    }.bind(this)
                 });
-        }},
+              } else if (sRouteName === "Detail") {
+
+              }
+    },
             //var sMessage = sCurrentRoute === "Create" ? "Czy na pewno chcesz stworzyć ten obiekt?" : "Czy na pewno chcesz edytować ten obiekt?";
             
             //MessageBox.confirm(sMessage, {

@@ -27,13 +27,13 @@
         <headerTitle>
             <ObjectPageDynamicHeaderTitle>
                 <expandedHeading>
-                    <m:Title text="{TechnicalName}" wrapping="true" />
+                    <m:Title text="{singleSolutionModel>/TechnicalName}" wrapping="true" />
                 </expandedHeading>
 
                 <snappedHeading>
                     <m:FlexBox fitContainer="true" alignItems="Center">
-						<m:Title text="{TechnicalName}" />
-						<m:Label text="{SubTitle}" />
+						<m:Title text="{singleSolutionModel>/TechnicalName}" />
+						<m:Label text="{singleSolutionModel>/SubTitle}" />
 					</m:FlexBox>
                 </snappedHeading>
 
@@ -117,7 +117,7 @@
                                             </f:FormElement>
                                             <f:FormElement label="Subtitle">
                                                 <f:fields>
-                                                    <m:Input value="{detailView>/SubTitle}" />
+                                                    <m:Input value="{detailView>/Subtitle}" />
                                                 </f:fields>
                                             </f:FormElement>
                                             <f:FormElement label="Type">
