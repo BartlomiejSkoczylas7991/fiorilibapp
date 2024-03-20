@@ -7,6 +7,11 @@ sap.ui.define([
   
     return Controller.extend("fiorilibappname.controller.Worklist", {
       onInit: function () {
+          this.getView().setModel(new JSONModel(), "global");
+          var oViewGlobalModel = this.getOwnerComponent().getModel();
+          this.getView().getModel("global").setData(oViewGlobalModel);
+
+
           var oRouter = this.getOwnerComponent().getRouter();
           oRouter.getRoute("Detail").attachPatternMatched(this._onObjectMatched, this);
       },

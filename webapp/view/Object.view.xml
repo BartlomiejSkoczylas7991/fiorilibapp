@@ -75,11 +75,11 @@
 
                 <l:VerticalLayout class="sapUiSmallMarginBeginEnd" visible="{= !${viewGlobal>/isEditMode}? true : false}">
 			    	<m:Label text="Language"/>
-                    <m:Text text="{singleSolutionModel>/Language}"/>
+                    <m:Text text="English"/>
 			    </l:VerticalLayout>
                 <l:VerticalLayout class="sapUiSmallMarginBeginEnd" visible="{= !${viewGlobal>/isEditMode}? true : false}">
 			    	<m:Label text="Support Contact"/>
-                    <m:Text text="{singleSolutionModel>/SupportContact}"/>
+                    <m:Text text="Support Contact"/>
 			    </l:VerticalLayout>
             </m:FlexBox>
         </headerContent>        

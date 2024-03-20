@@ -24,7 +24,7 @@ sap.ui.define([
         },
 
         _onObjectMatched: function (oEvent) {
-            var oViewGlobalModel = this.getView().getModel("viewGlobal");
+            var oViewGlobalModel = this.getOwnerComponent().getModel();
             var oSingleSolutionModel = this.getView().getModel("singleSolutionModel");
             var oDetailModel = this.getView().getModel("detailView");
             var sSolId = oEvent.getParameter("arguments").SolId;
@@ -59,7 +59,7 @@ sap.ui.define([
         },
 
         onBeforeNavigate: function (oEvent) {
-            var oGlobalModel = this.getView().getModel("viewGlobal");
+            var oGlobalModel = this.getView().getModel();
         
             if (!oGlobalModel.getProperty("/isEditMode")) {
                 return;
@@ -67,8 +67,8 @@ sap.ui.define([
         },
         
         _loadData: function (sSolId) {
-            var oGlobalModel = this.getOwnerComponent().getModel("viewGlobal");
-            var aSolutions = oGlobalModel.getProperty("/Solutions");
+            var oGlobalModel = this.getOwnerComponent().getModel();
+            var aSolutions = oGlobalModel.getProperty("/ZC_BSK_LA_SOLUTION");
             var oSelectedSolution = aSolutions.find(solution => solution.SolId === sSolId);
             this._sSolId = sSolId; 
             if (oSelectedSolution) {
@@ -117,17 +117,31 @@ sap.ui.define([
         onSavePress: function() {
             var oViewGlobalModel = this.getView().getModel("viewGlobal");
             var sCurrentRoute = oViewGlobalModel.getProperty("/currentRoute");
-            var sMessage = sCurrentRoute === "Create" ? "Czy na pewno chcesz stworzyć ten obiekt?" : "Czy na pewno chcesz edytować ten obiekt?";
             
-            MessageBox.confirm(sMessage, {
-                actions: [MessageBox.Action.YES, MessageBox.Action.NO],
-                onClose: function(sAction) {
-                    if (sAction === MessageBox.Action.YES) {
-                        this.onNavBack();
+            if (sCurrentRoute === "Create"){
+                var sPath = "/ZC_BSK_LA_SOLUTION('" + this._sSolId + "')";
+                oDataModel.update(sPath, oDetailData, {
+                    success: function() {
+                        MessageBox.success("Object updated successfully.");
+                        this.getView().getModel("detailView").setProperty("/isEditMode", false);
+                        this._loadData(this._sSolId);
+                    }.bind(this),
+                    error: function() {
+                        MessageBox.error("Update failed.");
                     }
-                }.bind(this)
-            });
-        },
+                });
+        }},
+            //var sMessage = sCurrentRoute === "Create" ? "Czy na pewno chcesz stworzyć ten obiekt?" : "Czy na pewno chcesz edytować ten obiekt?";
+            
+            //MessageBox.confirm(sMessage, {
+            //    actions: [MessageBox.Action.YES, MessageBox.Action.NO],
+            //    onClose: function(sAction) {
+            //        if (sAction === MessageBox.Action.YES) {
+            //            this.onNavBack();
+            //        }
+            //    }.bind(this)
+            //});
+        
 
             //var oDetailData = this.getView().getModel("detailView").getData();
             //var oDataModel = this.getOwnerComponent().getModel();
