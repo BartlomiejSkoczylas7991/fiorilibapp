@@ -14,8 +14,8 @@ sap.ui.define([
             var oRouter = this.getOwnerComponent().getRouter();
             oRouter.getRoute("Detail").attachPatternMatched(this._onObjectMatched, this);
             oRouter.getRoute("Create").attachPatternMatched(this._onObjectMatched, this);
-
-            this.getView().setModel(new JSONModel(), "viewSettings");
+ 
+            
         
             this.getView().setModel(new JSONModel(), "singleSolutionModel");
             this.getView().setModel(new JSONModel(), "detailView");
@@ -25,11 +25,56 @@ sap.ui.define([
             });
         },
 
+        _bindView: function (sObjectPath) {
+            this.getView().bindElement({
+                path: sObjectPath
+            });
+        },
+
         _onObjectMatched: function (oEvent) {
+            var sSolId = parseInt(oEvent.getParameter("arguments").SolId);
+
+            const sRouteName = oEvent.getParameter("name");
+
+            if (sRouteName === "Create"){
+                this.getView().setModel(new JSONModel(), "viewSettings");
+                this.getView().getModel("viewSettings").setProperty("/isEditMode", true);
 
 
+            } else if (sRouteName === "Detail"){
+                this.getOwnerComponent().getModel().metadataLoaded().then(function (){
+                    var sObjectPath = this.getOwnerComponent().getModel().createKey("ZC_BSK_LA_SOLUTION", {
+                        SolId: sSolId
+                    });
+                    this._bindView("/" + sObjectPath);
 
+                    var oContext = this.getView().getBindingContext();
+                    var oData = oContext ? oContext.getObject() : null;
+                    if (oData) {
+                        var oModel = new JSONModel(oData);
+                        this.getView().setModel(oModel, "singleSolutionModel");
+                    }
 
+                    this.getView().setModel(new JSONModel(), "viewSettings");
+                    this.getView().getModel("viewSettings").setProperty("/isEditMode", false);
+
+                }.bind(this));
+            } else {
+                // TODO:  Handle nav error
+            }
+            if (sRouteName === "Create") {
+                oDetailModel.setData({}); 
+                oViewGlobalModel.setProperty("/isEditMode", true);
+                oSingleSolutionModel.setData({});
+                oDetailModel.setData({});
+            } else if (sRouteName === "Detail") {
+                oViewGlobalModel.setProperty("/isEditMode", false);
+                if (sSolId) {
+                    this._loadData(sSolId);
+                } else {
+                    // navigation to error
+                }
+            }
 
             //var oViewGlobalModel = this.getOwnerComponent().getModel();
             //var oSingleSolutionModel = this.getView().getModel("singleSolutionModel");
@@ -59,19 +104,7 @@ sap.ui.define([
             //
             //const sRouteName = oEvent.getParameter("name");
             //oViewGlobalModel.setProperty("/currentRoute", sRouteName);
-            //if (sRouteName === "Create") {
-            //    oDetailModel.setData({}); 
-            //    oViewGlobalModel.setProperty("/isEditMode", true);
-            //    oSingleSolutionModel.setData({});
-            //    oDetailModel.setData({});
-            //} else if (sRouteName === "Detail") {
-            //    oViewGlobalModel.setProperty("/isEditMode", false);
-            //    if (sSolId) {
-            //        this._loadData(sSolId);
-            //    } else {
-            //        // navigation to error
-            //    }
-            //}
+            
         },
 
         onExit: function () {
@@ -129,7 +162,7 @@ sap.ui.define([
         },
     
         onEditPress: function() {
-            this.getView().getModel("viewGlobal").setProperty("/isEditMode", true);
+            this.getView().getModel("viewSettings").setProperty("/isEditMode", true);
             var oViewModelData = this.getView().getModel("singleSolutionModel").getData();
             this.getView().getModel("detailView").setData(JSON.parse(JSON.stringify(oViewModelData)));
         },     
@@ -138,13 +171,14 @@ sap.ui.define([
             var oViewGlobalModel = this.getView().getModel("viewGlobal");
             var sCurrentRoute = oViewGlobalModel.getProperty("/currentRoute");
             
-            if (sCurrentRoute === "Create"){
+            const sRouteName = oEvent.getParameter("name");
+            if (sRouteName === "Create"){
                 var sPath = "/ZC_BSK_LA_SOLUTION('" + this._sSolId + "')";
                 oDataModel.update(sPath, oDetailData, {
                     success: function() {
                         MessageBox.success("Object updated successfully.");
-                        this.getView().getModel("detailView").setProperty("/isEditMode", false);
                         this._loadData(this._sSolId);
+                        this.getView().getModel("viewSettings").setProperty("/isEditMode", false);
                     }.bind(this),
                     error: function() {
                         MessageBox.error("Update failed.");
@@ -193,12 +227,11 @@ sap.ui.define([
 
 
         onCancelPress: function() {
-            this.getOwnerComponent().getModel("viewGlobal").setProperty("/isEditMode", false);
+            this.getView().getModel("viewSettings").setProperty("/isEditMode", false);
             if (this._sSolId) {
                 this._loadData(this._sSolId);
             } else {
-                this.getView().getModel("detailView").setData({});
-                this.getView().getModel("singleSolutionModel").setData({});
+                this.onNavBack();
             }
         },
 

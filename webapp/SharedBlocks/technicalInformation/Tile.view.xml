@@ -1,5 +1,5 @@
 <mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m">
-    <Table items="{singleSolutionModel>/Tile}" visible="{= !${viewGlobal>/isEditMode}? true : false}">
+    <Table items="{singleSolutionModel>/Tile}" visible="{= !${viewSettings>/isEditMode}? true : false}">
         <headerToolbar>
             <Toolbar>
                 <Title text="Tile(s)"/>

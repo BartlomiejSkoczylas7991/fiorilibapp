@@ -12,7 +12,7 @@
 			class="sapUiContentPadding" 
 			loop="true"
     	    pages="{imageModel>/Images}"
-			visible="{= !${viewGlobal>/isEditMode}? true : false}">
+			visible="{= !${viewSettings>/isEditMode}? true : false}">
 			<pages>
     	    	<Image src="{imageModel>src}" class="carouselImage" press="onImagePress"/>
 			</pages>
@@ -22,7 +22,7 @@
 			class="sapUiContentPadding" 
 			resizable="true" 
 			draggable="true"
-			visible="{= !${viewGlobal>/isEditMode}? true : false}">
+			visible="{= !${viewSettings>/isEditMode}? true : false}">
 			<Button icon="sap-icon://decline" press=".onCloseDialog" type="Transparent" class="sapUiDialogCloseButton"/>
 			<Carousel id="fullScreenCarousel" pages="{singleSolutionModel>/Images}">
 				<pages>
