@@ -80,7 +80,7 @@
                     entitySet="ZC_BSK_LA_SOLUTION"
                     tableType="ResponsiveTable"
                     header="{i18n>worklistTitle}"
-                    initiallyVisibleFields="SolId,TechnicalName,Subtitle,StatusDescription,PoleProcess"
+                    initiallyVisibleFields="SolId,TechnicalName,Subtitle,StatusDescription"
                     useVariantManagement="true"
                     useTablePersonalisation="true"
                     enableAutoBinding="true"
@@ -89,6 +89,7 @@
                     persistencyKey="SmartTableRefApp_Explored">
                     <smartTable:customToolbar>
                         <OverflowToolbar>
+                            <!-- Jeszcze PoleProcess-->
                             <ToolbarSpacer />
                             <Button text="Create" press="onAddButtonPress" />
                         </OverflowToolbar>

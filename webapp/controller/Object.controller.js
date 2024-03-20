@@ -27,9 +27,22 @@ sap.ui.define([
             var oViewGlobalModel = this.getOwnerComponent().getModel();
             var oSingleSolutionModel = this.getView().getModel("singleSolutionModel");
             var oDetailModel = this.getView().getModel("detailView");
-            var sSolId = oEvent.getParameter("arguments").SolId;
 
+            var sSolId = parseInt(oEvent.getParameter("arguments").SolId);
+
+            var sObjectPath = oViewGlobalModel.createKey("ZC_BSK_LA_SOLUTION", {SolId: sSolId});
             var oObjectPageLayout = this.getView().byId("ObjectPageLayout");
+
+
+            //this.getView().setBindingContext(sObjectPath);
+
+            this.getView().bindElement({
+				path: sObjectPath
+			});
+
+            var oPrzyklad = this.getOwnerComponent().getModel().getObject("/"+sObjectPath);
+
+            //var oObject = this.getView().getBindingElement("path").getObject()
             if (oObjectPageLayout) {
                 var oFirstSection = oObjectPageLayout.getSections()[0]; 
                 if (oFirstSection) {

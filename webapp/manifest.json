@@ -17,7 +17,7 @@
     },
     "dataSources": {
       "mainService": {
-        "uri": "https://a4m.c4b.sapfioneer.com:44300/sap/opu/odata/sap/ZBSK_LA_SOL/",
+        "uri": "/sap/opu/odata/sap/ZBSK_LA_SOL/",
         "type": "OData",
         "settings": {
           "annotations": [],

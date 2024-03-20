@@ -19,13 +19,15 @@ sap.ui.define([
       onPress: function (oEvent) {
         var oItem = oEvent.getParameter("listItem") || oEvent.getSource();
         var oBindingContext = oItem.getBindingContext();
-    
+        //var oObjectOdata = this.getOwnerComponent.getModel
         if (!oBindingContext) {
             MessageBox.error("Binding context not found.");
             return;
         }
     
         var sSolId = oBindingContext.getProperty("SolId");
+
+
         var oRouter = this.getOwnerComponent().getRouter();
         this.getOwnerComponent().getRouter().navTo("Detail", {
             SolId: sSolId
