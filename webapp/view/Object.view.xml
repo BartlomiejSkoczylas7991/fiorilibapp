@@ -42,11 +42,11 @@
 				</expandedContent>
 
                 <actions>
-                    <m:Button text="Edit" type="Emphasized" press="onEditPress" visible="{= !${viewGlobal>/isEditMode}? true : false}" />
-                    <m:Button text="Save" press="onSavePress" visible="{= ${viewGlobal>/isEditMode}? true : false}" />
+                    <m:Button text="Edit" type="Emphasized" press="onEditPress" visible="{= !${singleSolutionModel>/isEditMode}? true : false}" />
+                    <m:Button text="Save" press="onSavePress" visible="{= ${singleSolutionModel>/isEditMode}? true : false}" />
                     <m:Button type="Transparent" text="Copy"/>
-                    <m:Button text="Cancel" press="onCancelPress" visible="{= ${viewGlobal>/isEditMode}? true : false}" />
-                    <m:Button type="Transparent" text="Delete" press="onDeletePress" visible="{= !${viewGlobal>/isEditMode}? true : false}" />
+                    <m:Button text="Cancel" press="onCancelPress" visible="{= ${singleSolutionModel>/isEditMode}? true : false}" />
+                    <m:Button type="Transparent" text="Delete" press="onDeletePress" visible="{= !${singleSolutionModel>/isEditMode}? true : false}" />
                 </actions>
             </ObjectPageDynamicHeaderTitle>
         </headerTitle>
@@ -55,29 +55,29 @@
             <m:FlexBox wrap="Wrap" fitContainer="true" >
                 <m:Avatar src="{imageModel>/Images/0/src}" displaySize="XL" class="sapUiSmallMarginEnd" />
                 
-                <l:VerticalLayout class="sapUiSmallMarginBeginEnd" visible="{= !${viewGlobal>/isEditMode}? true : false}">
+                <l:VerticalLayout class="sapUiSmallMarginBeginEnd" visible="{= !${singleSolutionModel>/isEditMode}? true : false}">
 			    	<m:Label text="Component"/>
                     <m:Text text="{singleSolutionModel>/AppComponentText}"/>
 			    </l:VerticalLayout>
-                <l:VerticalLayout class="sapUiSmallMarginBeginEnd" visible="{= !${viewGlobal>/isEditMode}? true : false}">
+                <l:VerticalLayout class="sapUiSmallMarginBeginEnd" visible="{= !${singleSolutionModel>/isEditMode}? true : false}">
 			    	<m:Label text="Type"/>
                     <m:Text text="{singleSolutionModel>/TypeDescription}"/>
 			    </l:VerticalLayout>
 
-                <l:VerticalLayout class="sapUiSmallMarginBeginEnd" visible="{= !${viewGlobal>/isEditMode}? true : false}">
+                <l:VerticalLayout class="sapUiSmallMarginBeginEnd" visible="{= !${singleSolutionModel>/isEditMode}? true : false}">
 			    	<m:Label text="Device"/>
                     <m:Text text="Desktop, Tablet"/>
 			    </l:VerticalLayout>
-                <l:VerticalLayout class="sapUiSmallMarginBeginEnd" visible="{= !${viewGlobal>/isEditMode}? true : false}">
+                <l:VerticalLayout class="sapUiSmallMarginBeginEnd" visible="{= !${singleSolutionModel>/isEditMode}? true : false}">
 			    	<m:Label text="Status"/>
                     <m:Text text="{singleSolutionModel>/StatusDescription}"/>
 			    </l:VerticalLayout>
 
-                <l:VerticalLayout class="sapUiSmallMarginBeginEnd" visible="{= !${viewGlobal>/isEditMode}? true : false}">
+                <l:VerticalLayout class="sapUiSmallMarginBeginEnd" visible="{= !${singleSolutionModel>/isEditMode}? true : false}">
 			    	<m:Label text="Language"/>
                     <m:Text text="English"/>
 			    </l:VerticalLayout>
-                <l:VerticalLayout class="sapUiSmallMarginBeginEnd" visible="{= !${viewGlobal>/isEditMode}? true : false}">
+                <l:VerticalLayout class="sapUiSmallMarginBeginEnd" visible="{= !${singleSolutionModel>/isEditMode}? true : false}">
 			    	<m:Label text="Support Contact"/>
                     <m:Text text="Support Contact"/>
 			    </l:VerticalLayout>
@@ -88,11 +88,11 @@
                 <subSections>
                     <ObjectPageSubSection title="Description">
                         <blocks>
-                            <descrip:Descrip id="descrblock" description="{singleSolutionModel>/Description}" visible="{= !${viewGlobal>/isEditMode}? true : false}"/>
+                            <descrip:Descrip id="descrblock" description="{singleSolutionModel>/Description}" visible="{= !${singleSolutionModel>/isEditMode}? true : false}"/>
                             <f:Form 
                                 id="EditServiceForm" 
-                                editable="{= ${viewGlobal>/isEditMode} ? true : false}"
-                                visible="{= ${viewGlobal>/isEditMode} ? true : false}">
+                                editable="{= ${singleSolutionModel>/isEditMode} ? true : false}"
+                                visible="{= ${singleSolutionModel>/isEditMode} ? true : false}">
                                 <f:layout>
                                     <f:ResponsiveGridLayout 
                                         labelSpanM="2" 

@@ -164,7 +164,11 @@
              "id": "notFound",
              "name": "NotFound",
              "transition": "show"
-          }
+          },
+				  "objectNotFound": {
+				  	"name": "ObjectNotFound",
+				  	"id": "objectNotFound"
+				  }
       }
     }
     ,

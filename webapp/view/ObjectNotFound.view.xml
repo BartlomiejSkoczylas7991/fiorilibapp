@@ -1,0 +1,6 @@
+<mvc:View
+	controllerName="fiorilibappname.controller.NotFound"
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc">
+
+</mvc:View>

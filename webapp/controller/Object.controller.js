@@ -14,6 +14,8 @@ sap.ui.define([
             var oRouter = this.getOwnerComponent().getRouter();
             oRouter.getRoute("Detail").attachPatternMatched(this._onObjectMatched, this);
             oRouter.getRoute("Create").attachPatternMatched(this._onObjectMatched, this);
+
+            this.getView().setModel(new JSONModel(), "viewSettings");
         
             this.getView().setModel(new JSONModel(), "singleSolutionModel");
             this.getView().setModel(new JSONModel(), "detailView");
@@ -24,47 +26,52 @@ sap.ui.define([
         },
 
         _onObjectMatched: function (oEvent) {
-            var oViewGlobalModel = this.getOwnerComponent().getModel();
-            var oSingleSolutionModel = this.getView().getModel("singleSolutionModel");
-            var oDetailModel = this.getView().getModel("detailView");
-
-            var sSolId = parseInt(oEvent.getParameter("arguments").SolId);
-
-            var sObjectPath = oViewGlobalModel.createKey("ZC_BSK_LA_SOLUTION", {SolId: sSolId});
-            var oObjectPageLayout = this.getView().byId("ObjectPageLayout");
 
 
-            //this.getView().setBindingContext(sObjectPath);
 
-            this.getView().bindElement({
-				path: sObjectPath
-			});
 
-            var oPrzyklad = this.getOwnerComponent().getModel().getObject("/"+sObjectPath);
 
-            //var oObject = this.getView().getBindingElement("path").getObject()
-            if (oObjectPageLayout) {
-                var oFirstSection = oObjectPageLayout.getSections()[0]; 
-                if (oFirstSection) {
-                    oObjectPageLayout.setSelectedSection(oFirstSection.getId());
-                }
-            }
-            
-            const sRouteName = oEvent.getParameter("name");
-            oViewGlobalModel.setProperty("/currentRoute", sRouteName);
-            if (sRouteName === "Create") {
-                oDetailModel.setData({}); 
-                oViewGlobalModel.setProperty("/isEditMode", true);
-                oSingleSolutionModel.setData({});
-                oDetailModel.setData({});
-            } else if (sRouteName === "Detail") {
-                oViewGlobalModel.setProperty("/isEditMode", false);
-                if (sSolId) {
-                    this._loadData(sSolId);
-                } else {
-                    // navigation to error
-                }
-            }
+            //var oViewGlobalModel = this.getOwnerComponent().getModel();
+            //var oSingleSolutionModel = this.getView().getModel("singleSolutionModel");
+            //var oDetailModel = this.getView().getModel("detailView");
+//
+            //var sSolId = parseInt(oEvent.getParameter("arguments").SolId);
+//
+            //var sObjectPath = oViewGlobalModel.createKey("ZC_BSK_LA_SOLUTION", {SolId: sSolId});
+            //var oObjectPageLayout = this.getView().byId("ObjectPageLayout");
+//
+//
+            ////this.getView().setBindingContext(sObjectPath);
+//
+            //this.getView().bindElement({
+			//	path: sObjectPath
+			//});
+//
+            //var oPrzyklad = this.getOwnerComponent().getModel().getObject("/"+sObjectPath);
+//
+            ////var oObject = this.getView().getBindingElement("path").getObject()
+            //if (oObjectPageLayout) {
+            //    var oFirstSection = oObjectPageLayout.getSections()[0]; 
+            //    if (oFirstSection) {
+            //        oObjectPageLayout.setSelectedSection(oFirstSection.getId());
+            //    }
+            //}
+            //
+            //const sRouteName = oEvent.getParameter("name");
+            //oViewGlobalModel.setProperty("/currentRoute", sRouteName);
+            //if (sRouteName === "Create") {
+            //    oDetailModel.setData({}); 
+            //    oViewGlobalModel.setProperty("/isEditMode", true);
+            //    oSingleSolutionModel.setData({});
+            //    oDetailModel.setData({});
+            //} else if (sRouteName === "Detail") {
+            //    oViewGlobalModel.setProperty("/isEditMode", false);
+            //    if (sSolId) {
+            //        this._loadData(sSolId);
+            //    } else {
+            //        // navigation to error
+            //    }
+            //}
         },
 
         onExit: function () {
