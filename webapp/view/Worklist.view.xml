@@ -39,7 +39,6 @@
                                     selectionChange="customFieldChange">
                                     <core:Item key="1" text="APP"/>
                                     <core:Item key="2" text="API"/>
-                                    <core:Item key="3" text="THREE"/>
                                 </MultiComboBox>
                             </sfb:customControl>
                         </sfb:ControlConfiguration>

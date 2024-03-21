@@ -32,7 +32,7 @@
 			</Carousel>
 		</Dialog>
 
-		<upload:UploadSet
+		<!-- <upload:UploadSet
 				visible="{= ${viewSettings>/isEditMode}? true : false}"
 				id="UploadSet"
 				instantUpload="true"
@@ -80,6 +80,6 @@
 				</upload:UploadSetItem>
 			</upload:items>
 		</upload:UploadSet>
-		<List id="progressList"/>
+		<List id="progressList"/> -->
 </mvc:View>
 
