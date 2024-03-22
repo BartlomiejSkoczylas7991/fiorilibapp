@@ -127,7 +127,15 @@
                                             </f:FormElement>
                                             <f:FormElement label="Status">
                                                 <f:fields>
-                                                    <m:Input value="{detailView>/StatusDescription}" showValueHelp="true" valueHelpRequest="onValueHelpRequestStatus"/>
+                                                    <m:ComboBox
+                                                        id="statusComboBox"
+                                                        selectedKey="{detailView>/Status}"
+                                                        change="onStatusChange">
+                                                        <core:Item key="1" text="ACTIVE"/>
+                                                        <core:Item key="2" text="INACTIVE"/>
+                                                        <core:Item key="3" text="DEPRECATED"/>
+                                                        <core:Item key="4" text="UNDER_DEVELOPMENT"/>
+                                                    </m:ComboBox>
                                                 </f:fields>
                                             </f:FormElement>
                                             <f:FormElement label="Component">

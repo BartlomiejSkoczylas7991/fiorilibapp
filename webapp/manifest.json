@@ -24,6 +24,15 @@
           "localUri": "localService/metadata.xml",
           "odataVersion": "2.0"
         }
+      },
+      "valueHelp": {
+        "uri": "/sap/opu/odata/sap/ZBSK_LA_SOL_VH/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "localUri": "localService/metadata.xml",
+          "odataVersion": "2.0"
+        }
       }
     }
   },
@@ -77,6 +86,9 @@
         "settings": {
           "bundleName": "fiorilibappname.i18n.i18n"
         }
+      },
+      "valueHelp": {
+        "dataSource": "valueHelp"
       }
     },
     "resources": {
