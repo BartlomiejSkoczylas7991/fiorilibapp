@@ -74,64 +74,6 @@ sap.ui.define([
         }
      },
 
-     onFilterByGroup: function(oEvent) {
-      var sQuery = oEvent.getParameter("query").toLowerCase();
-      var oTable = this.getView().byId("table1");
-      var oBinding = oTable.getBinding("items");
-      var oGroupFilter = new sap.ui.model.Filter("to_S_Group", function(oGroup) {
-          return oGroup.some(function(oItem) {
-              return oItem.GroupId.toLowerCase().indexOf(sQuery) > -1;
-          });
-      });
-      oBinding.filter([oGroupFilter]);
-    },
-
-      onSearchRole: function(oEvent) {
-        var sValue = oEvent.getParameter("value");
-        var oFilter = new sap.ui.model.Filter("Name", sap.ui.model.FilterOperator.Contains, sValue);
-        var oBinding = oEvent.getSource().getBinding("items");
-        oBinding.filter([oFilter]);
-      },
-
-
-      onSearchTile: function(oEvent) {
-        var sValue = oEvent.getParameter("value");
-        var oFilter = new sap.ui.model.Filter("Name", sap.ui.model.FilterOperator.Contains, sValue);
-        var oBinding = oEvent.getSource().getBinding("items");
-        oBinding.filter([oFilter]);
-      },
-
-      onSearchGroup: function(oEvent) {
-        var sValue = oEvent.getParameter("value");
-        var oFilter = new sap.ui.model.Filter("Name", sap.ui.model.FilterOperator.Contains, sValue);
-        var oBinding = oEvent.getSource().getBinding("items");
-        oBinding.filter([oFilter]);
-      },
-
-      // catalog
-      onCatalogDialogOpen: function() {
-        var oView = this.getView();
-        if (!this.byId("catalogSelectDialog")) {
-            sap.ui.core.Fragment.load({
-                id: oView.getId(),
-                name: "fiorilibappname.view.CatalogDialog",
-                controller: this
-            }).then(function(oDialog){
-                oView.addDependent(oDialog);
-                oDialog.open();
-            });
-           } else {
-               this.byId("catalogSelectDialog").open();
-        }
-      },
-
-      onSearchCatalog: function(oEvent) {
-        var sValue = oEvent.getParameter("value");
-        var oFilter = new sap.ui.model.Filter("Name", sap.ui.model.FilterOperator.Contains, sValue);
-        var oBinding = oEvent.getSource().getBinding("items");
-        oBinding.filter([oFilter]);
-      },
-
       onBeforeRebindClaimTable: function (oEvent) { 
           const oBinding = oEvent.getParameter("bindingParams");
           const aFilters =  this._getFilters();
@@ -139,9 +81,16 @@ sap.ui.define([
       },
 
       _getFilters: function() {
-        var oFilter1 = new sap.ui.model.Filter("", sap.ui.model.FilterOperator.EQ, "Val");
-        
-      },
+        var aFilters = [];
+        var oModel = this.getView().getModel("global");
+        var sStatus = oModel.getProperty("/selectedStatus");
+    
+        if (sStatus) {
+            var oStatusFilter = new sap.ui.model.Filter("StatusDescription", sap.ui.model.FilterOperator.EQ, sStatus);
+            aFilters.push(oStatusFilter);
+        }
+        return aFilters;
+    },
 
 
       getResourceBundle: function () {

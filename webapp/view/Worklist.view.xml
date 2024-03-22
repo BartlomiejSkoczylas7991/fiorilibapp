@@ -39,7 +39,6 @@
                                     selectionChange="customFieldChange">
                                     <core:Item key="1" text="APP"/>
                                     <core:Item key="2" text="API"/>
-                                    <core:Item key="3" text="THREE"/>
                                 </MultiComboBox>
                             </sfb:customControl>
                         </sfb:ControlConfiguration>
@@ -80,7 +79,7 @@
                     entitySet="ZC_BSK_LA_SOLUTION"
                     tableType="ResponsiveTable"
                     header="{i18n>worklistTitle}"
-                    initiallyVisibleFields="SolId,TechnicalName,Subtitle,StatusDescription"
+                    initiallyVisibleFields="SolId,TechnicalName,Subtitle,StatusDescription,TypeDescription"
                     useVariantManagement="true"
                     useTablePersonalisation="true"
                     enableAutoBinding="true"
