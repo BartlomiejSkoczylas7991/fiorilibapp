@@ -130,11 +130,11 @@
                                                     <m:ComboBox
                                                         id="statusComboBox"
                                                         selectedKey="{detailView>/Status}"
+                                                        items="{path: 'valueHelp>/', templateShareable:false}"
                                                         change="onStatusChange">
-                                                        <core:Item key="1" text="ACTIVE"/>
-                                                        <core:Item key="2" text="INACTIVE"/>
-                                                        <core:Item key="3" text="DEPRECATED"/>
-                                                        <core:Item key="4" text="UNDER_DEVELOPMENT"/>
+                                                        <m:items>
+                                                            <core:Item key="{valueHelp>Low}" text="{valueHelp>Text}"/>
+                                                        </m:items>
                                                     </m:ComboBox>
                                                 </f:fields>
                                             </f:FormElement>

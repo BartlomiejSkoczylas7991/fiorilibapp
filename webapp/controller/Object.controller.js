@@ -15,11 +15,15 @@ sap.ui.define([
             oRouter.getRoute("Detail").attachPatternMatched(this._onObjectMatched, this);
             oRouter.getRoute("Create").attachPatternMatched(this._onObjectMatched, this);
  
-            
-        
             this.getView().setModel(new JSONModel(), "singleSolutionModel");
             this.getView().setModel(new JSONModel(), "detailView");
-        
+
+            var oValueHelpModel = new sap.ui.model.odata.v2.ODataModel("/sap/opu/odata/sap/ZBSK_LA_SOL_VH/");
+            this.getView().setModel(oValueHelpModel, "valueHelp");
+
+            this.loadStatusValues();
+
+            this.getView().setModel(new JSONModel(), "detailView");
             this._dateFormatter = DateFormat.getDateInstance({
                 pattern: "dd.MM.yyyy",
             });
@@ -278,6 +282,24 @@ sap.ui.define([
             this.getView().getModel().refresh();
         },
 
+        loadStatusValues: function () {
+            var oModel = this.getView().getModel("valueHelp");
+            var oComboBox = this.byId("statusComboBox");
+            oModel.read("/ZBSK_C_VH_S_STATUS", {
+                success: function (oData) {
+                    var oItemsModel = new JSONModel(oData.results);
+                    oComboBox.setModel(oItemsModel, "items");
+                }
+            });
+        },
+
+        onStatusChange: function (oEvent) {
+            var sSelectedKey = oEvent.getParameter("selectedItem").getKey();
+            var oModel = this.getView().getModel("detailView");
+            oModel.setProperty("/Status", sSelectedKey);
+        },
+
+
         _loadAttachments: function (sSolId) {
 
         },
@@ -367,7 +389,7 @@ sap.ui.define([
                 var oSelectedItem = oEvent.getParameter("selectedItem");
                 if (oSelectedItem) {
                     var sStatusText = oSelectedItem.getTitle();
-                    var oInput = this.getView().byId("YourStatusInputId");
+                    var oInput = this.getView().byId("ID");
                     oInput.setValue(sStatusText);
                 }
             }.bind(this));

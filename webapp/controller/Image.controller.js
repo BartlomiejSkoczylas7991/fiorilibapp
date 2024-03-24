@@ -10,23 +10,11 @@ sap.ui.define([
 ], function (ObjectController, MobileLibrary, Controller, Item, JSONModel, Uploader, ListItem, MessageToast) {
     "use strict";
 
-    var ListMode = MobileLibrary.ListMode;
-    var CustomUploader = Uploader.extend("sap.m.sample.UploadSetCustomUploader.CustomUploader", {
-        metadata: {}
-    });
+    //var ListMode = MobileLibrary.ListMode;
+    //var CustomUploader = Uploader.extend("sap.m.sample.UploadSetCustomUploader.CustomUploader", {
+    //    metadata: {}
+    //});
 
-    CustomUploader.prototype.uploadItem = functiom (oItem, aHeaders) {
-        var sNewUplaodUrl = "../../../../upload";
-        aHeaders.push(new Item)
-    };
-
-    CustomUploader.prototype.downloadItem = functiom (oItem, aHeaders, bAskForLocation){
-        var sNewDownloadUrl = oItem.getUrl();
-        aHeaders.push(new Item({key: "SomeGetKey", text: "SomeGetText"}));
-        this.setDownloadUrl(sNewDownloadUrl);
-
-        Uploader.prototype.downloadItem.call(this, oItem, aHeaders, bAskForLocation);
-    };
 
     return ObjectController.extend("fiorilibappname.controller.Image", {
         onInit: function () {
@@ -34,52 +22,52 @@ sap.ui.define([
             
 
             // by uploader
-            var sPath = sap.ui.require.toUrl("sap/m/sample/UploadSetCustomUploader/items.json"),
-                oUploadSet = this.byId("UploadSet"),
-                oCustomUploader = new CustomUploader();
-
-            this.getView().setModel(new JSONModel(sPath));
-
-            oUploadSet.setUploader(oCustomUploader);
-            oUploadSet.regusterUploadedEvents(oCustomUploader);
-
-            oCustomUploader.attachUploadStarted(this.onUploadStarted.bind(this));
-            oCustomUploader.attachUploadProgressed(this.onUploadProgressed.bind(this));
-            oCustomUploader.attachUploadCompleted(this.onUploadCompleted.bind(this));
-            oCustomUploader.attachUploadAborted(this.onUploadAborted.bind(this));
-
-            oUploadSet.getList
+            //var sPath = sap.ui.require.toUrl("sap/m/sample/UploadSetCustomUploader/items.json"),
+            //    oUploadSet = this.byId("UploadSet"),
+            //    oCustomUploader = new CustomUploader();
+//
+            //this.getView().setModel(new JSONModel(sPath));
+//
+            //oUploadSet.setUploader(oCustomUploader);
+            //oUploadSet.regusterUploadedEvents(oCustomUploader);
+//
+            //oCustomUploader.attachUploadStarted(this.onUploadStarted.bind(this));
+            //oCustomUploader.attachUploadProgressed(this.onUploadProgressed.bind(this));
+            //oCustomUploader.attachUploadCompleted(this.onUploadCompleted.bind(this));
+            //oCustomUploader.attachUploadAborted(this.onUploadAborted.bind(this));
+//
+            //oUploadSet.getList
         },
 
-        onAddImage: function() {
-            var oUploader = this.getView().byId("imageUploader");
-            var sNewImagePath = oUploader.getValue();
-            var oModel = this.getView().getModel("imageModel");
-            var aImages = oModel.getData().Images;
-            
-            if (sNewImagePath) {
-                aImages.push({src: sNewImagePath});
-                oModel.setData({Images: aImages});
-                MessageToast.show("Image added");
-                oUploader.setValue("");
-            } else {
-                MessageToast.show("Please choose an image to upload.");
-            }
-        },
-
-        onDeleteImage: function(oEvent) {
-            var oList = oEvent.getSource(),
-                oItem = oEvent.getParameter("listItem"),
-                sPath = oItem.getBindingContextPath(),
-                iIndex = parseInt(sPath.split("/")[sPath.split("/").length - 1]),
-                oModel = this.getView().getModel("imageModel"),
-                aImages = oModel.getData().Images;
-
-            aImages.splice(iIndex, 1);
-            oModel.setData({Images: aImages});
-            MessageToast.show("Image removed");
-        },
-
+        //onAddImage: function() {
+        //    var oUploader = this.getView().byId("imageUploader");
+        //    var sNewImagePath = oUploader.getValue();
+        //    var oModel = this.getView().getModel("imageModel");
+        //    var aImages = oModel.getData().Images;
+        //    
+        //    if (sNewImagePath) {
+        //        aImages.push({src: sNewImagePath});
+        //        oModel.setData({Images: aImages});
+        //        MessageToast.show("Image added");
+        //        oUploader.setValue("");
+        //    } else {
+        //        MessageToast.show("Please choose an image to upload.");
+        //    }
+        //},
+//
+        //onDeleteImage: function(oEvent) {
+        //    var oList = oEvent.getSource(),
+        //        oItem = oEvent.getParameter("listItem"),
+        //        sPath = oItem.getBindingContextPath(),
+        //        iIndex = parseInt(sPath.split("/")[sPath.split("/").length - 1]),
+        //        oModel = this.getView().getModel("imageModel"),
+        //        aImages = oModel.getData().Images;
+//
+        //    aImages.splice(iIndex, 1);
+        //    oModel.setData({Images: aImages});
+        //    MessageToast.show("Image removed");
+        //},
+//
         onImagePress: function(oEvent) {
             var oDialog = this.getView().byId("fullScreenCarouselDialog");
             if (!oDialog || !oDialog.isOpen()) { 
