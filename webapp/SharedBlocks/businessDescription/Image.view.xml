@@ -7,8 +7,6 @@
 	xmlns:unified="sap.ui.unified"
 	xmlns:upload="sap.m.upload"
 	height="50%">
-
-
 		<Carousel 
 			class="sapUiContentPadding" 
 			loop="true"
@@ -31,15 +29,14 @@
 				</pages>
 			</Carousel>
 		</Dialog>
-
-		<!--<upload:UploadSet
+		<upload:UploadSet
 				visible="{= ${viewSettings>/isEditMode}? true : false}"
 				id="UploadSet"
 				instantUpload="true"
 				showIcons="true"
 				uploadEnabled="true"
 				terminationEnabled="true"
-				fileTypes="txt,doc,png"
+				fileTypes="png"
 				maxFileNameLength="30"
 				maxFileSize="200"
 				mediaTypes="text/plain,application/msword,image/jpeg"
@@ -80,6 +77,6 @@
 				</upload:UploadSetItem>
 			</upload:items>
 		</upload:UploadSet>
-		<List id="progressList"/> -->
+		<List id="progressList"/> 
 </mvc:View>
 

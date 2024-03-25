@@ -31,14 +31,14 @@
     </Table>
 
 
-    <Table id="rolesTable" items="{roleModelEdit>/to_S_Role}" mode="MultiSelect" visible="{= ${viewGlobal>/isEditMode}? true : false}">
+    <Table id="rolesTable" items="{roleModelEdit>/to_S_Role}" mode="MultiSelect" visible="{= ${viewSettings>/isEditMode}? true : false}">
         <headerToolbar>
             <Toolbar>
                 <Title text="Role(s)"/>
                 <ToolbarSpacer />
-                <Button text="Add" icon="sap-icon://add" press="onAddRole" visible="{= ${viewGlobal>/isEditMode}? true : false}"/>
-                <Button text="Delete" icon="sap-icon://delete" press="onDeleteRole" visible="{= ${viewGlobal>/isEditMode}? true : false}"/>
-                <Button text="Select Role" icon="sap-icon://value-help" press="openRolesDialog" visible="{= ${viewGlobal>/isEditMode}? true : false}"/>
+                <Button text="Add" icon="sap-icon://add" press="onAddRole" visible="{= ${viewSettings>/isEditMode}? true : false}"/>
+                <Button text="Delete" icon="sap-icon://delete" press="onDeleteRole" visible="{= ${viewSettings>/isEditMode}? true : false}"/>
+                <Button text="Select Role" icon="sap-icon://value-help" press="openRolesDialog" visible="{= ${viewSettings>/isEditMode}? true : false}"/>
             </Toolbar>
         </headerToolbar>
         <columns>

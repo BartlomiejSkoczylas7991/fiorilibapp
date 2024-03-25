@@ -23,6 +23,7 @@
                 <sfb:SmartFilterBar id="smartFilterBar"
                                                entitySet="ZC_BSK_LA_SOLUTION"
                                                enableBasicSearch="true"
+                                               basicSearchFieldName="TechnicalName"
                                                persistencyKey="SmartFilter_Explored"
                                                beforeVariantFetch="onBeforeVariantFetch"
                                                afterVariantLoad="onAfterVariantLoad">
@@ -63,8 +64,7 @@
                             <sfb:customControl>
                                 <MultiComboBox
                                     id="multiComboBoxStatus"
-                                    items="{path: 'valueHelp>/ZBSK_C_VH_S_STATUS'}"
-                                    selectionChange="onStatusSelectionChange">
+                                    items="{path: 'valueHelp>/ZBSK_C_VH_S_STATUS'}">
                                     <core:Item key="{valueHelp>Low}" text="{valueHelp>Text}"/>
                                 </MultiComboBox>
                             </sfb:customControl>
@@ -74,7 +74,7 @@
                 <smartTable:SmartTable
                     id="idSmartSolutionTable"
                     smartFilterId="smartFilterBar"
-                    beforeRebindTable=".onBeforeRebindClaimTable"
+                    beforeRebindTable="onBeforeRebindTable"
                     entitySet="ZC_BSK_LA_SOLUTION"
                     tableType="ResponsiveTable"
                     header="{i18n>worklistTitle}"
@@ -83,7 +83,7 @@
                     useTablePersonalisation="true"
                     enableAutoBinding="true"
                     showRowCount="true"
-                    
+                    requestAtLeastFields="SolId,Status,SolType"
                     persistencyKey="SmartTableRefApp_Explored">
                     <smartTable:customToolbar>
                         <OverflowToolbar>

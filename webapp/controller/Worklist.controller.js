@@ -1,15 +1,18 @@
 sap.ui.define([
   "fiorilibappname/controller/BaseController",
-  "sap/ui/model/json/JSONModel"
-], function (Controller, JSONModel) {
+  "sap/ui/model/json/JSONModel",
+  "sap/ui/model/Filter",
+  "sap/ui/model/FilterOperator"
+], function (BaseController, JSONModel, Filter, FilterOperator) {
   "use strict";
 
-  return Controller.extend("fiorilibappname.controller.Worklist", {
+  return BaseController.extend("fiorilibappname.controller.Worklist", {
     onInit: function () {
       this.setModel(new JSONModel(), "global");
       var oViewGlobalModel = this.getOwnerComponent().getModel();
       this.getModel("global").setData(oViewGlobalModel);
 
+      this._oCustomMultiComboBox = this.byId("multiComboBoxStatus");
 
       var oRouter = this.getOwnerComponent().getRouter();
       oRouter.getRoute("Detail").attachPatternMatched(this._onObjectMatched, this);
@@ -96,16 +99,37 @@ sap.ui.define([
     //},
 
     onBeforeRebindTable: function (oEvent) {
-      var oBindingParams = oEvent.getParameter("bindingParams");
-      var oModel = this.getModel("global");
-      var aStatusFilters = oModel.getProperty("/selectedStatus");
+      var mBindingParams = oEvent.getParameter("bindingParams"),
+          aSelectedSolutions = this._oCustomMultiComboBox.getSelectedKeys();
+      var oMultiComboBox = this.getView().byId("multiComboBoxStatus").getSelectedKeys(); // dziala, wyswietla filtry - save - .getSelectedKeys()
 
-      if (aStatusFilters) {
-        oBindingParams.filters.push(new sap.ui.model.Filter({
-          filters: aStatusFilters,
-          and: false
-        }));
-      }
+      aSelectedSolutions.forEach(function(key) {
+				mBindingParams.filters.push(
+					new Filter(
+						"Status",
+						FilterOperator.EQ,
+						key
+					)
+				);
+			});
+
+
+
+
+      //var oModel = this.getModel("global");
+      //var aStatusFilters = oModel.getProperty("/selectedStatus");
+//
+      //if (oMultiComboBox.length > 0) {
+      //  var aStatusFilters = oMultiComboBox.map(function(key) {
+      //      return new Filter("Status", sap.ui.model.FilterOperator.EQ, key);
+      //  });
+      //  
+      //  if(aStatusFilters.length > 0){
+      //    var oStatusGroupFilter = new Filter(aStatusFilters, false);
+      //    oBindingParams.filters.push(oStatusGroupFilter);
+      //  }
+      //  
+      //}
     },
 
     _getFilters: function () {
@@ -127,20 +151,6 @@ sap.ui.define([
 
     getResourceBundle: function () {
       return this.getOwnerComponent().getModel("i18n").getResourceBundle();
-    },
-
-    onStatusSelectionChange: function (oEvent) {
-      var aSelectedItems = oEvent.getParameter("selectedItems");
-      var aFilters = [];
-
-      aSelectedItems.forEach(function (item) {
-        aFilters.push(new sap.ui.model.Filter("StatusDescription", sap.ui.model.FilterOperator.EQ, item.getKey()));
-      });
-
-      var oGlobalModel = this.getModel("global");
-      oGlobalModel.setProperty("/selectedStatus", aFilters);
-
-      this.byId("idSmartSolutionTable").rebindTable();
     }
   });
 });

@@ -5,11 +5,10 @@ sap.ui.define([
     "sap/ui/model/json/JSONModel",
     "sap/m/MessageBox",
     'sap/ui/webc/fiori/library'
-], function (Controller, History, DateFormat, JSONModel, MessageBox, library) {
+], function (BaseController, History, DateFormat, JSONModel, MessageBox, library) {
     "use strict";
 
-    return Controller.extend("fiorilibappname.controller.Object", {
-
+    return BaseController.extend("fiorilibappname.controller.Object", {
         onInit: function () {
             var oRouter = this.getOwnerComponent().getRouter();
             oRouter.getRoute("Detail").attachPatternMatched(this._onObjectMatched, this);
@@ -52,6 +51,7 @@ sap.ui.define([
                 this.getModel("viewSettings").setProperty("/isEditMode", true);
                 this.getModel("viewSettings").setProperty("/currentRoute", sRouteName);
 
+                this.setDefaultValues();
                 this.getModel("singleSolutionModel").setData({});
                 this.getModel("detailView").setData({});
             } else if (sRouteName === "Detail"){
@@ -86,7 +86,7 @@ sap.ui.define([
                 }.bind(this), 1000);
                 return;
             }
-                    var oData = oElementBinding.getBoundContext().getObject();
+            var oData = oElementBinding.getBoundContext().getObject();
             var oSingleSolutionModel = new JSONModel(oData);
             this.setModel(oSingleSolutionModel, "singleSolutionModel");
         },
@@ -104,7 +104,6 @@ sap.ui.define([
         },
         
         _loadData: function (sSolId) {
-            
             var oGlobalModel = this.getOwnerComponent().getModel();
             var aSolutions = oGlobalModel.getProperty("/ZC_BSK_LA_SOLUTION");
             var oSelectedSolution = aSolutions.find(solution => solution.SolId === sSolId);
@@ -232,16 +231,22 @@ sap.ui.define([
             }
         },
 
-         onStatusChange: function (oEvent) {
+        setDefaultValues: function () {
+            var oDetailViewModel = this.getModel("detailView");
+        
+            oDetailViewModel.setProperty("/Status", "1");
+            // oDetailViewModel.setProperty("/AnotherField", "DefaultValue");
+        
+        },
+
+        onStatusChange: function (oEvent) {
             var sSelectedKey = oEvent.getParameter("selectedItem").getKey();
-            console.log("The selected key:", sSelectedKey);
             var oModel = this.getModel("detailView");
             oModel.setProperty("/Status", sSelectedKey);
         },
 
         onTypeChange: function (oEvent) {
             var sSelectedKey = oEvent.getParameter("selectedItem").getKey();
-            console.log("The selected key:", sSelectedKey);
             var oModel = this.getModel("detailView");
             oModel.setProperty("/SolType", sSelectedKey);
         },
