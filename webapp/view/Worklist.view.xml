@@ -57,17 +57,15 @@
                         <sfb:ControlConfiguration
                             key="StatusDescription"
                             index="1"
-                            label="Status"
+                            label="{i18n>labelStatus}"
                             width="300px"
                             visibleInAdvancedArea="true">
                             <sfb:customControl>
                                 <MultiComboBox
                                     id="multiComboBoxStatus"
-                                    selectionChange="customFieldChange">
-                                    <core:Item key="1" text="ACTIVE"/>
-                                    <core:Item key="2" text="INACTIVE"/>
-                                    <core:Item key="3" text="DEPRECATED"/>
-                                    <core:Item key="4" text="UNDER_DEVELOPMENT"/>
+                                    items="{path: 'valueHelp>/ZBSK_C_VH_S_STATUS'}"
+                                    selectionChange="onStatusSelectionChange">
+                                    <core:Item key="{valueHelp>Low}" text="{valueHelp>Text}"/>
                                 </MultiComboBox>
                             </sfb:customControl>
                         </sfb:ControlConfiguration>
@@ -76,10 +74,11 @@
                 <smartTable:SmartTable
                     id="idSmartSolutionTable"
                     smartFilterId="smartFilterBar"
+                    beforeRebindTable=".onBeforeRebindClaimTable"
                     entitySet="ZC_BSK_LA_SOLUTION"
                     tableType="ResponsiveTable"
                     header="{i18n>worklistTitle}"
-                    initiallyVisibleFields="SolId,TechnicalName,Subtitle,StatusDescription,TypeDescription"
+                    initiallyVisibleFields="TechnicalName,Subtitle,StatusDescription,TypeDescription"
                     useVariantManagement="true"
                     useTablePersonalisation="true"
                     enableAutoBinding="true"
