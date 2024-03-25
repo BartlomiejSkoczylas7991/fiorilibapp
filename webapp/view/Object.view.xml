@@ -122,20 +122,24 @@
                                             </f:FormElement>
                                             <f:FormElement label="Type">
                                                 <f:fields>
-                                                    <m:Input value="{detailView>/TypeDescription}" />
+                                                    <m:Select
+                                                        id="typeSelect"
+                                                        selectedKey="{detailView>/SolType}"
+                                                        change="onTypeChange"
+                                                        items="{path: 'valueHelp>/ZBSK_C_VS_S_SOL_TYPE'}">
+                                                        <core:Item key="{valueHelp>Low}" text="{valueHelp>Text}"/>
+                                                    </m:Select>
                                                 </f:fields>
                                             </f:FormElement>
                                             <f:FormElement label="Status">
                                                 <f:fields>
-                                                    <m:ComboBox
-                                                        id="statusComboBox"
+                                                    <m:Select
+                                                        id="statusSelect"
                                                         selectedKey="{detailView>/Status}"
-                                                        items="{path: 'valueHelp>/', templateShareable:false}"
-                                                        change="onStatusChange">
-                                                        <m:items>
-                                                            <core:Item key="{valueHelp>Low}" text="{valueHelp>Text}"/>
-                                                        </m:items>
-                                                    </m:ComboBox>
+                                                        change="onStatusChange"
+                                                        items="{path: 'valueHelp>/ZBSK_C_VH_S_STATUS'}">
+                                                        <core:Item key="{valueHelp>Low}" text="{valueHelp>Text}"/>
+                                                    </m:Select>
                                                 </f:fields>
                                             </f:FormElement>
                                             <f:FormElement label="Component">

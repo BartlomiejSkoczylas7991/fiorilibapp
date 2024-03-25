@@ -1,19 +1,34 @@
 sap.ui.define([
-    "sap/ui/core/mvc/Controller",
-    "sap/ui/model/json/JSONModel",
-    "sap/ui/model/odata/v2/ODataModel"
-  ], function (Controller, JSONModel, ODataModel) {
+    "fiorilibappname/controller/BaseController",
+    "sap/ui/model/json/JSONModel"
+  ], function (Controller, JSONModel) {
     "use strict";
   
     return Controller.extend("fiorilibappname.controller.Worklist", {
       onInit: function () {
-          this.getView().setModel(new JSONModel(), "global");
+          this.setModel(new JSONModel(), "global");
           var oViewGlobalModel = this.getOwnerComponent().getModel();
-          this.getView().getModel("global").setData(oViewGlobalModel);
+          this.getModel("global").setData(oViewGlobalModel);
 
 
           var oRouter = this.getOwnerComponent().getRouter();
           oRouter.getRoute("Detail").attachPatternMatched(this._onObjectMatched, this);
+
+          var oRouter = this.getOwnerComponent().getRouter();
+          oRouter.getRoute("Detail").attachPatternMatched(this._onObjectMatched, this);
+          oRouter.attachRouteMatched(function(oEvent){
+              var sRouteName = oEvent.getParameter("name");
+              if(sRouteName === "Worklist"){
+                  this._resetSelection();
+              }
+          }, this);
+      },
+
+      _resetSelection: function() {
+        var oTable = this.byId("idSolutionTable");
+        if (oTable) {
+            oTable.removeSelections(true);
+        }
       },
   
       onPress: function (oEvent) {
@@ -82,7 +97,7 @@ sap.ui.define([
 
       _getFilters: function() {
         var aFilters = [];
-        var oModel = this.getView().getModel("global");
+        var oModel = this.getModel("global");
         var sStatus = oModel.getProperty("/selectedStatus");
     
         if (sStatus) {

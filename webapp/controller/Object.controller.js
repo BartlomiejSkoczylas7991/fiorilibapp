@@ -1,5 +1,5 @@
 sap.ui.define([
-    "sap/ui/core/mvc/Controller",
+    "fiorilibappname/controller/BaseController",
     "sap/ui/core/routing/History",
     "sap/ui/core/format/DateFormat",
     "sap/ui/model/json/JSONModel",
@@ -15,40 +15,45 @@ sap.ui.define([
             oRouter.getRoute("Detail").attachPatternMatched(this._onObjectMatched, this);
             oRouter.getRoute("Create").attachPatternMatched(this._onObjectMatched, this);
  
-            this.getView().setModel(new JSONModel(), "singleSolutionModel");
-            this.getView().setModel(new JSONModel(), "detailView");
-
-            var oValueHelpModel = new sap.ui.model.odata.v2.ODataModel("/sap/opu/odata/sap/ZBSK_LA_SOL_VH/");
-            this.getView().setModel(oValueHelpModel, "valueHelp");
-
-            this.loadStatusValues();
-
-            this.getView().setModel(new JSONModel(), "detailView");
+            this.setModel(new JSONModel(), "singleSolutionModel");
+            this.setModel(new JSONModel(), "detailView");
+            this.setModel(new JSONModel(), "viewSettings");
+            
+            this.setModel(new JSONModel(), "detailView");
             this._dateFormatter = DateFormat.getDateInstance({
                 pattern: "dd.MM.yyyy",
             });
         },
 
         _bindView: function (sObjectPath) {
-            this.getView().bindElement({
-                path: sObjectPath
+            var oView = this.getView();
+            oView.bindElement({
+                path: sObjectPath,
+                events: {
+                    change: this._onBindingChange.bind(this),
+                    dataRequested: function () {
+                        oView.setBusy(true);
+                    },
+                    dataReceived: function () {
+                        oView.setBusy(false);
+                    }
+                }
             });
         },
 
         _onObjectMatched: function (oEvent) {
-            var sSolId = parseInt(oEvent.getParameter("arguments").SolId);
+            var oValueHelpModel = this.getOwnerComponent().getModel("valueHelp");
+            this.setModel(oValueHelpModel, "valueHelp");
 
+            var sSolId = oEvent.getParameter("arguments").SolId;
+        
             const sRouteName = oEvent.getParameter("name");
             if (sRouteName === "Create"){
-                this.getView().setModel(new JSONModel(), "viewSettings");
-                this.getView().getModel("viewSettings").setProperty("/isEditMode", true);
-                this.getView().getModel("viewSettings").setProperty("/currentRoute", sRouteName);
+                this.getModel("viewSettings").setProperty("/isEditMode", true);
+                this.getModel("viewSettings").setProperty("/currentRoute", sRouteName);
 
-                var oSingleSolutionModel = this.getView().getModel("singleSolutionModel");
-                var oDetailModel = this.getView().getModel("detailView");   
-                oSingleSolutionModel.setData({});
-                oDetailModel.setData({});
-
+                this.getModel("singleSolutionModel").setData({});
+                this.getModel("detailView").setData({});
             } else if (sRouteName === "Detail"){
                 this.getOwnerComponent().getModel().metadataLoaded().then(function (){
                     var sObjectPath = this.getOwnerComponent().getModel().createKey("ZC_BSK_LA_SOLUTION", {
@@ -56,52 +61,34 @@ sap.ui.define([
                     });
                     this._bindView("/" + sObjectPath);
 
-                    var oContext = this.getView().getBindingContext();
-                    var oData = oContext ? oContext.getObject() : null;
-                    if (oData) {
-                        var oModel = new JSONModel(oData);
-                        this.getView().setModel(oModel, "singleSolutionModel");
-                    }
-
-                    this.getView().setModel(new JSONModel(), "viewSettings");
-                    this.getView().getModel("viewSettings").setProperty("/isEditMode", false);
-                    this.getView().getModel("viewSettings").setProperty("/currentRoute", sRouteName);
+                    this.getModel("viewSettings").setProperty("/isEditMode", false);
+                    this.getModel("viewSettings").setProperty("/currentRoute", sRouteName);
 
                 }.bind(this));
             } else {
                 // TODO:  Handle nav error
             }
-           
+        },
 
-            //var oViewGlobalModel = this.getOwnerComponent().getModel();
-            //var oSingleSolutionModel = this.getView().getModel("singleSolutionModel");
-            //var oDetailModel = this.getView().getModel("detailView");
-//
-            //var sSolId = parseInt(oEvent.getParameter("arguments").SolId);
-//
-            //var sObjectPath = oViewGlobalModel.createKey("ZC_BSK_LA_SOLUTION", {SolId: sSolId});
-            //var oObjectPageLayout = this.getView().byId("ObjectPageLayout");
-//
-//
-            ////this.getView().setBindingContext(sObjectPath);
-//
-            //this.getView().bindElement({
-			//	path: sObjectPath
-			//});
-//
-            //var oPrzyklad = this.getOwnerComponent().getModel().getObject("/"+sObjectPath);
-//
-            ////var oObject = this.getView().getBindingElement("path").getObject()
-            //if (oObjectPageLayout) {
-            //    var oFirstSection = oObjectPageLayout.getSections()[0]; 
-            //    if (oFirstSection) {
-            //        oObjectPageLayout.setSelectedSection(oFirstSection.getId());
-            //    }
-            //}
-            //
-            //const sRouteName = oEvent.getParameter("name");
-            //oViewGlobalModel.setProperty("/currentRoute", sRouteName);
-            
+        _onBindingChange: function() {
+            var oView = this.getView();
+            var oElementBinding = oView.getElementBinding();
+        
+            if (!oElementBinding.getBoundContext()) {
+                setTimeout(function() {
+                    if (!oElementBinding.getBoundContext()) {
+                        MessageBox.error("You cannot load the data for the selected item.");
+                    } else {
+                        var oData = oElementBinding.getBoundContext().getObject();
+                        var oSingleSolutionModel = new JSONModel(oData);
+                        this.setModel(oSingleSolutionModel, "singleSolutionModel");
+                    }
+                }.bind(this), 1000);
+                return;
+            }
+                    var oData = oElementBinding.getBoundContext().getObject();
+            var oSingleSolutionModel = new JSONModel(oData);
+            this.setModel(oSingleSolutionModel, "singleSolutionModel");
         },
 
         onExit: function () {
@@ -109,7 +96,7 @@ sap.ui.define([
         },
 
         onBeforeNavigate: function (oEvent) {
-            var oGlobalModel = this.getView().getModel();
+            var oGlobalModel = this.getModel();
         
             if (!oGlobalModel.getProperty("/isEditMode")) {
                 return;
@@ -123,8 +110,8 @@ sap.ui.define([
             var oSelectedSolution = aSolutions.find(solution => solution.SolId === sSolId);
             this._sSolId = sSolId; 
             if (oSelectedSolution) {
-                this.getView().getModel("singleSolutionModel").setData(oSelectedSolution);
-                this.getView().getModel("detailView").setData(jQuery.extend(true, {}, oSelectedSolution));
+                this.getModel("singleSolutionModel").setData(oSelectedSolution);
+                this.getModel("detailView").setData(jQuery.extend(true, {}, oSelectedSolution));
                     
                 var aRolesForSolution = oSelectedSolution.to_S_Role.map(role => {
                     return oGlobalModel.getProperty("/Role").find(r => r.RoleId === role.RoleId);
@@ -133,7 +120,7 @@ sap.ui.define([
                 var oRoleModelEdit = new JSONModel({to_S_Role: aRolesForSolution});
                 this.getView().setModel(oRoleModelEdit, "roleModelEdit");
 
-                this.getView().getModel("singleSolutionModel").setProperty("/Role", aRolesForSolution);
+                this.getModel("singleSolutionModel").setProperty("/Role", aRolesForSolution);
             } else {
                 MessageBox.error("Solution with SolId " + sSolId + " not found.");
                 this.getOwnerComponent().getRouter().navTo("Worklist");
@@ -145,8 +132,8 @@ sap.ui.define([
         },        
 
         onNavBack: function () {
-            this.getView().getModel("singleSolutionModel").setData({});
-            this.getView().getModel("detailView").setData({});
+            this.getModel("singleSolutionModel").setData({});
+            this.getModel("detailView").setData({});
 
             var oHistory = History.getInstance();
             var sPreviousHash = oHistory.getPreviousHash();
@@ -160,15 +147,15 @@ sap.ui.define([
         },
     
         onEditPress: function() {
-            this.getView().getModel("viewSettings").setProperty("/isEditMode", true);
-            var oViewModelData = this.getView().getModel("singleSolutionModel").getData();
-            this.getView().getModel("detailView").setData(JSON.parse(JSON.stringify(oViewModelData)));
+            this.getModel("viewSettings").setProperty("/isEditMode", true);
+            var oViewModelData = this.getModel("singleSolutionModel").getData();
+            this.getModel("detailView").setData(JSON.parse(JSON.stringify(oViewModelData)));
         },     
 
         onSavePress: function() {
-            var oDataModel = this.getView().getModel();
+            var oDataModel = this.getModel();
             var oViewDetailData = this.getView().getModel("detailView").getData();
-            const sRouteName = this.getView().getModel("viewSettings").getProperty("/currentRoute"); 
+            const sRouteName = this.getModel("viewSettings").getProperty("/currentRoute"); 
 
             if (sRouteName === "Create"){
                 var sPath = "/ZC_BSK_LA_SOLUTION";
@@ -180,7 +167,7 @@ sap.ui.define([
                                 oDataModel.create(sPath, oViewDetailData, {
                                     success: function() {
                                         MessageBox.success("Object created successfully.");
-                                        this.getView().getModel("viewSettings").setProperty("/isEditMode", false);
+                                        this.getModel("viewSettings").setProperty("/isEditMode", false);
                                         this.onNavBack();
                                     }.bind(this),
                                     error: function() {
@@ -207,14 +194,14 @@ sap.ui.define([
             //});
         
 
-            //var oDetailData = this.getView().getModel("detailView").getData();
+            //var oDetailData = this.getModel("detailView").getData();
             //var oDataModel = this.getOwnerComponent().getModel();
             //if (this._sSolId) {
             //    var sPath = "/ZC_BSK_LA_SOLUTION('" + this._sSolId + "')";
             //    oDataModel.update(sPath, oDetailData, {
             //        success: function() {
             //            MessageBox.success("Object updated successfully.");
-            //            this.getView().getModel("detailView").setProperty("/isEditMode", false);
+            //            this.getModel("detailView").setProperty("/isEditMode", false);
             //            this._loadData(this._sSolId);
             //        }.bind(this),
             //        error: function() {
@@ -225,7 +212,7 @@ sap.ui.define([
             //    oDataModel.create("/ZC_BSK_LA_SOLUTION", oDetailData, {
             //        success: function() {
             //            MessageBox.success("New object created successfully.");
-            //            this.getView().getModel("singleSolutionModel").setProperty("/isEditMode", false);
+            //            this.getModel("singleSolutionModel").setProperty("/isEditMode", false);
             //            // mogę zrobić sobie nawigację do tego obiektu - generalnie rozwinąć do batcha
             //            this.getOwnerComponent().getRouter().navTo("Worklist");
             //        }.bind(this),
@@ -237,7 +224,7 @@ sap.ui.define([
 
 
         onCancelPress: function() {
-            this.getView().getModel("viewSettings").setProperty("/isEditMode", false);
+            this.getModel("viewSettings").setProperty("/isEditMode", false);
             if (this._sSolId) {
                 this._loadData(this._sSolId);
             } else {
@@ -245,8 +232,22 @@ sap.ui.define([
             }
         },
 
+         onStatusChange: function (oEvent) {
+            var sSelectedKey = oEvent.getParameter("selectedItem").getKey();
+            console.log("The selected key:", sSelectedKey);
+            var oModel = this.getModel("detailView");
+            oModel.setProperty("/Status", sSelectedKey);
+        },
+
+        onTypeChange: function (oEvent) {
+            var sSelectedKey = oEvent.getParameter("selectedItem").getKey();
+            console.log("The selected key:", sSelectedKey);
+            var oModel = this.getModel("detailView");
+            oModel.setProperty("/SolType", sSelectedKey);
+        },
+
         _loadTargetMappings: function (sSolId) {
-                var oModel = this.getView().getModel("odata");
+                var oModel = this.getModel("odata");
                 var sPath = "/ZC_BSK_LA_SOLUTION('" + sSolId + "')/to_Tar_Map";
                 oModel.read(sPath, {
                     success: function (oData) {
@@ -258,7 +259,7 @@ sap.ui.define([
         },
         
         _loadServices: function (sSolId) {
-            var oModel = this.getView().getModel("jsonModelFile");
+            var oModel = this.getModel("jsonModelFile");
             var sPath = "/ZC_BSK_LA_SOLUTION('" + sSolId + "')/to_Service";
             oModel.read(sPath, {
                 success: function (oData) {
@@ -270,7 +271,7 @@ sap.ui.define([
         },
 
         _loadImages: function() {
-            var oDetailModel = this.getView().getModel("singleSolutionModel");
+            var oDetailModel = this.getModel("singleSolutionModel");
             var images = oDetailModel.getProperty("/Images") || [];
             var imagePaths = images.map(function(img) {
                 return {src: sap.ui.require.toUrl("fiorilibappname/images" + img.src)};
@@ -279,26 +280,8 @@ sap.ui.define([
                 Images: imagePaths
             });
             this.getView().setModel(oImageModel, "imageModel");
-            this.getView().getModel().refresh();
+            this.getModel().refresh();
         },
-
-        loadStatusValues: function () {
-            var oModel = this.getView().getModel("valueHelp");
-            var oComboBox = this.byId("statusComboBox");
-            oModel.read("/ZBSK_C_VH_S_STATUS", {
-                success: function (oData) {
-                    var oItemsModel = new JSONModel(oData.results);
-                    oComboBox.setModel(oItemsModel, "items");
-                }
-            });
-        },
-
-        onStatusChange: function (oEvent) {
-            var sSelectedKey = oEvent.getParameter("selectedItem").getKey();
-            var oModel = this.getView().getModel("detailView");
-            oModel.setProperty("/Status", sSelectedKey);
-        },
-
 
         _loadAttachments: function (sSolId) {
 
@@ -329,7 +312,7 @@ sap.ui.define([
         },
 
         onDeletePress: function () {
-            var oModel = this.getView().getModel();
+            var oModel = this.getModel();
             var sPath = this.getView().getBindingContext().getPath();
 
             MessageBox.confirm("Are you sure you want to delete?", {
@@ -358,43 +341,6 @@ sap.ui.define([
             
             var oDisplayFormat = sap.ui.core.format.DateFormat.getDateInstance({pattern: "dd.MM.yyyy HH:mm:ss"});
             return oDisplayFormat.format(oDate);
-        },
-
-        onValueHelpRequestStatus: function(oEvent) {
-            if (!this._oValueHelpDialog) {
-                this._oValueHelpDialog = sap.ui.xmlfragment("YourNamespace.view.ValueHelpDialog", this);
-                this.getView().addDependent(this._oValueHelpDialog);
-                
-
-                var oModel = new sap.ui.model.json.JSONModel({
-                    "Status": [
-                        {"key": "ACTIVE", "text": "Active"},
-                        {"key": "INACTIVE", "text": "Inactive"},
-                        {"key": "DEPRECATED", "text": "Deprecated"},
-                        {"key": "UNDER_DEVELOPMENT", "text": "Under Development"}
-                    ]
-                });
-                this._oValueHelpDialog.setModel(oModel);
-            }
-        
-            this._oValueHelpDialog.bindAggregation("items", {
-                path: "/Status",
-                template: new sap.m.StandardListItem({
-                    title: "{text}",
-                    active: true
-                })
-            });
-        
-            this._oValueHelpDialog.attachConfirm(function(oEvent) {
-                var oSelectedItem = oEvent.getParameter("selectedItem");
-                if (oSelectedItem) {
-                    var sStatusText = oSelectedItem.getTitle();
-                    var oInput = this.getView().byId("ID");
-                    oInput.setValue(sStatusText);
-                }
-            }.bind(this));
-        
-            this._oValueHelpDialog.open();
         }
     });
 });
