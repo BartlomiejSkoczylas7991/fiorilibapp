@@ -8,15 +8,17 @@ sap.ui.define([
 
   return BaseController.extend("fiorilibappname.controller.Worklist", {
     onInit: function () {
+      var oSmartFilterBar = this.byId("smartFilterBar");
+      if (oSmartFilterBar) {
+          oSmartFilterBar.attachInitialise(this._onSmartFilterBarInitialised, this);
+      }
       this.setModel(new JSONModel(), "global");
       var oViewGlobalModel = this.getOwnerComponent().getModel();
       this.getModel("global").setData(oViewGlobalModel);
 
+
       this._oCustomMultiComboBox = this.byId("multiComboBoxStatus");
-
-      var oRouter = this.getOwnerComponent().getRouter();
-      oRouter.getRoute("Detail").attachPatternMatched(this._onObjectMatched, this);
-
+      
       var oRouter = this.getOwnerComponent().getRouter();
       oRouter.getRoute("Detail").attachPatternMatched(this._onObjectMatched, this);
       oRouter.attachRouteMatched(function (oEvent) {
@@ -25,6 +27,11 @@ sap.ui.define([
           this._resetSelection();
         }
       }, this);
+    },
+
+    _onSmartFilterBarInitialised: function() {
+      var oSmartFilterBar = this.byId("smartFilterBar");
+      oSmartFilterBar.search();
     },
 
     _resetSelection: function () {

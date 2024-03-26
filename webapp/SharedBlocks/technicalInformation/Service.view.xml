@@ -51,8 +51,8 @@
             <Toolbar>
                 <Title text="Odata Service(s)"/>
                 <ToolbarSpacer/>
-                <Button text="Add" icon="sap-icon://add" press="onAddService" visible="{viewSettings>/isEditMode}"/>
-                <Button text="Delete" icon="sap-icon://delete" press="onDeleteService" visible="{viewSettings>/isEditMode}"/>
+                <Button text="Add" icon="sap-icon://add" press="onAddService" visible="{= ${viewSettings>/isEditMode}? true : false}"/>
+                <Button text="Delete" icon="sap-icon://delete" press="onDeleteService" visible="{= ${viewSettings>/isEditMode}? true : false}"/>
             </Toolbar>
         </headerToolbar>
         <columns>
@@ -82,16 +82,16 @@
             <ColumnListItem>
                 <cells>
                     <Input value="{detailView>ServiceId}" editable="false"/>
-                    <Input value="{detailView>Description}" editable="{viewGlobal>/isEditMode}"/>
-                    <ComboBox selectedKey="{detailView>Version}" editable="{viewGlobal>/isEditMode}">
+                    <Input value="{detailView>Description}" editable="{= ${viewSettings>/isEditMode}? true : false}"/>
+                    <ComboBox selectedKey="{detailView>Version}" editable="{= ${viewSettings>/isEditMode}? true : false}">
                         <core:Item key="1.0" text="1.0"/>
                         <core:Item key="2.0" text="2.0"/>
                         <core:Item key="4.0" text="4.0"/>
                     </ComboBox>
-                    <Input value="{detailView>Url}" editable="{viewGlobal>/isEditMode}"/>
-                    <Input value="{detailView>ExtServName}" editable="{viewGlobal>/isEditMode}"/>
-                    <Input value="{detailView>SoftCompVersion}" editable="{viewGlobal>/isEditMode}"/>
-                    <Input value="{detailView>BeAuthRole}" editable="{viewGlobal>/isEditMode}"/>
+                    <Input value="{detailView>Url}" editable="{= ${viewSettings>/isEditMode}? true : false}"/>
+                    <Input value="{detailView>ExtServName}" editable="{= ${viewSettings>/isEditMode}? true : false}"/>
+                    <Input value="{detailView>SoftCompVersion}" editable="{= ${viewSettings>/isEditMode}? true : false}"/>
+                    <Input value="{detailView>BeAuthRole}" editable="{= ${viewSettings>/isEditMode}? true : false}"/>
                 </cells>
             </ColumnListItem>
         </items>

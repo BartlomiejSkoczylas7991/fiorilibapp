@@ -10,10 +10,10 @@
 		<Carousel 
 			class="sapUiContentPadding" 
 			loop="true"
-    	    pages="{imageModel>/Images}"
+    	    pages="{detailView>/to_Image}"
 			visible="{= !${viewSettings>/isEditMode}? true : false}">
 			<pages>
-    	    	<Image src="{imageModel>src}" class="carouselImage" press="onImagePress"/>
+    	    	<Image src="data:image/jpeg;base64,{detailView>Attachment}" class="carouselImage" press="onImagePress"/>
 			</pages>
     	</Carousel>
 		<Dialog 
@@ -29,7 +29,7 @@
 				</pages>
 			</Carousel>
 		</Dialog>
-		<upload:UploadSet
+		<!--<upload:UploadSet
 				visible="{= ${viewSettings>/isEditMode}? true : false}"
 				id="UploadSet"
 				instantUpload="true"
@@ -77,6 +77,6 @@
 				</upload:UploadSetItem>
 			</upload:items>
 		</upload:UploadSet>
-		<List id="progressList"/> 
+		<List id="progressList"/> --> 
 </mvc:View>
 

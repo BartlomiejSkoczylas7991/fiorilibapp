@@ -63,6 +63,7 @@ sap.ui.define([
 
                     this.getModel("viewSettings").setProperty("/isEditMode", false);
                     this.getModel("viewSettings").setProperty("/currentRoute", sRouteName);
+                    this._loadData(sSolId);
 
                 }.bind(this));
             } else {
@@ -82,6 +83,7 @@ sap.ui.define([
                         var oData = oElementBinding.getBoundContext().getObject();
                         var oSingleSolutionModel = new JSONModel(oData);
                         this.setModel(oSingleSolutionModel, "singleSolutionModel");
+                        this.setModel(oSingleSolutionModel, "detailView");
                     }
                 }.bind(this), 1000);
                 return;
@@ -89,6 +91,7 @@ sap.ui.define([
             var oData = oElementBinding.getBoundContext().getObject();
             var oSingleSolutionModel = new JSONModel(oData);
             this.setModel(oSingleSolutionModel, "singleSolutionModel");
+            this.setModel(oSingleSolutionModel, "detailView");
         },
 
         onExit: function () {
@@ -106,28 +109,26 @@ sap.ui.define([
         _loadData: function (sSolId) {
             var oGlobalModel = this.getOwnerComponent().getModel();
             var aSolutions = oGlobalModel.getProperty("/ZC_BSK_LA_SOLUTION");
-            var oSelectedSolution = aSolutions.find(solution => solution.SolId === sSolId);
+            //var oSelectedSolution = aSolutions.find(solution => solution.SolId === sSolId);
             this._sSolId = sSolId; 
-            if (oSelectedSolution) {
-                this.getModel("singleSolutionModel").setData(oSelectedSolution);
-                this.getModel("detailView").setData(jQuery.extend(true, {}, oSelectedSolution));
-                    
-                var aRolesForSolution = oSelectedSolution.to_S_Role.map(role => {
-                    return oGlobalModel.getProperty("/Role").find(r => r.RoleId === role.RoleId);
-                }).filter(role => role);
+            //if (oSelectedSolution) {
+            console.log(this.getView().getModel("singleSolutionModel").getData());    
+                //var aRolesForSolution = oSelectedSolution.to_S_Role.map(role => {
+                //    return oGlobalModel.getProperty("/Role").find(r => r.RoleId === role.RoleId);
+                //}).filter(role => role);
+//
+                //var oRoleModelEdit = new JSONModel({to_S_Role: aRolesForSolution});
+                //this.getView().setModel(oRoleModelEdit, "roleModelEdit");
+//
+                //this.getModel("singleSolutionModel").setProperty("/Role", aRolesForSolution);
+            //} else {
+            //    MessageBox.error("Solution with SolId " + sSolId + " not found.");
+            //    this.getOwnerComponent().getRouter().navTo("Worklist");
+            //}
 
-                var oRoleModelEdit = new JSONModel({to_S_Role: aRolesForSolution});
-                this.getView().setModel(oRoleModelEdit, "roleModelEdit");
-
-                this.getModel("singleSolutionModel").setProperty("/Role", aRolesForSolution);
-            } else {
-                MessageBox.error("Solution with SolId " + sSolId + " not found.");
-                this.getOwnerComponent().getRouter().navTo("Worklist");
-            }
-
-            if (oSelectedSolution) {
+            //if (oSelectedSolution) {
                 this._loadImages(sSolId);
-            } 
+            //} 
         },        
 
         onNavBack: function () {
@@ -276,14 +277,9 @@ sap.ui.define([
         },
 
         _loadImages: function() {
-            var oDetailModel = this.getModel("singleSolutionModel");
-            var images = oDetailModel.getProperty("/Images") || [];
-            var imagePaths = images.map(function(img) {
-                return {src: sap.ui.require.toUrl("fiorilibappname/images" + img.src)};
-            });
-            var oImageModel = new sap.ui.model.json.JSONModel({
-                Images: imagePaths
-            });
+            var oViewDetailData = this.getView().getModel("detailView").getData();
+            console.log("Tu jest detailvie", oViewDetailData);
+         //   console.log("Tu jest image", this.getView().getModel("detailView").getData().getProperty("/to_Image"));
             this.getView().setModel(oImageModel, "imageModel");
             this.getModel().refresh();
         },
