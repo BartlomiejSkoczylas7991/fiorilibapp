@@ -10,10 +10,10 @@
 		<Carousel 
 			class="sapUiContentPadding" 
 			loop="true"
-    	    pages="{detailView>/to_Image}"
+    	    pages="{to_Image}"
 			visible="{= !${viewSettings>/isEditMode}? true : false}">
 			<pages>
-    	    	<Image src="data:image/jpeg;base64,{detailView>Attachment}" class="carouselImage" press="onImagePress"/>
+    	    	<Image src="{Attachment}" class="carouselImage" press="onImagePress"/>
 			</pages>
     	</Carousel>
 		<Dialog 

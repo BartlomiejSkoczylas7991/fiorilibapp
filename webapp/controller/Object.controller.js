@@ -44,7 +44,7 @@ sap.ui.define([
             var oValueHelpModel = this.getOwnerComponent().getModel("valueHelp");
             this.setModel(oValueHelpModel, "valueHelp");
 
-            var sSolId = oEvent.getParameter("arguments").SolId;
+            var sSolId = parseInt(oEvent.getParameter("arguments").SolId);
         
             const sRouteName = oEvent.getParameter("name");
             if (sRouteName === "Create"){
@@ -280,7 +280,7 @@ sap.ui.define([
             var oViewDetailData = this.getView().getModel("detailView").getData();
             console.log("Tu jest detailvie", oViewDetailData);
          //   console.log("Tu jest image", this.getView().getModel("detailView").getData().getProperty("/to_Image"));
-            this.getView().setModel(oImageModel, "imageModel");
+            
             this.getModel().refresh();
         },
 

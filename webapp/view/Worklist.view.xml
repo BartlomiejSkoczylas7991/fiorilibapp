@@ -43,6 +43,7 @@
                                 </MultiComboBox>
                             </sfb:customControl>
                         </sfb:ControlConfiguration>
+                        
                         <sfb:ControlConfiguration
                             key="TechnicalName"
                             index="1"
