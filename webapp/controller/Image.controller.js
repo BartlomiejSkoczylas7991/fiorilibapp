@@ -13,6 +13,8 @@ sap.ui.define([
         onInit: function () {
             ObjectController.prototype.onInit.apply(this, arguments);
 
+            var oDetailModel = this.getView().getBindingContext().getObject();
+            console.log(oDetailModel);
         },
 
         onAddImage: function() {

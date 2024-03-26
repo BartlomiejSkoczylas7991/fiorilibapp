@@ -75,6 +75,7 @@
     "models": {
       "": {
         "dataSource": "mainService",
+        "preload": true,
         "settings": {
           "defaultBindingMode": "TwoWay",
           "defaultCountMode": "Inline",
@@ -88,7 +89,8 @@
         }
       },
       "valueHelp": {
-        "dataSource": "valueHelp"
+        "dataSource": "valueHelp",
+        "preload": true
       }
     },
     "resources": {

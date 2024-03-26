@@ -30,8 +30,13 @@ function (UIComponent, Device, models, JSONModel) {
             // set the device model
             this.setModel(models.createDeviceModel(), "device");
 
+            var oDetailView = new JSONModel({});
+            this.setModel(oDetailView, "detailView");
+            
             // enable routing
             this.getRouter().initialize();
+
+
         }
     });
 }
