@@ -284,6 +284,9 @@ sap.ui.define([
             this.getModel().refresh();
         },
 
+
+        
+
         _loadAttachments: function (sSolId) {
 
         },

@@ -13,7 +13,8 @@
     	    pages="{to_Image}"
 			visible="{= !${viewSettings>/isEditMode}? true : false}">
 			<pages>
-    	    	<Image src="{Attachment}" class="carouselImage" press="onImagePress"/>
+				<Image src="{path: 'Attachment', formatter: '.formatImageSrc'}" class="carouselImage" press="onImagePress"/>
+    	    	<!--<Image src="{Attachment}" class="carouselImage" press="onImagePress"/> -->
 			</pages>
     	</Carousel>
 		<Dialog 

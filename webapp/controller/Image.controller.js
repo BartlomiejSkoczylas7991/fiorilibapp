@@ -9,7 +9,7 @@ sap.ui.define([
 ], function (MobileLibrary, ObjectController, Item, JSONModel, Uploader, ListItem, MessageToast) {
     "use strict";
     return ObjectController.extend("fiorilibappname.controller.Image", {
-        
+
         onInit: function () {
             ObjectController.prototype.onInit.apply(this, arguments);
 
@@ -42,6 +42,10 @@ sap.ui.define([
             aImages.splice(iIndex, 1);
             oModel.setData({Images: aImages});
             MessageToast.show("Image removed");
+        },
+
+        formatImageSrc: function(sBase64Value) {
+            return "data:image/jpeg;base64," + sBase64Value;
         },
 //
         onImagePress: function(oEvent) {

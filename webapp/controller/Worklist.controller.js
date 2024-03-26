@@ -17,8 +17,9 @@ sap.ui.define([
       this.getModel("global").setData(oViewGlobalModel);
 
 
-      this._oCustomMultiComboBox = this.byId("multiComboBoxStatus");
-      
+      this._oCustomMultiComboBoxStatus = this.byId("multiComboBoxStatus");
+      this._oCustomMultiComboBoxType = this.byId("multiComboBoxType");
+
       var oRouter = this.getOwnerComponent().getRouter();
       oRouter.getRoute("Detail").attachPatternMatched(this._onObjectMatched, this);
       oRouter.attachRouteMatched(function (oEvent) {
@@ -107,10 +108,12 @@ sap.ui.define([
 
     onBeforeRebindTable: function (oEvent) {
       var mBindingParams = oEvent.getParameter("bindingParams"),
-          aSelectedSolutions = this._oCustomMultiComboBox.getSelectedKeys();
-      var oMultiComboBox = this.getView().byId("multiComboBoxStatus").getSelectedKeys(); // dziala, wyswietla filtry - save - .getSelectedKeys()
+          aSelectedStatus = this._oCustomMultiComboBoxStatus.getSelectedKeys(),
+          aSelectedTypes = this._oCustomMultiComboBoxType.getSelectedKeys();
 
-      aSelectedSolutions.forEach(function(key) {
+      var oMultiComboBoxStatus = this.getView().byId("multiComboBoxStatus").getSelectedKeys();
+
+      aSelectedStatus.forEach(function(key) {
 				mBindingParams.filters.push(
 					new Filter(
 						"Status",
@@ -120,8 +123,15 @@ sap.ui.define([
 				);
 			});
 
-
-
+      aSelectedTypes.forEach(function(key) {
+				mBindingParams.filters.push(
+					new Filter(
+						"SolType",
+						FilterOperator.EQ,
+						key
+					)
+				);
+			});
 
       //var oModel = this.getModel("global");
       //var aStatusFilters = oModel.getProperty("/selectedStatus");

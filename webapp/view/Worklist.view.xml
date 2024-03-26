@@ -37,13 +37,11 @@
                             <sfb:customControl>
                                 <MultiComboBox
                                     id="multiComboBoxType"
-                                    selectionChange="customFieldChange">
-                                    <core:Item key="1" text="APP"/>
-                                    <core:Item key="2" text="API"/>
+                                    items="{path: 'valueHelp>/ZBSK_C_VS_S_SOL_TYPE'}">
+                                    <core:Item key="{valueHelp>Low}" text="{valueHelp>Text}"/>
                                 </MultiComboBox>
                             </sfb:customControl>
                         </sfb:ControlConfiguration>
-                        
                         <sfb:ControlConfiguration
                             key="TechnicalName"
                             index="1"
