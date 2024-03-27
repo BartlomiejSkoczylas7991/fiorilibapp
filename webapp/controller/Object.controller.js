@@ -15,10 +15,8 @@ sap.ui.define([
             oRouter.getRoute("Create").attachPatternMatched(this._onObjectMatched, this);
  
             this.setModel(new JSONModel(), "singleSolutionModel");
-            this.setModel(new JSONModel(), "detailView");
             this.setModel(new JSONModel(), "viewSettings");
             
-            this.setModel(new JSONModel(), "detailView");
             this._dateFormatter = DateFormat.getDateInstance({
                 pattern: "dd.MM.yyyy",
             });
@@ -53,7 +51,7 @@ sap.ui.define([
 
                 this.setDefaultValues();
                 this.getModel("singleSolutionModel").setData({});
-                this.getModel("detailView").setData({});
+                this.getOwnerComponent().getModel("detailView").setData({});
             } else if (sRouteName === "Detail"){
                 this.getOwnerComponent().getModel().metadataLoaded().then(function (){
                     var sObjectPath = this.getOwnerComponent().getModel().createKey("ZC_BSK_LA_SOLUTION", {
@@ -83,7 +81,9 @@ sap.ui.define([
                         var oData = oElementBinding.getBoundContext().getObject();
                         var oSingleSolutionModel = new JSONModel(oData);
                         this.setModel(oSingleSolutionModel, "singleSolutionModel");
-                        this.setModel(oSingleSolutionModel, "detailView");
+                        var oDetailView = this.getOwnerComponent().getModel("detailView");
+                        oDetailView.setData(oData);
+                        console.log("Tutaj objectPage, ", oDetailView);
                     }
                 }.bind(this), 1000);
                 return;
@@ -91,7 +91,10 @@ sap.ui.define([
             var oData = oElementBinding.getBoundContext().getObject();
             var oSingleSolutionModel = new JSONModel(oData);
             this.setModel(oSingleSolutionModel, "singleSolutionModel");
-            this.setModel(oSingleSolutionModel, "detailView");
+
+            var oDetailView = this.getOwnerComponent().getModel("detailView");
+            oDetailView.setData(oData);
+            console.log("Tutaj objectPage, ", oDetailView);
         },
 
         onExit: function () {
@@ -133,7 +136,7 @@ sap.ui.define([
 
         onNavBack: function () {
             this.getModel("singleSolutionModel").setData({});
-            this.getModel("detailView").setData({});
+            this.getOwnerComponent().getModel("detailView").setData({});
 
             var oHistory = History.getInstance();
             var sPreviousHash = oHistory.getPreviousHash();
@@ -149,12 +152,15 @@ sap.ui.define([
         onEditPress: function() {
             this.getModel("viewSettings").setProperty("/isEditMode", true);
             var oViewModelData = this.getModel("singleSolutionModel").getData();
-            this.getModel("detailView").setData(JSON.parse(JSON.stringify(oViewModelData)));
+            this.getOwnerComponent().getModel("detailView").setData(JSON.parse(JSON.stringify(oViewModelData)));
+            console.log("Napisane", this.getOwnerComponent().getModel("detailView"));
         },     
 
         onSavePress: function() {
             var oDataModel = this.getModel();
             var oViewDetailData = this.getView().getModel("detailView").getData();
+            //var aImages = oViewDetailData.getProperty("/to_Image");
+            console.log("Zapisane obrazy w modelu detailView:", oViewDetailData);
             const sRouteName = this.getModel("viewSettings").getProperty("/currentRoute"); 
 
             if (sRouteName === "Create"){
@@ -233,7 +239,7 @@ sap.ui.define([
         },
 
         setDefaultValues: function () {
-            var oDetailViewModel = this.getModel("detailView");
+            var oDetailViewModel = this.getOwnerComponent().getModel("detailView");
         
             oDetailViewModel.setProperty("/Status", "1");
             // oDetailViewModel.setProperty("/AnotherField", "DefaultValue");
@@ -242,13 +248,13 @@ sap.ui.define([
 
         onStatusChange: function (oEvent) {
             var sSelectedKey = oEvent.getParameter("selectedItem").getKey();
-            var oModel = this.getModel("detailView");
+            var oModel = this.getOwnerComponent().getModel("detailView");
             oModel.setProperty("/Status", sSelectedKey);
         },
 
         onTypeChange: function (oEvent) {
             var sSelectedKey = oEvent.getParameter("selectedItem").getKey();
-            var oModel = this.getModel("detailView");
+            var oModel = this.getOwnerComponent().getModel("detailView");
             oModel.setProperty("/SolType", sSelectedKey);
         },
 
@@ -277,7 +283,7 @@ sap.ui.define([
         },
 
         _loadImages: function() {
-            var oViewDetailData = this.getView().getModel("detailView").getData();
+            var oViewDetailData = this.getOwnerComponent().getModel("detailView").getData();
             console.log("Tu jest detailvie", oViewDetailData);
          //   console.log("Tu jest image", this.getView().getModel("detailView").getData().getProperty("/to_Image"));
             

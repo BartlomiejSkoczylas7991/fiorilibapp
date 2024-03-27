@@ -30,54 +30,28 @@
 				</pages>
 			</Carousel>
 		</Dialog>
-		<!--<upload:UploadSet
+		<upload:UploadSet
 				visible="{= ${viewSettings>/isEditMode}? true : false}"
-				id="UploadSet"
-				instantUpload="true"
-				showIcons="true"
+				id="uploadSet"
+				instantUpload="false"
 				uploadEnabled="true"
-				terminationEnabled="true"
-				fileTypes="png"
-				maxFileNameLength="30"
+				fileTypes="JPG,JPEG,jpeg,jpg,PNG,png"
+				maxFileNameLength="50"
 				maxFileSize="200"
 				mediaTypes="text/plain,application/msword,image/jpeg"
 				uploadUrl="../../../../upload"
 				uploadButtonInvisible="false"
-				fileRenamed="onFileRenamed"
-				sameFilenameAllowed="false"
-				items="{path: '/items', templateShareable: false}">
+				sameFilenameAllowed="true"
+				items="{path: 'detailView>/to_Image'}">
 			<upload:items>
 				<upload:UploadSetItem
-						fileName="{fileName}"
-						mediaType="{mediaType}"
-						url="{url}"
-						thumbnailUrl="{thumbnailUrl}"
-						attributes="{path: 'attributes', templateShareable: false}"
-						markers="{path: 'markers', templateShareable: false}"
-						statuses="{path: 'statuses', templateShareable: false}"
-						uploadState="{uploadState}">
-					<upload:attributes>
-						<ObjectAttribute
-								title="{title}"
-								text="{text}"
-								active="{active}"/>
-					</upload:attributes>
-					<upload:markers>
-						<ObjectMarker
-								type="{type}"
-								visibility="{visibility}"/>
-					</upload:markers>
-					<upload:statuses>
-						<ObjectStatus
-								title="{title}"
-								text="{text}"
-								state="{state}"
-								icon="{icon}"
-								active="{active}"/>
-					</upload:statuses>
+						fileName="{detailView>fileName}"
+						mediaType="{detailView>mimeType}"
+						url="{detailView>url}"
+						uploadState="{detailView>url}">
 				</upload:UploadSetItem>
 			</upload:items>
 		</upload:UploadSet>
-		<List id="progressList"/> --> 
+		<List id="progressList"/>
 </mvc:View>
 

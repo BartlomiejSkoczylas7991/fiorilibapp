@@ -12,11 +12,38 @@ sap.ui.define([
 
         onInit: function () {
             ObjectController.prototype.onInit.apply(this, arguments);
-
-            var oDetailModel = this.getView().getBindingContext().getObject();
+            
+            var oDetailModel = this.getOwnerComponent().getModel("detailView");
             console.log(oDetailModel);
+            //var oDetailModel = this.getView().getElementBinding().getBoundContext().getObject();
+            //console.log(oDetailModel);
+            console.log("Data from detailView model: ", oDetailModel.getData());
         },
 
+        onFileSelected: function(oEvent) {
+            var oFile = oEvent.getParameter("files")[0];
+            if (oFile) {
+                var oReader = new FileReader();
+
+                oReader.onload = function(oEvent) {
+                    var sBase64Data = oEvent.target.result.split(",")[1];
+                    var oModel = this.getView().getModel("detailView");
+                    var aImages = oModel.getProperty("/to_Image") || [];
+                    aImages.push({
+                        Filename: oFile.name,
+                        Mimetype: oFile.type,
+                        Attachment: sBase64Data,
+                        Uploaded: false
+                    });
+                    oModel.setProperty("/to_Image", aImages);
+                }.bind(this);
+
+                oReader.readAsDataURL(oFile);
+            }
+        },
+
+
+        // potrzebne do upload set
         onAddImage: function() {
             var oUploader = this.getView().byId("imageUploader");
             var sNewImagePath = oUploader.getValue();
@@ -33,12 +60,14 @@ sap.ui.define([
             }
         },
 
+
+        // potrzebne do UploadSet
         onDeleteImage: function(oEvent) {
             var oList = oEvent.getSource(),
                 oItem = oEvent.getParameter("listItem"),
                 sPath = oItem.getBindingContextPath(),
                 iIndex = parseInt(sPath.split("/")[sPath.split("/").length - 1]),
-                oModel = this.getView().getModel("imageModel"),
+                oModel = this.getOwnerComponent().getModel("imageModel"),
                 aImages = oModel.getData().Images;
 
             aImages.splice(iIndex, 1);
@@ -57,15 +86,21 @@ sap.ui.define([
                 console.log("Image pressed");
                 var sSrc = oEvent.getSource().getSrc();
                 var oCarousel = this.getView().byId("fullScreenCarousel");
-                oCarousel.destroyPages();
-        
-                var aImages = this.getView().getModel("imageModel").getData().Images;
-                aImages.forEach(function(img) {
-                    oCarousel.addPage(new sap.m.Image({ src: img.src }));
-                });
-        
-                var iActiveIndex = aImages.findIndex(img => img.src === sSrc);
-                oCarousel.setActivePage(oCarousel.getPages()[iActiveIndex]);
+
+                var oModel = this.getOwnerComponent().getModel(); 
+                var oDetailModel = this.getView().getModel("detailView");
+                var sPath = oDetailModel.getData().__metadata.uri + "/to_Image";
+                console.log("WCISNIETE", oDetailModel.getData()); 
+                console.log("DANE to_Image", sPath);
+                //oCarousel.destroyPages();
+        //
+                //var aImages = this.getView().getModel("imageModel").getData().Images;
+                //aImages.forEach(function(img) {
+                //    oCarousel.addPage(new sap.m.Image({ src: img.src }));
+                //});
+        //
+                //var iActiveIndex = aImages.findIndex(img => img.src === sSrc);
+                //oCarousel.setActivePage(oCarousel.getPages()[iActiveIndex]);
         
                 oDialog.open();
             } 
