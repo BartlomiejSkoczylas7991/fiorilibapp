@@ -49,7 +49,8 @@ sap.ui.define([
         formatImageSrc: function(sBase64Value) {
             return "data:image/jpeg;base64," + sBase64Value;
         },
-//
+        
+        // Dialog
         onImagePress: function(oEvent) {
             var oDialog = this.getView().byId("fullScreenCarouselDialog");
             if (!oDialog || !oDialog.isOpen()) { 
@@ -70,6 +71,7 @@ sap.ui.define([
             } 
         },
 
+        // zamykanie okienka dialog
         onCloseDialog: function() {
             var oDialog = this.getView().byId("fullScreenCarouselDialog");
             oDialog.close();

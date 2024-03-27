@@ -24,9 +24,9 @@
 			draggable="true"
 			visible="{= !${viewSettings>/isEditMode}? true : false}">
 			<Button icon="sap-icon://decline" press=".onCloseDialog" type="Transparent" class="sapUiDialogCloseButton"/>
-			<Carousel id="fullScreenCarousel" pages="{singleSolutionModel>/Images}">
+			<Carousel id="fullScreenCarousel" pages="{to_Image}">
 				<pages>
-			      <Image src="{singleSolutionModel>src}"/>
+			      <Image src="{path: 'Attachment', formatter: '.formatImageSrc'}"/>
 				</pages>
 			</Carousel>
 		</Dialog>
